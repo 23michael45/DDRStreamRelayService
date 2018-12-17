@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AudioDeviceInquiry.cpp" />
+    <ClCompile Include="DDRAudioTranscode.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyMTModules.cpp" />
+    <ClCompile Include="StreamMainService.cpp" />
+    <ClCompile Include="StreamRelayService.cpp" />
+    <ClCompile Include="DDRStreamPlay.cpp" />
+    <ClCompile Include="zWalleAudio.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="DDRLocalAudioPull.cpp" />
+    <ClCompile Include="TTSQueuePlayer.cpp" />
+    <ClCompile Include="ProcSharedMem.cpp" />
+    <ClCompile Include="RobotChat\DDVoiceInteraction.cpp">
+      <Filter>RobotChat</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialPortIOHandler.cpp" />
+    <ClCompile Include="RobotChat\cJSON.c">
+      <Filter>RobotChat</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotChat\speech_recognizer.c">
+      <Filter>RobotChat</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotChat\tinyxml2.cpp">
+      <Filter>RobotChat</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotChat\winrec.c">
+      <Filter>RobotChat</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\DualChTCPClientBase.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\InfoStrProc.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\LSM.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\LSMComp.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\OneChConnClient.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="LSM\TalkHelper.cpp">
+      <Filter>LSM</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\CommonFunc.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\FileCache.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\FileSource.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\FIOWrapper.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\MessageQueue.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\MsgStruct.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\NodeBCRcvHelper.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+    <ClCompile Include="CommLib\SocketWrapper.cpp">
+      <Filter>CommLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioDeviceInquiry.h" />
+    <ClInclude Include="DDRAudioTranscode.h" />
+    <ClInclude Include="MyMTModules.h" />
+    <ClInclude Include="StreamMainService.h" />
+    <ClInclude Include="StreamRelayService.h" />
+    <ClInclude Include="DDRStreamPlay.h" />
+    <ClInclude Include="zWalleAudio.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="DDRLocalAudioPull.h" />
+    <ClInclude Include="ParamReader.h" />
+    <ClInclude Include="TTSQueuePlayer.h" />
+    <ClInclude Include="ProcSharedMem.h" />
+    <ClInclude Include="RobotChat\DDVoiceInteraction.h">
+      <Filter>RobotChat</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialPortIOHandler.h" />
+    <ClInclude Include="LSM\DualChTCPClientBase.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\InfoStrProc.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\LSM.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\LSMCommon.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\LSMComp.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\OneChConnClient.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="LSM\TalkHelper.h">
+      <Filter>LSM</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\CommonFunc.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\FileCache.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\FileSource.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\FIOWrapper.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\MessageQueue.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\MsgStruct.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\NodeBCRcvHelper.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommLib\SocketWrapper.h">
+      <Filter>CommLib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="LSM">
+      <UniqueIdentifier>{3680192e-a7a2-46b7-8f70-2f8a3a994062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommLib">
+      <UniqueIdentifier>{397c3c6d-564b-427b-827f-deead3db76a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RobotChat">
+      <UniqueIdentifier>{30daa7b6-ce39-48ea-b7f9-0a9498059bfb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

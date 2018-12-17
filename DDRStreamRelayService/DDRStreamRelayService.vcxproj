@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{369AA27A-4DE3-49D8-A9E3-C09A357388CB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DDRStreamRelayService</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioDeviceInquiry.cpp" />
+    <ClCompile Include="CommLib\CommonFunc.cpp" />
+    <ClCompile Include="CommLib\FileCache.cpp" />
+    <ClCompile Include="CommLib\FileSource.cpp" />
+    <ClCompile Include="CommLib\FIOWrapper.cpp" />
+    <ClCompile Include="CommLib\MessageQueue.cpp" />
+    <ClCompile Include="CommLib\MsgStruct.cpp" />
+    <ClCompile Include="CommLib\NodeBCRcvHelper.cpp" />
+    <ClCompile Include="CommLib\SocketWrapper.cpp" />
+    <ClCompile Include="DDRAudioTranscode.cpp" />
+    <ClCompile Include="DDRLocalAudioPull.cpp" />
+    <ClCompile Include="DDRStreamPlay.cpp" />
+    <ClCompile Include="LSM\DualChTCPClientBase.cpp" />
+    <ClCompile Include="LSM\InfoStrProc.cpp" />
+    <ClCompile Include="LSM\LSM.cpp" />
+    <ClCompile Include="LSM\LSMComp.cpp" />
+    <ClCompile Include="LSM\OneChConnClient.cpp" />
+    <ClCompile Include="LSM\TalkHelper.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyMTModules.cpp" />
+    <ClCompile Include="ProcSharedMem.cpp" />
+    <ClCompile Include="RobotChat\cJSON.c" />
+    <ClCompile Include="RobotChat\DDVoiceInteraction.cpp" />
+    <ClCompile Include="RobotChat\speech_recognizer.c" />
+    <ClCompile Include="RobotChat\tinyxml2.cpp" />
+    <ClCompile Include="RobotChat\winrec.c" />
+    <ClCompile Include="SerialPortIOHandler.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="StreamMainService.cpp" />
+    <ClCompile Include="StreamRelayService.cpp" />
+    <ClCompile Include="TTSQueuePlayer.cpp" />
+    <ClCompile Include="zWalleAudio.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioDeviceInquiry.h" />
+    <ClInclude Include="CommLib\CommonFunc.h" />
+    <ClInclude Include="CommLib\FileCache.h" />
+    <ClInclude Include="CommLib\FileSource.h" />
+    <ClInclude Include="CommLib\FIOWrapper.h" />
+    <ClInclude Include="CommLib\MessageQueue.h" />
+    <ClInclude Include="CommLib\MsgStruct.h" />
+    <ClInclude Include="CommLib\NodeBCRcvHelper.h" />
+    <ClInclude Include="CommLib\SocketWrapper.h" />
+    <ClInclude Include="DDRAudioTranscode.h" />
+    <ClInclude Include="DDRLocalAudioPull.h" />
+    <ClInclude Include="DDRStreamPlay.h" />
+    <ClInclude Include="LSM\DualChTCPClientBase.h" />
+    <ClInclude Include="LSM\InfoStrProc.h" />
+    <ClInclude Include="LSM\LSM.h" />
+    <ClInclude Include="LSM\LSMCommon.h" />
+    <ClInclude Include="LSM\LSMComp.h" />
+    <ClInclude Include="LSM\OneChConnClient.h" />
+    <ClInclude Include="LSM\TalkHelper.h" />
+    <ClInclude Include="MyMTModules.h" />
+    <ClInclude Include="ParamReader.h" />
+    <ClInclude Include="ProcSharedMem.h" />
+    <ClInclude Include="RobotChat\DDVoiceInteraction.h" />
+    <ClInclude Include="SerialPortIOHandler.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StreamMainService.h" />
+    <ClInclude Include="StreamRelayService.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TTSQueuePlayer.h" />
+    <ClInclude Include="zWalleAudio.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
