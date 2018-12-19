@@ -92,9 +92,6 @@
     <ClCompile Include="Client\LocalClientUdpProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="Client\LocalTcpClient.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
     <ClCompile Include="Client\LoginProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
@@ -102,6 +99,12 @@
       <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="Client\AudioStreamInfoProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\StreamRelayTcpClient.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\StreamRelayTcpServer.cpp">
       <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>
@@ -189,9 +192,6 @@
     <ClInclude Include="Client\LocalClientUdpProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="Client\LocalTcpClient.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="Client\LoginProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
@@ -199,6 +199,12 @@
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="Client\AudioStreamInfoProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\StreamRelayTcpClient.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\StreamRelayTcpServer.h">
       <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>

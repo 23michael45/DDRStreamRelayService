@@ -8,7 +8,6 @@
 #include "Client/LocalClientUdpDispatcher.h"
 #include <thread>
 #include <chrono>
-#include "Client/LocalTcpClient.h"
 #include "Client/GlobalManager.h"
 using namespace DDRFramework;
 using namespace DDRCommProto;
@@ -34,13 +33,6 @@ void MoveWorkingDir()
 }
 
 
-void UdpClientStart()
-{
-
-	GlobalManager::Instance()->StartUdp();
-
-
-}
 char gQuit = 0;
 int main(int argc, char **argv)
 {
@@ -50,7 +42,9 @@ int main(int argc, char **argv)
 		return 1;
 	}*/
 
-	UdpClientStart();
+
+	GlobalManager::Instance()->CreateTcpServer();
+	GlobalManager::Instance()->StartUdp();
 
 
 

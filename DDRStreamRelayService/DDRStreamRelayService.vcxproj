@@ -110,8 +110,9 @@
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpProcessor.cpp" />
-    <ClCompile Include="Client\LocalTcpClient.cpp" />
     <ClCompile Include="Client\LoginProcessor.cpp" />
+    <ClCompile Include="Client\StreamRelayTcpClient.cpp" />
+    <ClCompile Include="Client\StreamRelayTcpServer.cpp" />
     <ClCompile Include="Client\VideoStreamInfoProcessor.cpp" />
     <ClCompile Include="DDRAudioTranscode.cpp" />
     <ClCompile Include="DDRLocalAudioPull.cpp" />
@@ -156,8 +157,9 @@
     <ClInclude Include="Client\LocalClientDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpProcessor.h" />
-    <ClInclude Include="Client\LocalTcpClient.h" />
     <ClInclude Include="Client\LoginProcessor.h" />
+    <ClInclude Include="Client\StreamRelayTcpClient.h" />
+    <ClInclude Include="Client\StreamRelayTcpServer.h" />
     <ClInclude Include="Client\VideoStreamInfoProcessor.h" />
     <ClInclude Include="DDRAudioTranscode.h" />
     <ClInclude Include="DDRLocalAudioPull.h" />

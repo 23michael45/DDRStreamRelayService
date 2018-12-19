@@ -19,7 +19,6 @@ bool GlobalManager::StartUdp()
 	if (m_spUdpClient)
 	{
 		m_spUdpClient->Start();
-		m_spUdpClient->Start();
 		m_spUdpClient->GetSerializer()->BindDispatcher(std::make_shared<LocalClientUdpDispatcher>());
 		m_spUdpClient->StartReceive(GlobalManager::Instance()->m_ConfigLoader.GetValue<int>("UdpPort"));
 	}
@@ -48,12 +47,12 @@ void GlobalManager::ReleaseUdp()
 	}
 }
 
-void GlobalManager::CreateTcp()
+void GlobalManager::CreateTcpClient()
 {
-	m_spTcpClient = std::make_shared<LocalTcpClient>();
+	m_spTcpClient = std::make_shared<StreamRelayTcpClient>();
 
 }
-void GlobalManager::ReleaseTcp()
+void GlobalManager::ReleaseTcpClient()
 {
 	if (m_spTcpClient)
 	{
@@ -64,17 +63,46 @@ bool GlobalManager::IsUdpWorking()
 {
 	return m_spUdpClient != nullptr;
 }
-bool GlobalManager::IsTcpWorking()
+bool GlobalManager::IsTcpClientWorking()
 {
 	return m_spTcpClient != nullptr;
 }
-std::shared_ptr<LocalTcpClient> GlobalManager::GetTcpClient()
+
+void GlobalManager::CreateTcpServer()
+{
+
+	int port = m_ConfigLoader.GetValue<int>("TcpPort");
+	std::string servername = m_ConfigLoader.GetValue("ServerName");
+	std::string threadCount = "1";
+
+	m_spTcpServer = std::make_shared<StreamRelayTcpServer>(port);
+	m_spTcpServer->Start(std::stoi(threadCount));
+
+}
+void GlobalManager::ReleaseTcpServer()
+{
+	if (m_spTcpServer)
+	{
+		m_spTcpServer.reset();
+	}
+}
+bool GlobalManager::IsTcpServerWorking()
+{
+	return m_spTcpServer != nullptr;
+}
+
+
+std::shared_ptr<StreamRelayTcpClient> GlobalManager::GetTcpClient()
 {
 	return m_spTcpClient;
 }
 std::shared_ptr<UdpSocketBase> GlobalManager::GetUdpClient()
 {
 	return m_spUdpClient;
+}
+std::shared_ptr<StreamRelayTcpServer> GlobalManager::GetTcpServer()
+{
+	return m_spTcpServer;
 }
 void GlobalManager::OnUdpDisconnect(UdpSocketBase& container)
 {

@@ -1,4 +1,4 @@
-#include "LocalTcpClient.h"
+#include "StreamRelayTcpClient.h"
 #include "../../../Shared/src/Network/TcpSocketContainer.h"
 #include "../../../Shared/src/Network/MessageSerializer.h"
 #include "../../../Shared/src/Network/BaseMessageDispatcher.h"
@@ -10,24 +10,24 @@
 #include "GlobalManager.h"
 using namespace DDRCommProto;
 
-LocalTcpClient::LocalTcpClient()
+StreamRelayTcpClient::StreamRelayTcpClient()
 {
 }
 
 
-LocalTcpClient::~LocalTcpClient()
+StreamRelayTcpClient::~StreamRelayTcpClient()
 {
 }
 
-std::shared_ptr<TcpClientSessionBase> LocalTcpClient::BindSerializerDispatcher()
+std::shared_ptr<TcpClientSessionBase> StreamRelayTcpClient::BindSerializerDispatcher()
 {
 	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, TcpClientSessionBase, MessageSerializer, LocalClientDispatcher,BaseHeadRuleRouter)
 		return spTcpClientSessionBase;
 }
-void LocalTcpClient::OnConnected(TcpSocketContainer& container)
+void StreamRelayTcpClient::OnConnected(TcpSocketContainer& container)
 {
 
-	DebugLog("\nOnConnectSuccess! LocalTcpClient");
+	DebugLog("\nOnConnectSuccess! StreamRelayTcpClient");
 	auto spreq = std::make_shared<reqLogin>();
 	spreq->set_username(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 	spreq->set_type(eCltType::eLSMStreamRelay);
@@ -39,13 +39,13 @@ void LocalTcpClient::OnConnected(TcpSocketContainer& container)
 	spreq.reset();
 
 }
-void LocalTcpClient::OnDisconnect(TcpSocketContainer& container)
+void StreamRelayTcpClient::OnDisconnect(TcpSocketContainer& container)
 {
 	TcpClientBase::OnDisconnect(container);
 
 	GlobalManager::Instance()->StartUdp();
 }
-void LocalTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
+void StreamRelayTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
 {
 
 	if (m_spClient && m_spClient->IsConnected())
@@ -53,20 +53,20 @@ void LocalTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
 		m_spClient->Send(spmsg);
 	}
 };
-void LocalTcpClient::StartHeartBeat()
+void StreamRelayTcpClient::StartHeartBeat()
 {
 	/*m_HeartBeatTimerID = m_Timer.add(std::chrono::seconds(1) , [](timer_id id)
 	{
 
 	});*/
 
-	m_HeartBeatTimerID = m_Timer.add(std::chrono::seconds(1), std::bind(&LocalTcpClient::SendHeartBeatOnce, shared_from_base(),std::placeholders::_1), std::chrono::seconds(1));
+	m_HeartBeatTimerID = m_Timer.add(std::chrono::seconds(1), std::bind(&StreamRelayTcpClient::SendHeartBeatOnce, shared_from_base(),std::placeholders::_1), std::chrono::seconds(1));
 }
-void LocalTcpClient::StopHeartBeat()
+void StreamRelayTcpClient::StopHeartBeat()
 {
 	m_Timer.remove(m_HeartBeatTimerID);
 }
-void LocalTcpClient::SendHeartBeatOnce(timer_id id)
+void StreamRelayTcpClient::SendHeartBeatOnce(timer_id id)
 {
 	auto sp = std::make_shared<HeartBeat>();
 	sp->set_whatever("hb");
@@ -76,7 +76,7 @@ void LocalTcpClient::SendHeartBeatOnce(timer_id id)
 }
 
 
-void LocalTcpClient::RequestVideoStreamInfo()
+void StreamRelayTcpClient::RequestVideoStreamInfo()
 {
 	auto sp = std::make_shared<reqVideoStreamInfo>();
 	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
@@ -84,7 +84,7 @@ void LocalTcpClient::RequestVideoStreamInfo()
 	Send(sp);
 	sp.reset();
 }
-void LocalTcpClient::RequestAudioStreamInfo()
+void StreamRelayTcpClient::RequestAudioStreamInfo()
 {
 	auto sp = std::make_shared<reqAudioStreamInfo>();
 	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));

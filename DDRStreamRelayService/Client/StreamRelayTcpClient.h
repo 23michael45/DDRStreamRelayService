@@ -1,16 +1,16 @@
-#ifndef LocalTcpClient_h__
-#define LocalTcpClient_h__
+#ifndef StreamRelayTcpClient_h__
+#define StreamRelayTcpClient_h__
 
 #include "../../../Shared/src/Network/TcpClientBase.h"
 #include "../../../Shared/src/Utility/Singleton.h"
 #include "../../../Shared/src/Utility/Timer.hpp"
 
 using namespace DDRFramework;
-class LocalTcpClient : public TcpClientBase 
+class StreamRelayTcpClient : public TcpClientBase 
 {
 public:
-	LocalTcpClient();
-	~LocalTcpClient();
+	StreamRelayTcpClient();
+	~StreamRelayTcpClient();
 
 	void OnConnected(TcpSocketContainer& container) override;
 	void OnDisconnect(TcpSocketContainer& container) override;
@@ -18,7 +18,7 @@ public:
 	virtual std::shared_ptr<TcpClientSessionBase> BindSerializerDispatcher();
 
 	auto shared_from_base() {
-		return std::static_pointer_cast<LocalTcpClient>(shared_from_this());
+		return std::static_pointer_cast<StreamRelayTcpClient>(shared_from_this());
 	}
 
 	void Send(std::shared_ptr<google::protobuf::Message> spmsg);
@@ -40,4 +40,4 @@ private:
 };
 
 
-#endif // LocalTcpClient_h__
+#endif // StreamRelayTcpClient_h__

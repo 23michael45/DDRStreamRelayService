@@ -3,7 +3,6 @@
 #include "../../../Shared/src/Utility/DDRMacro.h"
 #include "../../../Shared/src/Utility/CommonFunc.h"
 #include "../../../Shared/thirdparty/asio/include/asio.hpp"
-#include "LocalTcpClient.h"
 #include "GlobalManager.h"
 
 using namespace DDRFramework;
@@ -87,7 +86,7 @@ void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverpor
 	{
 		GlobalManager::Instance()->StopUdp();
 
-		GlobalManager::Instance()->CreateTcp();
+		GlobalManager::Instance()->CreateTcpClient();
 		GlobalManager::Instance()->GetTcpClient()->Start(4);
 		std::ostringstream strport;
 		strport << serverport;

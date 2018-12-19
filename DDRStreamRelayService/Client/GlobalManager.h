@@ -5,8 +5,8 @@
 #include "../../../Shared/src/Network/UdpSocketBase.h"
 #include "../../../Shared/src/Network/TcpClientBase.h"
 #include "../../../Shared/src/Utility/Singleton.h"
-#include "LocalTcpClient.h"
-
+#include "StreamRelayTcpClient.h"
+#include "StreamRelayTcpServer.h"
 using namespace DDRFramework;
 class GlobalManager : public DDRFramework::CSingleton<GlobalManager>
 {
@@ -20,12 +20,17 @@ public:
 	bool IsUdpWorking();
 
 
-	void CreateTcp();
-	void ReleaseTcp();
-	bool IsTcpWorking();
+	void CreateTcpClient();
+	void ReleaseTcpClient();
+	bool IsTcpClientWorking();
 
+
+	void CreateTcpServer();
+	void ReleaseTcpServer();
+	bool IsTcpServerWorking();
 	
-	std::shared_ptr<LocalTcpClient> GetTcpClient();
+	std::shared_ptr<StreamRelayTcpClient> GetTcpClient();
+	std::shared_ptr<StreamRelayTcpServer> GetTcpServer();
 	std::shared_ptr<UdpSocketBase> GetUdpClient();
 
 	XmlLoader& GetConfig()
@@ -39,7 +44,8 @@ private:
 	void ReleaseUdp();
 	void OnUdpDisconnect(UdpSocketBase& container);
 
-	std::shared_ptr<LocalTcpClient> m_spTcpClient;
+	std::shared_ptr<StreamRelayTcpClient> m_spTcpClient;
+	std::shared_ptr<StreamRelayTcpServer> m_spTcpServer;
 	std::shared_ptr<UdpSocketBase> m_spUdpClient;
 
 	XmlLoader m_ConfigLoader;
