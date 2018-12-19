@@ -52,15 +52,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x86/libprotocd.lib;$(ProjectDir)../../Shared/lib/x86/libprotobufd.lib;%(AdditionalDependencies)avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_d.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
@@ -87,7 +87,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc" />
+    <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\BaseSocketContainer.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\MessageSerializer.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\TcpClientBase.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\TcpServerBase.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\TcpSocketContainer.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\UdpSocketBase.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\CommonFunc.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="AudioDeviceInquiry.cpp" />
+    <ClCompile Include="Client\GlobalManager.cpp" />
+    <ClCompile Include="Client\LocalClientDispatcher.cpp" />
+    <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
+    <ClCompile Include="Client\LocalClientUdpProcessor.cpp" />
+    <ClCompile Include="Client\LocalTcpClient.cpp" />
+    <ClCompile Include="Client\LoginProcessor.cpp" />
     <ClCompile Include="CommLib\CommonFunc.cpp" />
     <ClCompile Include="CommLib\FileCache.cpp" />
     <ClCompile Include="CommLib\FileSource.cpp" />
@@ -121,7 +144,31 @@
     <ClCompile Include="zWalleAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Shared\src\FSM\FSM.h" />
+    <ClInclude Include="..\..\Shared\src\Network\BaseMessageDispatcher.h" />
+    <ClInclude Include="..\..\Shared\src\Network\BaseProcessor.h" />
+    <ClInclude Include="..\..\Shared\src\Network\BaseSocketContainer.h" />
+    <ClInclude Include="..\..\Shared\src\Network\MessageSerializer.h" />
+    <ClInclude Include="..\..\Shared\src\Network\TcpClientBase.h" />
+    <ClInclude Include="..\..\Shared\src\Network\TcpServerBase.h" />
+    <ClInclude Include="..\..\Shared\src\Network\TcpSocketContainer.h" />
+    <ClInclude Include="..\..\Shared\src\Network\UdpSocketBase.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\DDRMacro.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\Logger.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\MiniDump.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\Singleton.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\Timer.hpp" />
+    <ClInclude Include="..\..\Shared\src\Utility\XmlLoader.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
     <ClInclude Include="AudioDeviceInquiry.h" />
+    <ClInclude Include="Client\GlobalManager.h" />
+    <ClInclude Include="Client\LocalClientDispatcher.h" />
+    <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
+    <ClInclude Include="Client\LocalClientUdpProcessor.h" />
+    <ClInclude Include="Client\LocalTcpClient.h" />
+    <ClInclude Include="Client\LoginProcessor.h" />
     <ClInclude Include="CommLib\CommonFunc.h" />
     <ClInclude Include="CommLib\FileCache.h" />
     <ClInclude Include="CommLib\FileSource.h" />
@@ -151,6 +198,9 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TTSQueuePlayer.h" />
     <ClInclude Include="zWalleAudio.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Shared\proto\BaseCmd.cs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

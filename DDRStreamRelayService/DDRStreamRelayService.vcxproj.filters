@@ -71,6 +71,75 @@
     <ClCompile Include="CommLib\SocketWrapper.cpp">
       <Filter>CommLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Utility\CommonFunc.cpp">
+      <Filter>Shared\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp">
+      <Filter>Shared\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp">
+      <Filter>Shared\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp">
+      <Filter>Shared\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\BaseSocketContainer.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\MessageSerializer.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\TcpClientBase.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\TcpServerBase.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\TcpSocketContainer.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\UdpSocketBase.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinystr.cpp">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc">
+      <Filter>Shared\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GlobalManager.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LocalClientDispatcher.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LocalClientUdpDispatcher.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LocalClientUdpProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LocalTcpClient.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LoginProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioDeviceInquiry.h" />
@@ -135,6 +204,78 @@
     <ClInclude Include="CommLib\SocketWrapper.h">
       <Filter>CommLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\DDRMacro.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\Logger.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\MiniDump.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\Singleton.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\XmlLoader.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\Timer.hpp">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\BaseMessageDispatcher.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\BaseProcessor.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\BaseSocketContainer.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\MessageSerializer.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\TcpClientBase.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\TcpServerBase.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\TcpSocketContainer.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\UdpSocketBase.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\FSM\FSM.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h">
+      <Filter>Shared\Thirdparty\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GlobalManager.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LocalClientDispatcher.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LocalClientUdpDispatcher.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LocalClientUdpProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LocalTcpClient.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LoginProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="LSM">
@@ -146,5 +287,31 @@
     <Filter Include="RobotChat">
       <UniqueIdentifier>{30daa7b6-ce39-48ea-b7f9-0a9498059bfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{7b73db83-b9e0-46a3-9f37-45bcee105234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Network">
+      <UniqueIdentifier>{dd24d7b1-ecb4-4288-879d-9927372626bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Utility">
+      <UniqueIdentifier>{a30ea450-1def-474c-97f6-a5a254276db8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Thirdparty">
+      <UniqueIdentifier>{f912ae53-1529-4988-95bb-b07332a3e7ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Thirdparty\tinyxml">
+      <UniqueIdentifier>{3fce9c02-05bd-4743-90f6-713b91274719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\proto">
+      <UniqueIdentifier>{a95319b3-734e-4aed-8faf-8be3ba8e2856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{d7f48df5-a413-4bfe-a314-6d4d21983dce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Shared\proto\BaseCmd.cs">
+      <Filter>Shared\proto</Filter>
+    </None>
   </ItemGroup>
 </Project>
