@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir)../../DDRLocalServer/DDR_LocalClient</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,8 +87,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.cpp" />
-    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.cpp" />
     <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc" />
     <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp" />
@@ -107,10 +105,14 @@
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="AudioDeviceInquiry.cpp" />
+    <ClCompile Include="Client\AudioStreamInfoProcessor.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
+    <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
+    <ClCompile Include="Client\LocalClientUdpProcessor.cpp" />
     <ClCompile Include="Client\LocalTcpClient.cpp" />
     <ClCompile Include="Client\LoginProcessor.cpp" />
+    <ClCompile Include="Client\VideoStreamInfoProcessor.cpp" />
     <ClCompile Include="DDRAudioTranscode.cpp" />
     <ClCompile Include="DDRLocalAudioPull.cpp" />
     <ClCompile Include="DDRStreamPlay.cpp" />
@@ -130,8 +132,6 @@
     <ClCompile Include="zWalleAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.h" />
-    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.h" />
     <ClInclude Include="..\..\Shared\src\FSM\FSM.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseMessageDispatcher.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseProcessor.h" />
@@ -151,10 +151,14 @@
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
     <ClInclude Include="AudioDeviceInquiry.h" />
+    <ClInclude Include="Client\AudioStreamInfoProcessor.h" />
     <ClInclude Include="Client\GlobalManager.h" />
     <ClInclude Include="Client\LocalClientDispatcher.h" />
+    <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
+    <ClInclude Include="Client\LocalClientUdpProcessor.h" />
     <ClInclude Include="Client\LocalTcpClient.h" />
     <ClInclude Include="Client\LoginProcessor.h" />
+    <ClInclude Include="Client\VideoStreamInfoProcessor.h" />
     <ClInclude Include="DDRAudioTranscode.h" />
     <ClInclude Include="DDRLocalAudioPull.h" />
     <ClInclude Include="DDRStreamPlay.h" />

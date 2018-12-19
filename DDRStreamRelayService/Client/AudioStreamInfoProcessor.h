@@ -1,5 +1,5 @@
-#ifndef LoginProcessor_h__
-#define LoginProcessor_h__
+#ifndef AudioStreamInfoProcessor_h__
+#define AudioStreamInfoProcessor_h__
 
 
 #include "../../../Shared/src/Network/MessageSerializer.h"
@@ -7,15 +7,15 @@
 
 
 using namespace DDRFramework;
-class LoginProcessor : public BaseProcessor
+class AudioStreamInfoProcessor : public BaseProcessor
 {
 public:
-	LoginProcessor(BaseMessageDispatcher& dispatcher);
-	~LoginProcessor();
+	AudioStreamInfoProcessor(BaseMessageDispatcher& dispatcher);
+	~AudioStreamInfoProcessor();
 
 	virtual void Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
 
 private:
 };
 
-#endif // LoginProcessor_h__
+#endif // AudioStreamInfoProcessor_h__

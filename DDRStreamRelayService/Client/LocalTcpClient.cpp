@@ -29,7 +29,8 @@ void LocalTcpClient::OnConnected(TcpSocketContainer& container)
 
 	DebugLog("\nOnConnectSuccess! LocalTcpClient");
 	auto spreq = std::make_shared<reqLogin>();
-	spreq->set_username("LocalTcpClient_XX");
+	spreq->set_username(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
+	spreq->set_type(eCltType::eLSMStreamRelay);
 
 	if (m_spClient && m_spClient->IsConnected())
 	{
@@ -42,14 +43,16 @@ void LocalTcpClient::OnDisconnect(TcpSocketContainer& container)
 {
 	TcpClientBase::OnDisconnect(container);
 
-
-
-	GlobalManager::Instance()->CreateUdp();
-	GlobalManager::Instance()->GetUdpClient()->Start();
-	GlobalManager::Instance()->GetUdpClient()->GetSerializer()->BindDispatcher(std::make_shared<LocalClientUdpDispatcher>());
-	GlobalManager::Instance()->GetUdpClient()->StartReceive(28888);
+	GlobalManager::Instance()->StartUdp();
 }
+void LocalTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
+{
 
+	if (m_spClient && m_spClient->IsConnected())
+	{
+		m_spClient->Send(spmsg);
+	}
+};
 void LocalTcpClient::StartHeartBeat()
 {
 	/*m_HeartBeatTimerID = m_Timer.add(std::chrono::seconds(1) , [](timer_id id)
@@ -65,13 +68,28 @@ void LocalTcpClient::StopHeartBeat()
 }
 void LocalTcpClient::SendHeartBeatOnce(timer_id id)
 {
-	heartBeat hb;
-	auto sphb = std::make_shared<heartBeat>();
-	sphb->set_whatever("hb");
+	auto sp = std::make_shared<HeartBeat>();
+	sp->set_whatever("hb");
 
-	if (m_spClient && m_spClient->IsConnected())
-	{
-		m_spClient->Send(sphb);
-	}
-	sphb.reset();
+	Send(sp);
+	sp.reset();
+}
+
+
+void LocalTcpClient::RequestVideoStreamInfo()
+{
+	auto sp = std::make_shared<reqVideoStreamInfo>();
+	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
+
+	Send(sp);
+	sp.reset();
+}
+void LocalTcpClient::RequestAudioStreamInfo()
+{
+	auto sp = std::make_shared<reqAudioStreamInfo>();
+	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
+
+
+	Send(sp);
+	sp.reset();
 }

@@ -1,4 +1,4 @@
-#include "LoginProcessor.h"
+#include "AudioStreamInfoProcessor.h"
 #include <memory>
 #include "../../../Shared/proto/BaseCmd.pb.h"
 #include "../../../Shared/src/Utility/DDRMacro.h"
@@ -8,16 +8,16 @@
 using namespace DDRFramework;
 using namespace DDRCommProto;
 
-LoginProcessor::LoginProcessor(BaseMessageDispatcher& dispatcher) :BaseProcessor(dispatcher)
+AudioStreamInfoProcessor::AudioStreamInfoProcessor(BaseMessageDispatcher& dispatcher) :BaseProcessor(dispatcher)
 { 
 }
 
 
-LoginProcessor::~LoginProcessor()
+AudioStreamInfoProcessor::~AudioStreamInfoProcessor()
 {
 }
 
-void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
+void AudioStreamInfoProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
 {
 
 	rspLogin* pRaw = reinterpret_cast<rspLogin*>(spMsg.get());
@@ -28,7 +28,6 @@ void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContaine
 	{
 
 		GlobalManager::Instance()->GetTcpClient()->RequestVideoStreamInfo();
-		GlobalManager::Instance()->GetTcpClient()->RequestAudioStreamInfo();
 		GlobalManager::Instance()->GetTcpClient()->StartHeartBeat();
 	}
 	else

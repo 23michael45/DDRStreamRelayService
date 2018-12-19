@@ -80,22 +80,28 @@
     <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc">
       <Filter>Shared\proto</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
     <ClCompile Include="Client\GlobalManager.cpp">
       <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="Client\LocalClientDispatcher.cpp">
       <Filter>Client</Filter>
     </ClCompile>
+    <ClCompile Include="Client\LocalClientUdpDispatcher.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\LocalClientUdpProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
     <ClCompile Include="Client\LocalTcpClient.cpp">
       <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="Client\LoginProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\VideoStreamInfoProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\AudioStreamInfoProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>
@@ -171,22 +177,28 @@
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h">
       <Filter>Shared\Thirdparty\tinyxml</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.h">
-      <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="Client\GlobalManager.h">
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="Client\LocalClientDispatcher.h">
       <Filter>Client</Filter>
     </ClInclude>
+    <ClInclude Include="Client\LocalClientUdpDispatcher.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\LocalClientUdpProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
     <ClInclude Include="Client\LocalTcpClient.h">
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="Client\LoginProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\VideoStreamInfoProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\AudioStreamInfoProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "StreamMainService.h"
+
 #include<iostream>
 #include "../../Shared/src/Network/MessageSerializer.h"
 #include "../../Shared/src/Network/TcpServerBase.h"
@@ -37,10 +37,7 @@ void MoveWorkingDir()
 void UdpClientStart()
 {
 
-	GlobalManager::Instance()->CreateUdp();
-	GlobalManager::Instance()->GetUdpClient()->Start();
-	GlobalManager::Instance()->GetUdpClient()->GetSerializer()->BindDispatcher(std::make_shared<LocalClientUdpDispatcher>());
-	GlobalManager::Instance()->GetUdpClient()->StartReceive(28888);
+	GlobalManager::Instance()->StartUdp();
 
 
 }
@@ -57,13 +54,13 @@ int main(int argc, char **argv)
 
 
 
-	StreamMainService sms("configFileName.txt");
-	sms.Start();
-	std::cout << "音视频管理服务正常退出 ...\n";
-	Sleep(100);
-	//sms.StartTestOnlyInitPlay();
-	//sms.TestRelayAndPlay();
-	//system("pause");
+	//StreamMainService sms("configFileName.txt");
+	//sms.Start();
+	//std::cout << "音视频管理服务正常退出 ...\n";
+	//Sleep(100);
+	////sms.StartTestOnlyInitPlay();
+	////sms.TestRelayAndPlay();
+	////system("pause");
 
 	while (!gQuit)
 	{

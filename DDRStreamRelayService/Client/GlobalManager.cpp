@@ -1,6 +1,7 @@
 #include "GlobalManager.h"
+#include "../../../DDRLocalServer/DDR_LocalClient/Client/LocalClientUdpDispatcher.h"
 
-GlobalManager::GlobalManager()
+GlobalManager::GlobalManager() :m_ConfigLoader("Config/StreamRelayConfig.xml")
 {
 }
 GlobalManager::~GlobalManager()
@@ -8,6 +9,31 @@ GlobalManager::~GlobalManager()
 
 }
 
+bool GlobalManager::StartUdp()
+{
+	if (m_spUdpClient)
+	{
+		return false;
+	}
+	CreateUdp(); 
+	if (m_spUdpClient)
+	{
+		m_spUdpClient->Start();
+		m_spUdpClient->Start();
+		m_spUdpClient->GetSerializer()->BindDispatcher(std::make_shared<LocalClientUdpDispatcher>());
+		m_spUdpClient->StartReceive(GlobalManager::Instance()->m_ConfigLoader.GetValue<int>("UdpPort"));
+	}
+	return true;
+}
+void GlobalManager::StopUdp()
+{
+	if (m_spUdpClient && m_spUdpClient->IsWorking())
+	{
+		m_spUdpClient->StopReceive();
+		m_spUdpClient->Stop();
+
+	}
+}
 void GlobalManager::CreateUdp()
 {
 	m_spUdpClient = std::make_shared<UdpSocketBase>();
