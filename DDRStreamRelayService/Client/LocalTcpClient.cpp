@@ -2,8 +2,8 @@
 #include "../../../Shared/src/Network/TcpSocketContainer.h"
 #include "../../../Shared/src/Network/MessageSerializer.h"
 #include "../../../Shared/src/Network/BaseMessageDispatcher.h"
-#include "LocalClientDispatcher.h"
-#include "LocalClientUdpDispatcher.h"
+#include "Client/LocalClientDispatcher.h"
+#include "Client/LocalClientUdpDispatcher.h"
 
 
 #include "../../../Shared/proto/BaseCmd.pb.h"

@@ -1,5 +1,17 @@
 #include "StreamMainService.h"
 #include<iostream>
+#include "../../Shared/src/Network/MessageSerializer.h"
+#include "../../Shared/src/Network/TcpServerBase.h"
+#include "../../Shared/src/Network/TcpClientBase.h"
+#include "../../Shared/proto/BaseCmd.pb.h"
+#include "../../Shared/src/Utility/DDRMacro.h"
+#include "Client/LocalClientUdpDispatcher.h"
+#include <thread>
+#include <chrono>
+#include "Client/LocalTcpClient.h"
+#include "Client/GlobalManager.h"
+using namespace DDRFramework;
+using namespace DDRCommProto;
 void MoveWorkingDir()
 {
 	char modName[500];
@@ -21,13 +33,29 @@ void MoveWorkingDir()
 	}
 }
 
+
+void UdpClientStart()
+{
+
+	GlobalManager::Instance()->CreateUdp();
+	GlobalManager::Instance()->GetUdpClient()->Start();
+	GlobalManager::Instance()->GetUdpClient()->GetSerializer()->BindDispatcher(std::make_shared<LocalClientUdpDispatcher>());
+	GlobalManager::Instance()->GetUdpClient()->StartReceive(28888);
+
+
+}
+char gQuit = 0;
 int main(int argc, char **argv)
 {
-	MoveWorkingDir();
+	//MoveWorkingDir();
 	/*if (argc < 2) {
 		printf("usage: %s configFileName.txt\n", argv[0]);
 		return 1;
 	}*/
+
+	UdpClientStart();
+
+
 
 	StreamMainService sms("configFileName.txt");
 	sms.Start();
@@ -36,6 +64,11 @@ int main(int argc, char **argv)
 	//sms.StartTestOnlyInitPlay();
 	//sms.TestRelayAndPlay();
 	//system("pause");
+
+	while (!gQuit)
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 	return 0;
 }
 

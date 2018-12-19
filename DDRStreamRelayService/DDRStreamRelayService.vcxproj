@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir)../../DDRLocalServer/DDR_LocalClient</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,6 +87,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.cpp" />
+    <ClCompile Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.cpp" />
     <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc" />
     <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp" />
@@ -107,27 +109,11 @@
     <ClCompile Include="AudioDeviceInquiry.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
-    <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
-    <ClCompile Include="Client\LocalClientUdpProcessor.cpp" />
     <ClCompile Include="Client\LocalTcpClient.cpp" />
     <ClCompile Include="Client\LoginProcessor.cpp" />
-    <ClCompile Include="CommLib\CommonFunc.cpp" />
-    <ClCompile Include="CommLib\FileCache.cpp" />
-    <ClCompile Include="CommLib\FileSource.cpp" />
-    <ClCompile Include="CommLib\FIOWrapper.cpp" />
-    <ClCompile Include="CommLib\MessageQueue.cpp" />
-    <ClCompile Include="CommLib\MsgStruct.cpp" />
-    <ClCompile Include="CommLib\NodeBCRcvHelper.cpp" />
-    <ClCompile Include="CommLib\SocketWrapper.cpp" />
     <ClCompile Include="DDRAudioTranscode.cpp" />
     <ClCompile Include="DDRLocalAudioPull.cpp" />
     <ClCompile Include="DDRStreamPlay.cpp" />
-    <ClCompile Include="LSM\DualChTCPClientBase.cpp" />
-    <ClCompile Include="LSM\InfoStrProc.cpp" />
-    <ClCompile Include="LSM\LSM.cpp" />
-    <ClCompile Include="LSM\LSMComp.cpp" />
-    <ClCompile Include="LSM\OneChConnClient.cpp" />
-    <ClCompile Include="LSM\TalkHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyMTModules.cpp" />
     <ClCompile Include="ProcSharedMem.cpp" />
@@ -144,6 +130,8 @@
     <ClCompile Include="zWalleAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpDispatcher.h" />
+    <ClInclude Include="..\..\DDRLocalServer\DDR_LocalClient\Client\LocalClientUdpProcessor.h" />
     <ClInclude Include="..\..\Shared\src\FSM\FSM.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseMessageDispatcher.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseProcessor.h" />
@@ -165,28 +153,11 @@
     <ClInclude Include="AudioDeviceInquiry.h" />
     <ClInclude Include="Client\GlobalManager.h" />
     <ClInclude Include="Client\LocalClientDispatcher.h" />
-    <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
-    <ClInclude Include="Client\LocalClientUdpProcessor.h" />
     <ClInclude Include="Client\LocalTcpClient.h" />
     <ClInclude Include="Client\LoginProcessor.h" />
-    <ClInclude Include="CommLib\CommonFunc.h" />
-    <ClInclude Include="CommLib\FileCache.h" />
-    <ClInclude Include="CommLib\FileSource.h" />
-    <ClInclude Include="CommLib\FIOWrapper.h" />
-    <ClInclude Include="CommLib\MessageQueue.h" />
-    <ClInclude Include="CommLib\MsgStruct.h" />
-    <ClInclude Include="CommLib\NodeBCRcvHelper.h" />
-    <ClInclude Include="CommLib\SocketWrapper.h" />
     <ClInclude Include="DDRAudioTranscode.h" />
     <ClInclude Include="DDRLocalAudioPull.h" />
     <ClInclude Include="DDRStreamPlay.h" />
-    <ClInclude Include="LSM\DualChTCPClientBase.h" />
-    <ClInclude Include="LSM\InfoStrProc.h" />
-    <ClInclude Include="LSM\LSM.h" />
-    <ClInclude Include="LSM\LSMCommon.h" />
-    <ClInclude Include="LSM\LSMComp.h" />
-    <ClInclude Include="LSM\OneChConnClient.h" />
-    <ClInclude Include="LSM\TalkHelper.h" />
     <ClInclude Include="MyMTModules.h" />
     <ClInclude Include="ParamReader.h" />
     <ClInclude Include="ProcSharedMem.h" />
