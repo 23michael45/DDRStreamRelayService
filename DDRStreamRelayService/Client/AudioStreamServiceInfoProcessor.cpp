@@ -20,20 +20,15 @@ AudioStreamServiceInfoProcessor::~AudioStreamServiceInfoProcessor()
 void AudioStreamServiceInfoProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
 {
 
-	rspLogin* pRaw = reinterpret_cast<rspLogin*>(spMsg.get());
+	rspAudioStreamServiceInfo* pRaw = reinterpret_cast<rspAudioStreamServiceInfo*>(spMsg.get());
 
 
-	rspLogin_eLoginRetCode retcode = pRaw->retcode();
-	if (retcode == rspLogin_eLoginRetCode_success)
-	{
+	//std::vector<AVChannel> channels;
+	//for (auto channel : pRaw->channels())
+	//{
+	//	channels.push_back(channel);
+	//}
 
-		GlobalManager::Instance()->GetTcpClient()->RequestVideoStreamInfo();
-		GlobalManager::Instance()->GetTcpClient()->StartHeartBeat();
-	}
-	else
-	{
-		DebugLog("\nLogin Error");
-	}
-
+	//GlobalManager::Instance()->GetTcpServer()->StartAudio(channels);
 
 }

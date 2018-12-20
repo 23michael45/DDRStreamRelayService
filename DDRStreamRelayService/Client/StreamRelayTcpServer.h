@@ -3,9 +3,26 @@
 
 #include "../../../Shared/src/Network/TcpServerBase.h"
 #include "../../../Shared/src/Utility/Singleton.h"
+
+#include "../AudioDeviceInquiry.h"
+#include "zWalleAudio.h"
+#include "../../../Shared/proto/BaseCmd.pb.h"
+
+#include "asio.hpp"
 using namespace DDRFramework;
+using namespace DDRCommProto;
 
+class StreamRelayTcpSession : public TcpSessionBase
+{
+public:
+	StreamRelayTcpSession(asio::io_context& context);
+	~StreamRelayTcpSession();
 
+	virtual void CheckWrite() override;
+	auto shared_from_base() {
+		return std::static_pointer_cast<StreamRelayTcpSession>(shared_from_this());
+	}
+};
 
 
 class StreamRelayTcpServer : public TcpServerBase
@@ -28,10 +45,18 @@ public:
 
 	virtual std::shared_ptr<TcpSessionBase> StartAccept() override;
 
+
+	bool StartAudio(std::vector<AVChannel>& channels);
+	bool StartVideo(std::vector<AVChannel>& channels);
+
 protected:
 
 	void OnHookReceive(asio::streambuf& buf);
 
+
+
+	AudioDeviceInquiry m_AudioDeviceInquiry;
+	zWalleAudio m_zWalleAudioAudio;
 };
 
 

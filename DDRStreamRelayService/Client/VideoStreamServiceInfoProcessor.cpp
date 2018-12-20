@@ -30,18 +30,16 @@ void VideoStreamServiceInfoProcessor::AsyncProcess(std::shared_ptr<BaseSocketCon
 {
 	rspVideoStreamServiceInfo* pRaw = reinterpret_cast<rspVideoStreamServiceInfo*>(spMsg.get());
 
-	std::vector<std::string> inputIPs;
-	std::vector<std::string> outputIPs;
 
+
+	std::vector<AVChannel> channels;
 	for (auto channel : pRaw->channels())
 	{
-		inputIPs.push_back(channel.srcip());
-		outputIPs.push_back(channel.dstip());
+		channels.push_back(channel);
 	}
 
+	GlobalManager::Instance()->GetTcpServer()->StartVideo(channels);
 
-	StreamRelayService src(pRaw->channels().size());
-	src.Init(inputIPs, outputIPs);
-	src.Launch();
-	src.Respond();
+
+	
 }
