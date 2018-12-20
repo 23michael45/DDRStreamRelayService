@@ -11,7 +11,7 @@
 #include <errno.h>
 #include "winrec.h"
 
-#pragma comment(lib, "winmm.lib") 
+//#pragma comment(lib, "winmm.lib") 
 
 #define DBG_ON 0
 

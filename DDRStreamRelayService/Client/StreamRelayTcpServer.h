@@ -5,7 +5,7 @@
 #include "../../../Shared/src/Utility/Singleton.h"
 
 #include "../AudioDeviceInquiry.h"
-#include "zWalleAudio.h"
+#include "../../../Shared/src/Utility/AudioCodec.h"
 #include "../../../Shared/proto/BaseCmd.pb.h"
 
 #include "asio.hpp"
@@ -18,10 +18,11 @@ public:
 	StreamRelayTcpSession(asio::io_context& context);
 	~StreamRelayTcpSession();
 
-	virtual void CheckWrite() override;
 	auto shared_from_base() {
 		return std::static_pointer_cast<StreamRelayTcpSession>(shared_from_this());
 	}
+
+	AudioCodec m_AudioCodec;
 };
 
 
@@ -56,7 +57,7 @@ protected:
 
 
 	AudioDeviceInquiry m_AudioDeviceInquiry;
-	zWalleAudio m_zWalleAudioAudio;
+	//zWalleAudio m_zWalleAudioAudio;
 };
 
 

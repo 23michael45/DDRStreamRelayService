@@ -7,19 +7,54 @@
 #include "StreamRelayService.h"
 #include "DDRAudioTranscode.h"
 #include "DDRStreamPlay.h"
+
+
+
+void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSamples)
+{
+	mal_uint32 sampleCount = frameCount * pDevice->channels;
+
+	/*mal_uint32 newCapturedSampleCount = capturedSampleCount + sampleCount;
+	mal_int16* pNewCapturedSamples = (mal_int16*)realloc(pCapturedSamples, newCapturedSampleCount * sizeof(mal_int16));
+	if (pNewCapturedSamples == NULL) {
+		return;
+	}
+
+	memcpy(pNewCapturedSamples + capturedSampleCount, pSamples, sampleCount * sizeof(mal_int16));
+
+	pCapturedSamples = pNewCapturedSamples;
+	capturedSampleCount = newCapturedSampleCount;*/
+}
+
+mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples)
+{
+	mal_uint32 samplesToRead = frameCount * pDevice->channels;
+	/*if (samplesToRead > capturedSampleCount - playbackSample) {
+		samplesToRead = capturedSampleCount - playbackSample;
+	}
+
+	if (samplesToRead == 0) {
+		return 0;
+	}
+
+	memcpy(pSamples, pCapturedSamples + playbackSample, samplesToRead * sizeof(mal_int16));
+	playbackSample += samplesToRead;*/
+
+	return samplesToRead / pDevice->channels;
+}
+
+
 StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFramework::TcpSessionBase(context)
 {
-
+	m_AudioCodec.Init(2, 48000, on_recv_frames,on_send_frames);
+	//m_AudioCodec.StartRecord();
+	m_AudioCodec.StartPlay();
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
 
-}
-
-
-void StreamRelayTcpSession::CheckWrite()
-{
-
+	m_AudioCodec.StopRecord();
+	m_AudioCodec.StopPlay();
 }
 
 
@@ -113,58 +148,58 @@ bool StreamRelayTcpServer::StartAudio(std::vector<AVChannel>& channels)
 			auto audioDeivceID = audioDeivceIDs[0];
 
 
-			AudioTranscode at;
+			//AudioTranscode at;
 
-			string srcIP;
-			string remotedstIP;
-			string localdstIP;
-
-
-
-			for (auto channel : channels)
-			{
-				if (channel.type() == AVChannel_ChannelType_Local)
-				{
-					srcIP = channel.srcip();
-					localdstIP = channel.dstip();
-				}
-				else if (channel.type() == AVChannel_ChannelType_Remote)
-				{
-
-					srcIP = channel.srcip();
-					remotedstIP = channel.dstip();
-				}
-			}
-
-			if (at.Init(srcIP.c_str(), remotedstIP.c_str(), localdstIP.c_str()))
-			{
-				//printf("音频设备初始化失败，请检查！\n");
-				//continue;
-				at.Launch();
-				at.Respond();
+			//string srcIP;
+			//string remotedstIP;
+			//string localdstIP;
 
 
-				StreamPlay sp;
-				bool spInit = false;
-				if (!localdstIP.empty())
-				{
 
-					spInit = sp.Init(localdstIP.c_str());
-				}
-				else if (!remotedstIP.empty())
-				{
+			//for (auto channel : channels)
+			//{
+			//	if (channel.type() == AVChannel_ChannelType_Local)
+			//	{
+			//		srcIP = channel.srcip();
+			//		localdstIP = channel.dstip();
+			//	}
+			//	else if (channel.type() == AVChannel_ChannelType_Remote)
+			//	{
+
+			//		srcIP = channel.srcip();
+			//		remotedstIP = channel.dstip();
+			//	}
+			//}
+
+			//if (at.Init(srcIP.c_str(), remotedstIP.c_str(), localdstIP.c_str()))
+			//{
+			//	//printf("音频设备初始化失败，请检查！\n");
+			//	//continue;
+			//	at.Launch();
+			//	at.Respond();
 
 
-					spInit = sp.Init(remotedstIP.c_str());
-				}
+			//	StreamPlay sp;
+			//	bool spInit = false;
+			//	if (!localdstIP.empty())
+			//	{
 
-				if (spInit)
-				{
-					sp.Launch();
-				}
+			//		spInit = sp.Init(localdstIP.c_str());
+			//	}
+			//	else if (!remotedstIP.empty())
+			//	{
 
 
-			}
+			//		spInit = sp.Init(remotedstIP.c_str());
+			//	}
+
+			//	if (spInit)
+			//	{
+			//		sp.Launch();
+			//	}
+
+
+			//}
 
 		}
 

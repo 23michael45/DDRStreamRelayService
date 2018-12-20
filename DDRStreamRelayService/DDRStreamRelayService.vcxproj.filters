@@ -9,7 +9,6 @@
     <ClCompile Include="StreamRelayService.cpp" />
     <ClCompile Include="DDRStreamPlay.cpp" />
     <ClCompile Include="zWalleAudio.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="DDRLocalAudioPull.cpp" />
     <ClCompile Include="TTSQueuePlayer.cpp" />
     <ClCompile Include="ProcSharedMem.cpp" />
@@ -107,83 +106,17 @@
     <ClCompile Include="Client\VideoStreamServiceInfoProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_allocation.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
+    <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\stb_vorbis.c">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_converters.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
+    <ClCompile Include="..\..\Shared\src\Utility\AudioCodec.cpp">
+      <Filter>Shared\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_cpuload.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
+    <ClCompile Include="..\..\Shared\thirdparty\mini-al\mini_al.cpp">
+      <Filter>Shared\Thirdparty\mini-al</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_debugprint.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_dither.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_front.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_process.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_ringbuffer.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_stream.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_trace.c">
-      <Filter>Shared\Thirdparty\portaudio\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\skeleton\pa_hostapi_skeleton.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\skeleton</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\asio\pa_asio.cpp">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\ASIO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\common\asio.cpp">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\ASIO\ASIOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\host\asiodrivers.cpp">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\ASIO\ASIOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\host\pc\asiolist.cpp">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\ASIO\ASIOSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\dsound\pa_win_ds.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\dsound</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\dsound\pa_win_ds_dynlink.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\dsound</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wasapi\pa_win_wasapi.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\wasapi</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wdmks\pa_win_wdmks.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\wdmks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wmme\pa_win_wmme.c">
-      <Filter>Shared\Thirdparty\portaudio\hostapi\wmme</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_coinitialize.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_hostapis.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_util.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_waveformat.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_wdmks_utils.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_x86_plain_converters.c">
-      <Filter>Shared\Thirdparty\portaudio\os\win</Filter>
+    <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.cpp">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,8 +127,6 @@
     <ClInclude Include="StreamRelayService.h" />
     <ClInclude Include="DDRStreamPlay.h" />
     <ClInclude Include="zWalleAudio.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="DDRLocalAudioPull.h" />
     <ClInclude Include="ParamReader.h" />
     <ClInclude Include="TTSQueuePlayer.h" />
@@ -285,6 +216,27 @@
     <ClInclude Include="Client\VideoStreamServiceInfoProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_flac.h">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_mp3.h">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.h">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\jar_mod.h">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\jar_xm.h">
+      <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\AudioCodec.h">
+      <Filter>Shared\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h">
+      <Filter>Shared\Thirdparty\mini-al</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="RobotChat">
@@ -311,41 +263,11 @@
     <Filter Include="Client">
       <UniqueIdentifier>{d7f48df5-a413-4bfe-a314-6d4d21983dce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio">
-      <UniqueIdentifier>{bdb10685-0fb4-4dc1-bd27-eab6c854c13e}</UniqueIdentifier>
+    <Filter Include="Shared\Thirdparty\mini-al">
+      <UniqueIdentifier>{661ded18-a266-41a7-85e7-18f6d9b5dbb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\common">
-      <UniqueIdentifier>{67f6fdd2-9f27-4f5f-ad1e-680f45490b70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi">
-      <UniqueIdentifier>{428214de-0bb7-4c62-8674-4bbe33441100}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\os">
-      <UniqueIdentifier>{7631b757-91a3-4895-916a-84ae679b18e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\os\win">
-      <UniqueIdentifier>{1ddba521-2805-4549-84a4-9a9c839ffa9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\ASIO">
-      <UniqueIdentifier>{01e8596d-0237-4ae7-9c57-6c27cc452b9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\dsound">
-      <UniqueIdentifier>{ffde69b3-de5a-48e9-9a08-64f27b23f975}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\wasapi">
-      <UniqueIdentifier>{55c13954-b372-4386-85c1-1e2decc76dff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\wdmks">
-      <UniqueIdentifier>{abe45b95-f713-4b55-9de4-26c07f23809d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\wmme">
-      <UniqueIdentifier>{a03c41a6-0ffb-4ef0-89f8-ce6e8bd155a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\skeleton">
-      <UniqueIdentifier>{5a58210b-236c-47a2-91c1-d33659344807}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\Thirdparty\portaudio\hostapi\ASIO\ASIOSDK">
-      <UniqueIdentifier>{114858a1-5fbc-4e87-86ca-103a1a82b1b4}</UniqueIdentifier>
+    <Filter Include="Shared\Thirdparty\mini-al\extras">
+      <UniqueIdentifier>{70a16cba-eeee-48b0-b6aa-2272220577d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
