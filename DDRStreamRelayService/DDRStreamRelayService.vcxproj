@@ -52,9 +52,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;PA_ENABLE_DEBUG_OUTPUT;PAWIN_USE_WDMKS_DEVICE_INFO;PA_USE_ASIO=0;PA_USE_DS=0;PA_USE_WMME=1;PA_USE_WASAPI=1;PA_USE_WDMKS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,6 +100,32 @@
     <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_allocation.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_converters.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_cpuload.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_debugprint.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_dither.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_front.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_process.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_ringbuffer.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_stream.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\common\pa_trace.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\common\asio.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\host\asiodrivers.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\ASIOSDK\host\pc\asiolist.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\asio\pa_asio.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\dsound\pa_win_ds.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\dsound\pa_win_ds_dynlink.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\skeleton\pa_hostapi_skeleton.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wasapi\pa_win_wasapi.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wdmks\pa_win_wdmks.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\hostapi\wmme\pa_win_wmme.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_coinitialize.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_hostapis.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_util.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_waveformat.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_win_wdmks_utils.c" />
+    <ClCompile Include="..\..\Shared\thirdparty\portaudio\src\os\win\pa_x86_plain_converters.c" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinystr.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
