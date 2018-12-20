@@ -48,5 +48,7 @@ std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::StartAccept()
 
 void StreamRelayTcpServer::OnHookReceive(asio::streambuf& buf)
 {
-	DebugLog("\n%i", buf.size());
+	static int i = 0;
+	i += buf.size();
+	DebugLog("\n%i",i );
 }

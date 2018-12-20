@@ -78,7 +78,7 @@ void StreamRelayTcpClient::SendHeartBeatOnce(timer_id id)
 
 void StreamRelayTcpClient::RequestVideoStreamInfo()
 {
-	auto sp = std::make_shared<reqVideoStreamInfo>();
+	auto sp = std::make_shared<reqVideoStreamServiceInfo>();
 	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 
 	Send(sp);
@@ -86,7 +86,7 @@ void StreamRelayTcpClient::RequestVideoStreamInfo()
 }
 void StreamRelayTcpClient::RequestAudioStreamInfo()
 {
-	auto sp = std::make_shared<reqAudioStreamInfo>();
+	auto sp = std::make_shared<reqAudioStreamServiceInfo>();
 	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 
 

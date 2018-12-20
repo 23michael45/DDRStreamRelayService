@@ -1,4 +1,4 @@
-#include "AudioStreamInfoProcessor.h"
+#include "AudioStreamServiceInfoProcessor.h"
 #include <memory>
 #include "../../../Shared/proto/BaseCmd.pb.h"
 #include "../../../Shared/src/Utility/DDRMacro.h"
@@ -8,16 +8,16 @@
 using namespace DDRFramework;
 using namespace DDRCommProto;
 
-AudioStreamInfoProcessor::AudioStreamInfoProcessor(BaseMessageDispatcher& dispatcher) :BaseProcessor(dispatcher)
+AudioStreamServiceInfoProcessor::AudioStreamServiceInfoProcessor(BaseMessageDispatcher& dispatcher) :BaseProcessor(dispatcher)
 { 
 }
 
 
-AudioStreamInfoProcessor::~AudioStreamInfoProcessor()
+AudioStreamServiceInfoProcessor::~AudioStreamServiceInfoProcessor()
 {
 }
 
-void AudioStreamInfoProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
+void AudioStreamServiceInfoProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
 {
 
 	rspLogin* pRaw = reinterpret_cast<rspLogin*>(spMsg.get());

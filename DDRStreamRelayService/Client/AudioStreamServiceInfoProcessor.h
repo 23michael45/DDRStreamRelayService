@@ -7,11 +7,11 @@
 
 
 using namespace DDRFramework;
-class AudioStreamInfoProcessor : public BaseProcessor
+class AudioStreamServiceInfoProcessor : public BaseProcessor
 {
 public:
-	AudioStreamInfoProcessor(BaseMessageDispatcher& dispatcher);
-	~AudioStreamInfoProcessor();
+	AudioStreamServiceInfoProcessor(BaseMessageDispatcher& dispatcher);
+	~AudioStreamServiceInfoProcessor();
 
 	virtual void Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
 

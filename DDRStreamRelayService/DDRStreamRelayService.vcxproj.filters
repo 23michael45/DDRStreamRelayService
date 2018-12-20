@@ -95,16 +95,16 @@
     <ClCompile Include="Client\LoginProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="Client\VideoStreamInfoProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\AudioStreamInfoProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
     <ClCompile Include="Client\StreamRelayTcpClient.cpp">
       <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="Client\StreamRelayTcpServer.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\AudioStreamServiceInfoProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\VideoStreamServiceInfoProcessor.cpp">
       <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>
@@ -195,16 +195,16 @@
     <ClInclude Include="Client\LoginProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="Client\VideoStreamInfoProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\AudioStreamInfoProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="Client\StreamRelayTcpClient.h">
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="Client\StreamRelayTcpServer.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\AudioStreamServiceInfoProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\VideoStreamServiceInfoProcessor.h">
       <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>

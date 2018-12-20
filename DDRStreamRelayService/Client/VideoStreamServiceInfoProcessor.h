@@ -7,11 +7,11 @@
 
 
 using namespace DDRFramework;
-class VideoStreamInfoProcessor : public BaseProcessor
+class VideoStreamServiceInfoProcessor : public BaseProcessor
 {
 public:
-	VideoStreamInfoProcessor(BaseMessageDispatcher& dispatcher);
-	~VideoStreamInfoProcessor();
+	VideoStreamServiceInfoProcessor(BaseMessageDispatcher& dispatcher);
+	~VideoStreamServiceInfoProcessor();
 
 	virtual void Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
 	virtual void AsyncProcess(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
