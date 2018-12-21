@@ -32,9 +32,9 @@ void StreamRelayTcpClient::OnConnected(TcpSocketContainer& container)
 	spreq->set_username(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 	spreq->set_type(eCltType::eLSMStreamRelay);
 
-	if (m_spClient && m_spClient->IsConnected())
+	if (IsConnected())
 	{
-		m_spClient->Send(spreq);
+		Send(spreq);
 	}
 	spreq.reset();
 
@@ -48,9 +48,9 @@ void StreamRelayTcpClient::OnDisconnect(TcpSocketContainer& container)
 void StreamRelayTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
 {
 
-	if (m_spClient && m_spClient->IsConnected())
+	if (IsConnected())
 	{
-		m_spClient->Send(spmsg);
+		Send(spmsg);
 	}
 };
 void StreamRelayTcpClient::StartHeartBeat()

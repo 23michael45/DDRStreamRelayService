@@ -15,16 +15,16 @@ void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSam
 {
 	mal_uint32 sampleCount = frameCount * pDevice->channels;
 
-	/*mal_uint32 newCapturedSampleCount = capturedSampleCount + sampleCount;
-	mal_int16* pNewCapturedSamples = (mal_int16*)realloc(pCapturedSamples, newCapturedSampleCount * sizeof(mal_int16));
-	if (pNewCapturedSamples == NULL) {
-		return;
+	std::shared_ptr<asio::streambuf> buf = std::make_shared<asio::streambuf>();
+
+	std::ostream oshold(buf.get());
+	oshold.write((const char*)pSamples, sampleCount * sizeof(mal_int16));
+	oshold.flush();
+
+	if (p_gAudioTcpSession)
+	{
+		p_gAudioTcpSession->Send(buf);
 	}
-
-	memcpy(pNewCapturedSamples + capturedSampleCount, pSamples, sampleCount * sizeof(mal_int16));
-
-	pCapturedSamples = pNewCapturedSamples;
-	capturedSampleCount = newCapturedSampleCount;*/
 }
 
 mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples)
@@ -84,13 +84,13 @@ void StreamRelayTcpSession::OnStart()
 	p_gAudioTcpSession = this;
 
 	m_AudioCodec.Init(2, 48000, on_recv_frames, on_send_frames);
-	//m_AudioCodec.StartRecord();
+	m_AudioCodec.StartRecord();
 	m_AudioCodec.StartPlay();
 }
 void StreamRelayTcpSession::OnStop()
 {
 
-	//m_AudioCodec.StopRecord();
+	m_AudioCodec.StopRecord();
 	m_AudioCodec.StopPlay();
 }
 
