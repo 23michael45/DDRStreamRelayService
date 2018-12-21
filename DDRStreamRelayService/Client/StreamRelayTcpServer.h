@@ -22,7 +22,25 @@ public:
 		return std::static_pointer_cast<StreamRelayTcpSession>(shared_from_this());
 	}
 
+	std::mutex& GetRecvMutex()
+	{
+		return m_AudioRecvMutex;
+	}
+
+	asio::streambuf& GetRecvBuf()
+	{
+		return m_AudioRecvBuf;
+	}
+	virtual void OnStart() override;
+	virtual void OnStop() override;
+	void OnHookReceive(asio::streambuf& buf);
+
+private:
 	AudioCodec m_AudioCodec;
+
+	std::mutex m_AudioRecvMutex;
+	asio::streambuf m_AudioRecvBuf;
+
 };
 
 
@@ -33,7 +51,7 @@ public:
 	~StreamRelayTcpServer();
 
 
-	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher();
+	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
 
 	std::shared_ptr<TcpSessionBase> GetTcpSessionBySocket(tcp::socket* pSocket);
 	std::map<tcp::socket*,std::shared_ptr<TcpSessionBase>>& GetTcpSocketContainerMap();
@@ -52,7 +70,6 @@ public:
 
 protected:
 
-	void OnHookReceive(asio::streambuf& buf);
 
 
 

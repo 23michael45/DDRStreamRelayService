@@ -9,6 +9,7 @@
 #include "DDRStreamPlay.h"
 
 
+StreamRelayTcpSession* p_gAudioTcpSession;
 
 void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSamples)
 {
@@ -28,32 +29,68 @@ void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSam
 
 mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples)
 {
-	mal_uint32 samplesToRead = frameCount * pDevice->channels;
-	/*if (samplesToRead > capturedSampleCount - playbackSample) {
-		samplesToRead = capturedSampleCount - playbackSample;
+	if (p_gAudioTcpSession)
+	{
+		std::lock_guard<std::mutex> lock(p_gAudioTcpSession->GetRecvMutex());
+		mal_uint32 samplesToRead = frameCount * pDevice->channels;
+
+		asio::streambuf& buf = p_gAudioTcpSession->GetRecvBuf();
+
+		size_t len = buf.size();
+		if (len < samplesToRead)
+		{
+
+			memcpy(pSamples, buf.data().data(), len);
+			buf.consume(len);
+
+			return len / pDevice->channels;
+		}
+		else
+		{
+
+			memcpy(pSamples, buf.data().data(), samplesToRead * sizeof(mal_int16));
+			buf.consume(samplesToRead * sizeof(mal_int16));
+			return samplesToRead / pDevice->channels;
+		}
+
+
 	}
 
-	if (samplesToRead == 0) {
-		return 0;
-	}
 
-	memcpy(pSamples, pCapturedSamples + playbackSample, samplesToRead * sizeof(mal_int16));
-	playbackSample += samplesToRead;*/
 
-	return samplesToRead / pDevice->channels;
 }
 
 
 StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFramework::TcpSessionBase(context)
 {
-	m_AudioCodec.Init(2, 48000, on_recv_frames,on_send_frames);
-	//m_AudioCodec.StartRecord();
-	m_AudioCodec.StartPlay();
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
 
-	m_AudioCodec.StopRecord();
+}
+
+void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
+{
+	std::lock_guard<std::mutex> lock(m_AudioRecvMutex);
+
+	std::ostream oshold(&m_AudioRecvBuf);
+	oshold.write((const char*)buf.data().data(), buf.size());
+	oshold.flush();
+}
+
+void StreamRelayTcpSession::OnStart()
+{
+
+	p_gAudioTcpSession = this;
+
+	m_AudioCodec.Init(2, 48000, on_recv_frames, on_send_frames);
+	//m_AudioCodec.StartRecord();
+	m_AudioCodec.StartPlay();
+}
+void StreamRelayTcpSession::OnStop()
+{
+
+	//m_AudioCodec.StopRecord();
 	m_AudioCodec.StopPlay();
 }
 
@@ -70,13 +107,6 @@ StreamRelayTcpServer::~StreamRelayTcpServer()
 }
 
 
-std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
-{
-	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, TcpSessionBase, MessageSerializer, BaseMessageDispatcher, BaseHeadRuleRouter)
-		return spTcpSessionBase;
-}
-
-
 std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::GetTcpSessionBySocket(tcp::socket* pSocket)
 {
 	if (m_SessionMap.find(pSocket) != m_SessionMap.end())
@@ -90,20 +120,21 @@ std::map<tcp::socket*, std::shared_ptr<TcpSessionBase>>& StreamRelayTcpServer::G
 {
 	return m_SessionMap;
 }
-
+std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
+{
+	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, StreamRelayTcpSession, MessageSerializer, BaseMessageDispatcher, BaseHeadRuleRouter)
+		return spStreamRelayTcpSession;
+}
 std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::StartAccept()
 {
 	auto spSession = TcpServerBase::StartAccept();
-	spSession->BindOnHookReceive(std::bind(&StreamRelayTcpServer::OnHookReceive, shared_from_base(),std::placeholders::_1));
+
+	auto spStreamRelayTcpSession = dynamic_pointer_cast<StreamRelayTcpSession>(spSession);
+	spSession->BindOnHookReceive(std::bind(&StreamRelayTcpSession::OnHookReceive, spStreamRelayTcpSession,std::placeholders::_1));
+
 	return spSession;
 }
 
-void StreamRelayTcpServer::OnHookReceive(asio::streambuf& buf)
-{
-	static int i = 0;
-	i += buf.size();
-	DebugLog("\n%i",i );
-}
 
 bool StreamRelayTcpServer::StartVideo(std::vector<AVChannel>& channels)
 {

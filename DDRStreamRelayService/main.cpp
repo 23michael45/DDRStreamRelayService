@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	}*/
 
 	GlobalManager::Instance()->CreateTcpServer();
-	GlobalManager::Instance()->StartUdp();
+	//GlobalManager::Instance()->StartUdp();
 
 
 
