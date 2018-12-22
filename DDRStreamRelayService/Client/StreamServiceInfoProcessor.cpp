@@ -32,9 +32,9 @@ void StreamServiceInfoProcessor::AsyncProcess(std::shared_ptr<BaseSocketContaine
 
 
 
-	std::vector<AVChannel> VideoChannels;
-	std::vector<AVChannel> AudioChannels;
-	std::vector<AVChannel> AVChannels;
+	std::vector<AVChannelConfig> VideoChannels;
+	std::vector<AVChannelConfig> AudioChannels;
+	std::vector<AVChannelConfig> AVChannels;
 	for (auto channel : pRaw->channels())
 	{
 

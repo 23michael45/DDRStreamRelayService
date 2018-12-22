@@ -32,7 +32,7 @@ void StreamServiceInfoChangedProcessor::AsyncProcess(std::shared_ptr<BaseSocketC
 
 
 
-	std::vector<AVChannel> channels;
+	std::vector<AVChannelConfig> channels;
 	for (auto channel : pRaw->channels())
 	{
 		channels.push_back(channel);

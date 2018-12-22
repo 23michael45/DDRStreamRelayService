@@ -63,6 +63,9 @@
       <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x86/libprotocd.lib;$(ProjectDir)../../Shared/lib/x86/libprotobufd.lib;%(AdditionalDependencies)avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_d.lib;winmm.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(SolutionDir)DDRStreamRelayService\Config\*.*   $(SolutionDir)Debug\Config\ /s /i</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -98,6 +101,7 @@
     <ClCompile Include="..\..\Shared\src\Network\UdpSocketBase.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\AudioCodec.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\CommonFunc.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\LocalizationLoader.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp" />
@@ -108,7 +112,6 @@
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
-    <ClCompile Include="AudioDeviceInquiry.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
@@ -119,7 +122,6 @@
     <ClCompile Include="Client\StreamServiceInfoChangedProcessor.cpp" />
     <ClCompile Include="Client\StreamServiceInfoProcessor.cpp" />
     <ClCompile Include="DDRAudioTranscode.cpp" />
-    <ClCompile Include="DDRLocalAudioPull.cpp" />
     <ClCompile Include="DDRStreamPlay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyMTModules.cpp" />
@@ -130,10 +132,7 @@
     <ClCompile Include="RobotChat\tinyxml2.cpp" />
     <ClCompile Include="RobotChat\winrec.c" />
     <ClCompile Include="SerialPortIOHandler.cpp" />
-    <ClCompile Include="StreamMainService.cpp" />
     <ClCompile Include="StreamRelayService.cpp" />
-    <ClCompile Include="TTSQueuePlayer.cpp" />
-    <ClCompile Include="zWalleAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Shared\src\FSM\FSM.h" />
@@ -148,6 +147,7 @@
     <ClInclude Include="..\..\Shared\src\Utility\AudioCodec.h" />
     <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h" />
     <ClInclude Include="..\..\Shared\src\Utility\DDRMacro.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\LocalizationLoader.h" />
     <ClInclude Include="..\..\Shared\src\Utility\Logger.h" />
     <ClInclude Include="..\..\Shared\src\Utility\MiniDump.h" />
     <ClInclude Include="..\..\Shared\src\Utility\Singleton.h" />
@@ -161,7 +161,6 @@
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
-    <ClInclude Include="AudioDeviceInquiry.h" />
     <ClInclude Include="Client\GlobalManager.h" />
     <ClInclude Include="Client\LocalClientDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
@@ -172,17 +171,12 @@
     <ClInclude Include="Client\StreamServiceInfoChangedProcessor.h" />
     <ClInclude Include="Client\StreamServiceInfoProcessor.h" />
     <ClInclude Include="DDRAudioTranscode.h" />
-    <ClInclude Include="DDRLocalAudioPull.h" />
     <ClInclude Include="DDRStreamPlay.h" />
     <ClInclude Include="MyMTModules.h" />
-    <ClInclude Include="ParamReader.h" />
     <ClInclude Include="ProcSharedMem.h" />
     <ClInclude Include="RobotChat\DDVoiceInteraction.h" />
     <ClInclude Include="SerialPortIOHandler.h" />
-    <ClInclude Include="StreamMainService.h" />
     <ClInclude Include="StreamRelayService.h" />
-    <ClInclude Include="TTSQueuePlayer.h" />
-    <ClInclude Include="zWalleAudio.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Shared\proto\BaseCmd.cs" />

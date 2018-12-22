@@ -135,7 +135,7 @@ std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::StartAccept()
 	return spSession;
 }
 
-bool StreamRelayTcpServer::StartVideo(std::vector<AVChannel>& channels)
+bool StreamRelayTcpServer::StartVideo(std::vector<AVChannelConfig>& channels)
 {
 	std::vector<std::string> inputIPs;
 	std::vector<std::string> outputIPs;
@@ -164,76 +164,11 @@ bool StreamRelayTcpServer::StartVideo(std::vector<AVChannel>& channels)
 
 	}
 }
-bool StreamRelayTcpServer::StartAudio(std::vector<AVChannel>& channels)
+bool StreamRelayTcpServer::StartAudio(std::vector<AVChannelConfig>& channels)
 {
 	
-		m_AudioDeviceInquiry.Process();
-		//Sleep(1000);
-		auto audioDeivceIDs = m_AudioDeviceInquiry.GetAudioDeviceID();
-		if (audioDeivceIDs.size() < 1)
-		{
-			DebugLog("\n无音频推流设备，请检查！\n");
-			return false;
-		}
-		else
-		{
-			auto audioDeivceID = audioDeivceIDs[0];
-
-
-			//AudioTranscode at;
-
-			//string srcIP;
-			//string remotedstIP;
-			//string localdstIP;
-
-
-
-			//for (auto channel : channels)
-			//{
-			//	if (channel.type() == AVChannel_ChannelType_Local)
-			//	{
-			//		srcIP = channel.srcip();
-			//		localdstIP = channel.dstip();
-			//	}
-			//	else if (channel.type() == AVChannel_ChannelType_Remote)
-			//	{
-
-			//		srcIP = channel.srcip();
-			//		remotedstIP = channel.dstip();
-			//	}
-			//}
-
-			//if (at.Init(srcIP.c_str(), remotedstIP.c_str(), localdstIP.c_str()))
-			//{
-			//	//printf("音频设备初始化失败，请检查！\n");
-			//	//continue;
-			//	at.Launch();
-			//	at.Respond();
-
-
-			//	StreamPlay sp;
-			//	bool spInit = false;
-			//	if (!localdstIP.empty())
-			//	{
-
-			//		spInit = sp.Init(localdstIP.c_str());
-			//	}
-			//	else if (!remotedstIP.empty())
-			//	{
-
-
-			//		spInit = sp.Init(remotedstIP.c_str());
-			//	}
-
-			//	if (spInit)
-			//	{
-			//		sp.Launch();
-			//	}
-
-
-			//}
-
-		}
-
+		
+		
+	return false;
 	
 }

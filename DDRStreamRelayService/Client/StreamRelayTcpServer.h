@@ -65,16 +65,11 @@ public:
 	virtual std::shared_ptr<TcpSessionBase> StartAccept() override;
 
 
-	bool StartAudio(std::vector<AVChannel>& channels);
-	bool StartVideo(std::vector<AVChannel>& channels);
+	bool StartAudio(std::vector<AVChannelConfig>& channels);
+	bool StartVideo(std::vector<AVChannelConfig>& channels);
 
 protected:
 
-
-
-
-	AudioDeviceInquiry m_AudioDeviceInquiry;
-	//zWalleAudio m_zWalleAudioAudio;
 };
 
 

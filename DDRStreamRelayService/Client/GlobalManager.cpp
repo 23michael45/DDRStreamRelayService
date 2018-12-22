@@ -1,7 +1,7 @@
 #include "GlobalManager.h"
 #include "../../../DDRLocalServer/DDR_LocalClient/Client/LocalClientUdpDispatcher.h"
 
-GlobalManager::GlobalManager() :m_ConfigLoader("Config/StreamRelayConfig.xml")
+GlobalManager::GlobalManager() :m_ConfigLoader("Config/StreamRelayService/StreamRelayConfig.xml")
 {
 }
 GlobalManager::~GlobalManager()
