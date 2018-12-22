@@ -39,6 +39,8 @@ public:
 	{
 		AddCommand("ls sc", std::bind(&_ConsoleDebug::ListServerConnections, this));
 		AddCommand("ls cc", std::bind(&_ConsoleDebug::ListClientConnection, this));
+
+		AddCommand("alarm", std::bind(&_ConsoleDebug::Alarm, this));
 	}
 	void ListServerConnections()
 	{
@@ -57,6 +59,26 @@ public:
 		{
 			std::string ip = spSession->GetSocket().remote_endpoint().address().to_string();
 			printf_s("\n%s", ip.c_str());
+		}
+		else
+		{
+			printf_s("\nClient Not Connection");
+		}
+	}
+	void Alarm()
+	{
+		printf_s("\nSend Alarm");
+		auto spSession = GlobalManager::Instance()->GetTcpClient()->GetConnectedSession();
+		if (spSession)
+		{
+
+			auto spreq = std::make_shared<reqStreamRelayAlarm>();
+			spreq->set_error("SRS_Err_Remote_Server_Error");
+			spreq->add_to(eCltType::eAndroidClient);
+			spreq->add_to(eCltType::ePCClient);
+
+			spSession->Send(spreq);
+			spreq.reset();
 		}
 		else
 		{
