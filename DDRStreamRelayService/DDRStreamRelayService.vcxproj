@@ -109,7 +109,6 @@
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="AudioDeviceInquiry.cpp" />
-    <ClCompile Include="Client\AudioStreamServiceInfoProcessor.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
@@ -117,7 +116,8 @@
     <ClCompile Include="Client\LoginProcessor.cpp" />
     <ClCompile Include="Client\StreamRelayTcpClient.cpp" />
     <ClCompile Include="Client\StreamRelayTcpServer.cpp" />
-    <ClCompile Include="Client\VideoStreamServiceInfoProcessor.cpp" />
+    <ClCompile Include="Client\StreamServiceInfoChangedProcessor.cpp" />
+    <ClCompile Include="Client\StreamServiceInfoProcessor.cpp" />
     <ClCompile Include="DDRAudioTranscode.cpp" />
     <ClCompile Include="DDRLocalAudioPull.cpp" />
     <ClCompile Include="DDRStreamPlay.cpp" />
@@ -162,7 +162,6 @@
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
     <ClInclude Include="AudioDeviceInquiry.h" />
-    <ClInclude Include="Client\AudioStreamServiceInfoProcessor.h" />
     <ClInclude Include="Client\GlobalManager.h" />
     <ClInclude Include="Client\LocalClientDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
@@ -170,7 +169,8 @@
     <ClInclude Include="Client\LoginProcessor.h" />
     <ClInclude Include="Client\StreamRelayTcpClient.h" />
     <ClInclude Include="Client\StreamRelayTcpServer.h" />
-    <ClInclude Include="Client\VideoStreamServiceInfoProcessor.h" />
+    <ClInclude Include="Client\StreamServiceInfoChangedProcessor.h" />
+    <ClInclude Include="Client\StreamServiceInfoProcessor.h" />
     <ClInclude Include="DDRAudioTranscode.h" />
     <ClInclude Include="DDRLocalAudioPull.h" />
     <ClInclude Include="DDRStreamPlay.h" />

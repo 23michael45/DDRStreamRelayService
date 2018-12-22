@@ -30,6 +30,7 @@ void GlobalManager::StopUdp()
 	{
 		m_spUdpClient->StopReceive();
 		m_spUdpClient->Stop();
+		//m_spUdpClient.reset();donot reset here cause Stop is async ,it will release when OnDisconnect is called
 
 	}
 }
@@ -39,14 +40,6 @@ void GlobalManager::CreateUdp()
 	m_spUdpClient->BindOnDisconnect(std::bind(&GlobalManager::OnUdpDisconnect, this, std::placeholders::_1));
 
 }
-void GlobalManager::ReleaseUdp()
-{
-	if (m_spUdpClient)
-	{
-		m_spUdpClient.reset();
-	}
-}
-
 void GlobalManager::CreateTcpClient()
 {
 	m_spTcpClient = std::make_shared<StreamRelayTcpClient>();
@@ -68,22 +61,20 @@ bool GlobalManager::IsTcpClientWorking()
 	return m_spTcpClient != nullptr;
 }
 
-void GlobalManager::CreateTcpServer()
+void GlobalManager::StartTcpServer(int port)
 {
-
-	int port = m_ConfigLoader.GetValue<int>("TcpPort");
 	std::string servername = m_ConfigLoader.GetValue("ServerName");
-	std::string threadCount = "1";
+	std::string threadCount = m_ConfigLoader.GetValue("ThreadCount");
 
 	m_spTcpServer = std::make_shared<StreamRelayTcpServer>(port);
 	m_spTcpServer->Start(std::stoi(threadCount));
 
 }
-void GlobalManager::ReleaseTcpServer()
+void GlobalManager::StopTcpServer()
 {
 	if (m_spTcpServer)
 	{
-		m_spTcpServer.reset();
+		m_spTcpServer->Stop();
 	}
 }
 bool GlobalManager::IsTcpServerWorking()
@@ -106,5 +97,8 @@ std::shared_ptr<StreamRelayTcpServer> GlobalManager::GetTcpServer()
 }
 void GlobalManager::OnUdpDisconnect(UdpSocketBase& container)
 {
-	ReleaseUdp();
+	if (m_spUdpClient)
+	{
+		m_spUdpClient.reset();
+	}
 }

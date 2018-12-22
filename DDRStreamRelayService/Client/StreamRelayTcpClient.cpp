@@ -17,6 +17,7 @@ StreamRelayTcpClient::StreamRelayTcpClient()
 
 StreamRelayTcpClient::~StreamRelayTcpClient()
 {
+	DebugLog("\nDestroy StreamRelayTcpClient")
 }
 
 std::shared_ptr<TcpClientSessionBase> StreamRelayTcpClient::BindSerializerDispatcher()
@@ -32,27 +33,17 @@ void StreamRelayTcpClient::OnConnected(TcpSocketContainer& container)
 	spreq->set_username(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 	spreq->set_type(eCltType::eLSMStreamRelay);
 
-	if (IsConnected())
-	{
-		Send(spreq);
-	}
+	Send(spreq);
 	spreq.reset();
 
 }
 void StreamRelayTcpClient::OnDisconnect(TcpSocketContainer& container)
 {
 	TcpClientBase::OnDisconnect(container);
+	GlobalManager::Instance()->StopTcpServer();
 
 	GlobalManager::Instance()->StartUdp();
 }
-void StreamRelayTcpClient::Send(std::shared_ptr<google::protobuf::Message> spmsg)
-{
-
-	if (IsConnected())
-	{
-		Send(spmsg);
-	}
-};
 void StreamRelayTcpClient::StartHeartBeat()
 {
 	/*m_HeartBeatTimerID = m_Timer.add(std::chrono::seconds(1) , [](timer_id id)
@@ -75,21 +66,11 @@ void StreamRelayTcpClient::SendHeartBeatOnce(timer_id id)
 	sp.reset();
 }
 
-
-void StreamRelayTcpClient::RequestVideoStreamInfo()
+void StreamRelayTcpClient::RequestStreamInfo()
 {
-	auto sp = std::make_shared<reqVideoStreamServiceInfo>();
+	auto sp = std::make_shared<reqStreamServiceInfo>();
 	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
-
-	Send(sp);
-	sp.reset();
-}
-void StreamRelayTcpClient::RequestAudioStreamInfo()
-{
-	auto sp = std::make_shared<reqAudioStreamServiceInfo>();
-	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
-
-
+	
 	Send(sp);
 	sp.reset();
 }

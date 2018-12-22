@@ -32,33 +32,47 @@ void MoveWorkingDir()
 	}
 }
 
-
-char gQuit = 0;
+class _ConsoleDebug : public DDRFramework::ConsoleDebug, public CSingleton<_ConsoleDebug>
+{
+public:
+	_ConsoleDebug()
+	{
+		AddCommand("ls sc", std::bind(&_ConsoleDebug::ListServerConnections, this));
+		AddCommand("ls cc", std::bind(&_ConsoleDebug::ListClientConnection, this));
+	}
+	void ListServerConnections()
+	{
+		printf_s("\nServer Connections");
+		for (auto spSessiont : GlobalManager::Instance()->GetTcpServer()->GetTcpSocketContainerMap())
+		{
+			std::string ip = spSessiont.second->GetSocket().remote_endpoint().address().to_string();
+			printf_s("\n%s", ip.c_str());
+		}
+	}
+	void ListClientConnection()
+	{
+		printf_s("\nClient Connection");
+		auto spSession = GlobalManager::Instance()->GetTcpClient()->GetConnectedSession();
+		if(spSession)
+		{
+			std::string ip = spSession->GetSocket().remote_endpoint().address().to_string();
+			printf_s("\n%s", ip.c_str());
+		}
+		else
+		{
+			printf_s("\nClient Not Connection");
+		}
+	}
+};
 int main(int argc, char **argv)
 {
-	//MoveWorkingDir();
-	/*if (argc < 2) {
-		printf("usage: %s configFileName.txt\n", argv[0]);
-		return 1;
-	}*/
+	GlobalManager::Instance()->StartUdp();
 
-	GlobalManager::Instance()->CreateTcpServer();
-	//GlobalManager::Instance()->StartUdp();
+	GlobalManager::Instance()->CreateTcpClient();
+	GlobalManager::Instance()->GetTcpClient()->Start(GlobalManager::Instance()->GetConfig().GetValue<int>("ThreadCount"));
 
 
-
-	//StreamMainService sms("configFileName.txt");
-	//sms.Start();
-	//std::cout << "音视频管理服务正常退出 ...\n";
-	//Sleep(100);
-	////sms.StartTestOnlyInitPlay();
-	////sms.TestRelayAndPlay();
-	////system("pause");
-
-	while (!gQuit)
-	{
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
+	_ConsoleDebug::Instance()->ConsoleDebugLoop();
 	return 0;
 }
 

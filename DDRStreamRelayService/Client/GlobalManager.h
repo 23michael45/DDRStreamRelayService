@@ -25,8 +25,8 @@ public:
 	bool IsTcpClientWorking();
 
 
-	void CreateTcpServer();
-	void ReleaseTcpServer();
+	void StartTcpServer(int port);
+	void StopTcpServer();
 	bool IsTcpServerWorking();
 	
 	std::shared_ptr<StreamRelayTcpClient> GetTcpClient();
@@ -41,7 +41,6 @@ public:
 private:
 
 	void CreateUdp();
-	void ReleaseUdp();
 	void OnUdpDisconnect(UdpSocketBase& container);
 
 	std::shared_ptr<StreamRelayTcpClient> m_spTcpClient;

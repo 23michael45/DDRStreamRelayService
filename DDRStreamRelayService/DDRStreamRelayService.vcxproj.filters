@@ -100,12 +100,6 @@
     <ClCompile Include="Client\StreamRelayTcpServer.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="Client\AudioStreamServiceInfoProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\VideoStreamServiceInfoProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\stb_vorbis.c">
       <Filter>Shared\Thirdparty\mini-al\extras</Filter>
     </ClCompile>
@@ -117,6 +111,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.cpp">
       <Filter>Shared\Thirdparty\mini-al\extras</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\StreamServiceInfoProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\StreamServiceInfoChangedProcessor.cpp">
+      <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,12 +210,6 @@
     <ClInclude Include="Client\StreamRelayTcpServer.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="Client\AudioStreamServiceInfoProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\VideoStreamServiceInfoProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_flac.h">
       <Filter>Shared\Thirdparty\mini-al\extras</Filter>
     </ClInclude>
@@ -236,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h">
       <Filter>Shared\Thirdparty\mini-al</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\StreamServiceInfoProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\StreamServiceInfoChangedProcessor.h">
+      <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

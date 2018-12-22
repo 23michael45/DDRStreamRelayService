@@ -21,13 +21,11 @@ public:
 		return std::static_pointer_cast<StreamRelayTcpClient>(shared_from_this());
 	}
 
-	void Send(std::shared_ptr<google::protobuf::Message> spmsg);
 
 	void StartHeartBeat();
 	void StopHeartBeat();
 
-	void RequestVideoStreamInfo();
-	void RequestAudioStreamInfo();
+	void RequestStreamInfo();
 
 private:
 	void SendHeartBeatOnce(timer_id id);

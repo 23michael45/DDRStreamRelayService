@@ -27,8 +27,7 @@ void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContaine
 	if (retcode == rspLogin_eLoginRetCode_success)
 	{
 
-		GlobalManager::Instance()->GetTcpClient()->RequestVideoStreamInfo();
-		GlobalManager::Instance()->GetTcpClient()->RequestAudioStreamInfo();
+		GlobalManager::Instance()->GetTcpClient()->RequestStreamInfo();
 		GlobalManager::Instance()->GetTcpClient()->StartHeartBeat();
 	}
 	else

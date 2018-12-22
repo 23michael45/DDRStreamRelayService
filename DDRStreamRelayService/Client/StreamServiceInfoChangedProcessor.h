@@ -1,5 +1,8 @@
-#ifndef VideoStreamInfoProcessor_h__
-#define VideoStreamInfoProcessor_h__
+#ifndef StreamServiceInfoChangedProcessor_h__
+#define StreamServiceInfoChangedProcessor_h__
+
+
+
 
 
 #include "../../../Shared/src/Network/MessageSerializer.h"
@@ -7,15 +10,16 @@
 
 
 using namespace DDRFramework;
-class VideoStreamServiceInfoProcessor : public BaseProcessor
+class StreamServiceInfoChangedProcessor : public BaseProcessor
 {
 public:
-	VideoStreamServiceInfoProcessor(BaseMessageDispatcher& dispatcher);
-	~VideoStreamServiceInfoProcessor();
+	StreamServiceInfoChangedProcessor(BaseMessageDispatcher& dispatcher);
+	~StreamServiceInfoChangedProcessor();
 
 	virtual void Process(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
 	virtual void AsyncProcess(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg) override;
 private:
 };
 
-#endif // VideoStreamInfoProcessor_h__
+#endif // StreamServiceInfoChangedProcessor_h__
+

@@ -66,7 +66,7 @@ StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFra
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
-
+	DebugLog("\nStreamRelayTcpSession Destroy")
 }
 
 void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
@@ -135,15 +135,16 @@ std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::StartAccept()
 	return spSession;
 }
 
-
 bool StreamRelayTcpServer::StartVideo(std::vector<AVChannel>& channels)
 {
 	std::vector<std::string> inputIPs;
 	std::vector<std::string> outputIPs;
+
+
 	for (auto channel : channels)
 	{
-		inputIPs.push_back(channel.srcip());
-		outputIPs.push_back(channel.dstip());
+		inputIPs.push_back(channel.src());
+		outputIPs.push_back(channel.dst());
 
 	}
 

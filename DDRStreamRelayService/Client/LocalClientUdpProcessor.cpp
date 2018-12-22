@@ -85,9 +85,6 @@ void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverpor
 	if (GlobalManager::Instance()->IsUdpWorking())
 	{
 		GlobalManager::Instance()->StopUdp();
-
-		GlobalManager::Instance()->CreateTcpClient();
-		GlobalManager::Instance()->GetTcpClient()->Start(4);
 		std::ostringstream strport;
 		strport << serverport;
 		const std::string sPort(strport.str());
