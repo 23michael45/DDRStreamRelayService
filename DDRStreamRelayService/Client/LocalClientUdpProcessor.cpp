@@ -5,6 +5,7 @@
 #include "../../../Shared/src/Network/HttpServer.h"
 #include "../../../Shared/thirdparty/asio/include/asio.hpp"
 #include "GlobalManager.h"
+#include "HttpFileServer.h"
 
 using namespace DDRFramework;
 using namespace DDRCommProto;
@@ -105,6 +106,5 @@ void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverpor
 
 void LocalClientUdpProcessor::HttpServerStart(const std::string& serverip, std::string& serverport,std::string& docroot)
 {
-	DDRFramework::HttpServer httpServer;
-	httpServer.Start(serverip,serverport,docroot);
+	HttpFileServer::Instance()->Start(serverip,serverport,docroot);
 }

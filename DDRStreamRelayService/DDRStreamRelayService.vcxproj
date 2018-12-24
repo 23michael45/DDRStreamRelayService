@@ -106,9 +106,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/cppfs/include;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,10 +185,31 @@
     <ClCompile Include="..\..\Shared\src\Network\UdpSocketBase.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\AudioCodec.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\CommonFunc.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\FileManagerBase.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\LocalizationLoader.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\AbstractFileHandleBackend.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\AbstractFileIteratorBackend.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\AbstractFileSystem.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\Change.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\cppfsUrl.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\Diff.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\FileHandle.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\FileIterator.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\FilePath.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\FileVisitor.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\fs.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\FunctionalFileVisitor.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\InputStream.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\LoginCredentials.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\OutputStream.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\system.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\Tree.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\windows\LocalFileHandle.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\windows\LocalFileIterator.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\cppfs\source\windows\LocalFileSystem.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_reader.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_value.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_writer.cpp" />
@@ -199,7 +220,10 @@
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="Client\FileManager.cpp" />
+    <ClCompile Include="Client\FileStatusProcessor.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
+    <ClCompile Include="Client\HttpFileServer.cpp" />
     <ClCompile Include="Client\LocalClientDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpDispatcher.cpp" />
     <ClCompile Include="Client\LocalClientUdpProcessor.cpp" />
@@ -244,6 +268,7 @@
     <ClInclude Include="..\..\Shared\src\Utility\AudioCodec.h" />
     <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h" />
     <ClInclude Include="..\..\Shared\src\Utility\DDRMacro.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\FileManagerBase.h" />
     <ClInclude Include="..\..\Shared\src\Utility\LocalizationLoader.h" />
     <ClInclude Include="..\..\Shared\src\Utility\Logger.h" />
     <ClInclude Include="..\..\Shared\src\Utility\MiniDump.h" />
@@ -259,7 +284,10 @@
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
+    <ClInclude Include="Client\FileManager.h" />
+    <ClInclude Include="Client\FileStatusProcessor.h" />
     <ClInclude Include="Client\GlobalManager.h" />
+    <ClInclude Include="Client\HttpFileServer.h" />
     <ClInclude Include="Client\LocalClientDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpDispatcher.h" />
     <ClInclude Include="Client\LocalClientUdpProcessor.h" />
