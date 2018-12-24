@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -23,7 +31,20 @@
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -36,14 +57,26 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -61,6 +94,27 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x86/libprotocd.lib;$(ProjectDir)../../Shared/lib/x86/libprotobufd.lib;%(AdditionalDependencies)avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_d.lib;winmm.lib</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(SolutionDir)DDRStreamRelayService\Config\*.*   $(SolutionDir)Debug\Config\ /s /i</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>LocalNetworkNode;lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x64/libprotocd.lib;$(ProjectDir)../../Shared/lib/x64/libprotobufd.lib;%(AdditionalDependencies);avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libaod.lib;winmm.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -89,11 +143,41 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc" />
     <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseSocketContainer.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\connection.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\connection_manager.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\http_server.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\mime_types.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\reply.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\request_handler.cpp" />
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\request_parser.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\MessageSerializer.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\TcpClientBase.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\TcpServerBase.cpp" />
@@ -105,6 +189,9 @@
     <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\XmlLoader.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_reader.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_value.cpp" />
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_writer.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\stb_vorbis.c" />
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\mini_al.cpp" />
@@ -139,6 +226,16 @@
     <ClInclude Include="..\..\Shared\src\Network\BaseMessageDispatcher.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseProcessor.h" />
     <ClInclude Include="..\..\Shared\src\Network\BaseSocketContainer.h" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer.h" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\connection.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\connection_manager.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\header.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\http_server.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\mime_types.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\reply.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request_handler.hpp" />
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request_parser.hpp" />
     <ClInclude Include="..\..\Shared\src\Network\MessageSerializer.h" />
     <ClInclude Include="..\..\Shared\src\Network\TcpClientBase.h" />
     <ClInclude Include="..\..\Shared\src\Network\TcpServerBase.h" />
@@ -153,6 +250,7 @@
     <ClInclude Include="..\..\Shared\src\Utility\Singleton.h" />
     <ClInclude Include="..\..\Shared\src\Utility\Timer.hpp" />
     <ClInclude Include="..\..\Shared\src\Utility\XmlLoader.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\jsoncpp\src\json_tool.h" />
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_flac.h" />
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_mp3.h" />
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.h" />
@@ -180,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Shared\proto\BaseCmd.cs" />
+    <None Include="..\..\Shared\thirdparty\jsoncpp\src\json_valueiterator.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

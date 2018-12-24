@@ -3,6 +3,7 @@
 #include "../../Shared/src/Network/MessageSerializer.h"
 #include "../../Shared/src/Network/TcpServerBase.h"
 #include "../../Shared/src/Network/TcpClientBase.h"
+#include "../../Shared/src/Network/HttpServer.h"
 #include "../../Shared/proto/BaseCmd.pb.h"
 #include "../../Shared/src/Utility/DDRMacro.h"
 #include "Client/LocalClientUdpDispatcher.h"
@@ -92,6 +93,7 @@ int main(int argc, char **argv)
 
 	GlobalManager::Instance()->CreateTcpClient();
 	GlobalManager::Instance()->GetTcpClient()->Start(GlobalManager::Instance()->GetConfig().GetValue<int>("ThreadCount"));
+
 
 
 	_ConsoleDebug::Instance()->ConsoleDebugLoop();

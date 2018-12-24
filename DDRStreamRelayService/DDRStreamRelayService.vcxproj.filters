@@ -116,6 +116,39 @@
     <ClCompile Include="..\..\Shared\src\Utility\LocalizationLoader.cpp">
       <Filter>Shared\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\connection.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\connection_manager.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\http_server.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\mime_types.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\reply.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\request_handler.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer\request_parser.cpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Network\HttpServer.cpp">
+      <Filter>Shared\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_reader.cpp">
+      <Filter>Shared\Thirdparty\jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_value.cpp">
+      <Filter>Shared\Thirdparty\jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_writer.cpp">
+      <Filter>Shared\Thirdparty\jsoncpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DDRAudioTranscode.h" />
@@ -232,6 +265,39 @@
     <ClInclude Include="..\..\Shared\src\Utility\LocalizationLoader.h">
       <Filter>Shared\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\connection.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\connection_manager.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\header.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\http_server.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\mime_types.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\reply.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request_handler.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer\request_parser.hpp">
+      <Filter>Shared\Network\HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Network\HttpServer.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\jsoncpp\src\json_tool.h">
+      <Filter>Shared\Thirdparty\jsoncpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="RobotChat">
@@ -264,10 +330,19 @@
     <Filter Include="Shared\Thirdparty\mini-al\extras">
       <UniqueIdentifier>{70a16cba-eeee-48b0-b6aa-2272220577d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shared\Network\HttpServer">
+      <UniqueIdentifier>{17f45cc0-d13d-4722-a776-1443bb9b640a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Thirdparty\jsoncpp">
+      <UniqueIdentifier>{6e4e6b87-c1b2-4f97-8124-d4de9080bb0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Shared\proto\BaseCmd.cs">
       <Filter>Shared\proto</Filter>
+    </None>
+    <None Include="..\..\Shared\thirdparty\jsoncpp\src\json_valueiterator.inl">
+      <Filter>Shared\Thirdparty\jsoncpp</Filter>
     </None>
   </ItemGroup>
 </Project>

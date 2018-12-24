@@ -2,6 +2,7 @@
 #include <memory>
 #include "../../../Shared/src/Utility/DDRMacro.h"
 #include "../../../Shared/src/Utility/CommonFunc.h"
+#include "../../../Shared/src/Network/HttpServer.h"
 #include "../../../Shared/thirdparty/asio/include/asio.hpp"
 #include "GlobalManager.h"
 
@@ -68,6 +69,10 @@ void LocalClientUdpProcessor::DealLocalServer(bcLSAddr_ServerInfo& serverinfo)
 		auto conntectip = (rmap.begin())->second;
 
 		TcpClientStart(conntectip, port);
+
+
+		HttpServerStart((rmap.begin())->first, GlobalManager::Instance()->GetConfig().GetValue("HttpPort"), GlobalManager::Instance()->GetConfig().GetValue("HttpRoot"));
+
 		DebugLog("\nReceive Server Broadcast %s: %s", name.c_str(), conntectip.c_str());
 	}
 	else
@@ -79,6 +84,7 @@ void LocalClientUdpProcessor::DealLocalServer(bcLSAddr_ServerInfo& serverinfo)
 	}
 
 }
+
 
 void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverport)
 {
@@ -95,4 +101,10 @@ void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverpor
 
 
 
+}
+
+void LocalClientUdpProcessor::HttpServerStart(const std::string& serverip, std::string& serverport,std::string& docroot)
+{
+	DDRFramework::HttpServer httpServer;
+	httpServer.Start(serverip,serverport,docroot);
 }
