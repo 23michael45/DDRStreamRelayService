@@ -37,7 +37,7 @@ mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSam
 		asio::streambuf& buf = p_gAudioTcpSession->GetRecvBuf();
 
 		size_t len = buf.size();
-		if (len < samplesToRead)
+		if (len < samplesToRead * sizeof(mal_int16))
 		{
 
 			memcpy(pSamples, buf.data().data(), len);
@@ -73,6 +73,10 @@ void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
 {
 	std::lock_guard<std::mutex> lock(m_AudioRecvMutex);
 
+	static int i = 0;
+	i += buf.size();
+	DebugLog("\n--------------------------------------------------------------------------------%i", i);
+
 	std::ostream oshold(&m_AudioRecvBuf);
 	oshold.write((const char*)buf.data().data(), buf.size());
 	oshold.flush();
@@ -83,7 +87,7 @@ void StreamRelayTcpSession::OnStart()
 
 	p_gAudioTcpSession = this;
 
-	m_AudioCodec.Init(2, 48000, on_recv_frames, on_send_frames);
+	m_AudioCodec.Init(1, 16000, on_recv_frames, on_send_frames);
 	m_AudioCodec.StartRecord();
 	m_AudioCodec.StartPlay();
 }

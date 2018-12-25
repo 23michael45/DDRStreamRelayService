@@ -53,7 +53,7 @@ void StreamServiceInfoProcessor::AsyncProcess(std::shared_ptr<BaseSocketContaine
 	}
 	GlobalManager::Instance()->StartTcpServer(pRaw->tcpport());
 
-	GlobalManager::Instance()->GetTcpServer()->StartVideo(VideoChannels);
+	//GlobalManager::Instance()->GetTcpServer()->StartVideo(VideoChannels);
 
 
 	

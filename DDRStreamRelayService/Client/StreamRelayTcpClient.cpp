@@ -25,7 +25,7 @@ std::shared_ptr<TcpClientSessionBase> StreamRelayTcpClient::BindSerializerDispat
 	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, TcpClientSessionBase, MessageSerializer, LocalClientDispatcher,BaseHeadRuleRouter)
 		return spTcpClientSessionBase;
 }
-void StreamRelayTcpClient::OnConnected(TcpSocketContainer& container)
+void StreamRelayTcpClient::OnConnected(std::shared_ptr<TcpSocketContainer> spContainer)
 {
 
 	DebugLog("\nOnConnectSuccess! StreamRelayTcpClient");
@@ -37,9 +37,9 @@ void StreamRelayTcpClient::OnConnected(TcpSocketContainer& container)
 	spreq.reset();
 
 }
-void StreamRelayTcpClient::OnDisconnect(TcpSocketContainer& container)
+void StreamRelayTcpClient::OnDisconnect(std::shared_ptr<TcpSocketContainer> spContainer)
 {
-	TcpClientBase::OnDisconnect(container);
+	TcpClientBase::OnDisconnect(spContainer);
 	GlobalManager::Instance()->StopTcpServer();
 
 	GlobalManager::Instance()->StartUdp();
