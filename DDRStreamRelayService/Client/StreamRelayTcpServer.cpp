@@ -63,6 +63,7 @@ mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSam
 
 StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFramework::TcpSessionBase(context)
 {
+	SetRealtime(true);
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
@@ -73,9 +74,6 @@ void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
 {
 	std::lock_guard<std::mutex> lock(m_AudioRecvMutex);
 
-	static int i = 0;
-	i += buf.size();
-	DebugLog("\n--------------------------------------------------------------------------------%i", i);
 
 	std::ostream oshold(&m_AudioRecvBuf);
 	oshold.write((const char*)buf.data().data(), buf.size());
