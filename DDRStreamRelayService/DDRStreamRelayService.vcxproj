@@ -118,7 +118,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y $(SolutionDir)DDRStreamRelayService\Config\*.*   $(SolutionDir)Debug\Config\ /s /i</Command>
+      <Command>xcopy /Y $(SolutionDir)DDRStreamRelayService\Config\*.*   $(SolutionDir)x64\Debug\Config\ /s /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\Shared\src\Utility\AudioCodec.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\CommonFunc.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\FileManagerBase.cpp" />
+    <ClCompile Include="..\..\Shared\src\Utility\GlobalManagerBase.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\LocalizationLoader.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\Logger.cpp" />
     <ClCompile Include="..\..\Shared\src\Utility\MiniDump.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h" />
     <ClInclude Include="..\..\Shared\src\Utility\DDRMacro.h" />
     <ClInclude Include="..\..\Shared\src\Utility\FileManagerBase.h" />
+    <ClInclude Include="..\..\Shared\src\Utility\GlobalManagerBase.h" />
     <ClInclude Include="..\..\Shared\src\Utility\LocalizationLoader.h" />
     <ClInclude Include="..\..\Shared\src\Utility\Logger.h" />
     <ClInclude Include="..\..\Shared\src\Utility\MiniDump.h" />

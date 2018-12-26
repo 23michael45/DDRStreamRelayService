@@ -6,10 +6,11 @@
 #include "../../../Shared/src/Network/TcpClientBase.h"
 #include "../../../Shared/src/Utility/Singleton.h"
 #include "../../../Shared/src/Utility/LocalizationLoader.h"
+#include "../../../Shared/src/Utility/GlobalManagerBase.h"
 #include "StreamRelayTcpClient.h"
 #include "StreamRelayTcpServer.h"
 using namespace DDRFramework;
-class GlobalManager : public DDRFramework::CSingleton<GlobalManager>
+class GlobalManager : public DDRFramework::CSingleton<GlobalManager>, public GlobalManagerBase
 {
 public:
 	GlobalManager();
@@ -38,11 +39,6 @@ public:
 	{
 		return m_ConfigLoader;
 	}	
-	LocalizationLoader& GetLocalizationConfig()
-	{
-		return m_LocalizationConfig;
-	}
-
 private:
 
 	void CreateUdp();
@@ -53,8 +49,6 @@ private:
 	std::shared_ptr<UdpSocketBase> m_spUdpClient;
 
 	XmlLoader m_ConfigLoader;
-
-	LocalizationLoader m_LocalizationConfig;
 
 };
 

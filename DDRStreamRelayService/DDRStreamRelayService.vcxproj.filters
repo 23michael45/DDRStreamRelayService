@@ -221,6 +221,9 @@
     <ClCompile Include="Client\HttpFileServer.cpp">
       <Filter>Client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Shared\src\Utility\GlobalManagerBase.cpp">
+      <Filter>Shared\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DDRAudioTranscode.h" />
@@ -381,6 +384,9 @@
     </ClInclude>
     <ClInclude Include="Client\HttpFileServer.h">
       <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\src\Utility\GlobalManagerBase.h">
+      <Filter>Shared\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

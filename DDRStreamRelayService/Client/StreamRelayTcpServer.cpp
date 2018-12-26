@@ -43,7 +43,7 @@ mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSam
 			memcpy(pSamples, buf.data().data(), len);
 			buf.consume(len);
 
-			return len / pDevice->channels;
+			return len / sizeof(mal_int16) / pDevice->channels;
 		}
 		else
 		{

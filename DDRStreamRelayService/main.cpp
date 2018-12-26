@@ -194,9 +194,6 @@ void PlayAudio()
 
 int main(int argc, char **argv)
 {
-	//PlayAudio();
-
-
 	GlobalManager::Instance()->StartUdp();
 
 	GlobalManager::Instance()->CreateTcpClient();
