@@ -15,7 +15,7 @@ StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFra
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
-	DebugLog("StreamRelayTcpSession Destroy")
+		DebugLog("StreamRelayTcpSession Destroy")
 }
 
 

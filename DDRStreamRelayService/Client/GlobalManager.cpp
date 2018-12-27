@@ -7,15 +7,17 @@ GlobalManager::GlobalManager() :m_ConfigLoader("Config/StreamRelayService/Stream
 GlobalManager::~GlobalManager()
 {
 
+
 }
 
 bool GlobalManager::StartUdp()
 {
-	if (m_spUdpClient)
+	if (!m_spUdpClient)
 	{
-		return false;
+		m_spUdpClient = std::make_shared<UdpSocketBase>();
+		m_spUdpClient->BindOnDisconnect(std::bind(&GlobalManager::OnUdpDisconnect, this, std::placeholders::_1));
+
 	}
-	CreateUdp(); 
 	if (m_spUdpClient)
 	{
 		m_spUdpClient->Start();
@@ -36,8 +38,6 @@ void GlobalManager::StopUdp()
 }
 void GlobalManager::CreateUdp()
 {
-	m_spUdpClient = std::make_shared<UdpSocketBase>();
-	m_spUdpClient->BindOnDisconnect(std::bind(&GlobalManager::OnUdpDisconnect, this, std::placeholders::_1));
 
 }
 void GlobalManager::CreateTcpClient()
@@ -66,7 +66,10 @@ void GlobalManager::StartTcpServer(int port)
 	std::string servername = m_ConfigLoader.GetValue("ServerName");
 	std::string threadCount = m_ConfigLoader.GetValue("ThreadCount");
 
-	m_spTcpServer = std::make_shared<StreamRelayTcpServer>(port);
+	if (!m_spTcpServer)
+	{
+		m_spTcpServer = std::make_shared<StreamRelayTcpServer>(port);
+	}
 	m_spTcpServer->Start(std::stoi(threadCount));
 
 }
