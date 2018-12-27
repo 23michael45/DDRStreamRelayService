@@ -17,7 +17,7 @@ StreamRelayTcpClient::StreamRelayTcpClient()
 
 StreamRelayTcpClient::~StreamRelayTcpClient()
 {
-	DebugLog("\nDestroy StreamRelayTcpClient")
+	DebugLog("Destroy StreamRelayTcpClient")
 }
 
 std::shared_ptr<TcpClientSessionBase> StreamRelayTcpClient::BindSerializerDispatcher()
@@ -28,7 +28,7 @@ std::shared_ptr<TcpClientSessionBase> StreamRelayTcpClient::BindSerializerDispat
 void StreamRelayTcpClient::OnConnected(std::shared_ptr<TcpSocketContainer> spContainer)
 {
 
-	DebugLog("\nOnConnectSuccess! StreamRelayTcpClient");
+	DebugLog("OnConnectSuccess! StreamRelayTcpClient");
 	auto spreq = std::make_shared<reqLogin>();
 	spreq->set_username(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
 	spreq->set_type(eCltType::eLSMStreamRelay);

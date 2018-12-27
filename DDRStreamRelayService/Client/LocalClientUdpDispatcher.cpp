@@ -15,5 +15,5 @@ LocalClientUdpDispatcher::LocalClientUdpDispatcher()
 
 LocalClientUdpDispatcher::~LocalClientUdpDispatcher()
 {
-	DebugLog("\nLocalClientUdpDispatcher Destroy");
+	DebugLog("LocalClientUdpDispatcher Destroy");
 }

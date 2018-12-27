@@ -4,7 +4,6 @@
 #include "../../../Shared/src/Network/TcpServerBase.h"
 #include "../../../Shared/src/Utility/Singleton.h"
 
-#include "../AudioDeviceInquiry.h"
 #include "../../../Shared/src/Utility/AudioCodec.h"
 #include "../../../Shared/proto/BaseCmd.pb.h"
 
@@ -12,7 +11,7 @@
 using namespace DDRFramework;
 using namespace DDRCommProto;
 
-class StreamRelayTcpSession : public TcpSessionBase
+class StreamRelayTcpSession : public HookTcpSession
 {
 public:
 	StreamRelayTcpSession(asio::io_context& context);
@@ -22,21 +21,24 @@ public:
 		return std::static_pointer_cast<StreamRelayTcpSession>(shared_from_this());
 	}
 
-	std::mutex& GetRecvMutex()
+
+	void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSamples);
+	mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples);
+
+
+	virtual void OnStart() override;
+	virtual void OnStop() override;
+
+
+	virtual void OnHookReceive(asio::streambuf& buf) override;
+	std::mutex& GetAudioRecvMutex()
 	{
 		return m_AudioRecvMutex;
 	}
-
-	asio::streambuf& GetRecvBuf()
-	{
-		return m_AudioRecvBuf;
-	}
-	virtual void OnStart() override;
-	virtual void OnStop() override;
-	void OnHookReceive(asio::streambuf& buf);
-
 private:
 	AudioCodec m_AudioCodec;
+
+
 
 	std::mutex m_AudioRecvMutex;
 	asio::streambuf m_AudioRecvBuf;
@@ -44,25 +46,17 @@ private:
 };
 
 
-class StreamRelayTcpServer : public TcpServerBase
+class StreamRelayTcpServer : public HookTcpServer
 {
 public:
 	StreamRelayTcpServer(int port);
 	~StreamRelayTcpServer();
 
-
-	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
-
-	std::shared_ptr<TcpSessionBase> GetTcpSessionBySocket(tcp::socket* pSocket);
-	std::map<tcp::socket*,std::shared_ptr<TcpSessionBase>>& GetTcpSocketContainerMap();
-
-
 	auto shared_from_base() {
 		return std::static_pointer_cast<StreamRelayTcpServer>(shared_from_this());
 	}
 
-
-	virtual std::shared_ptr<TcpSessionBase> StartAccept() override;
+	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
 
 
 	bool StartAudio(std::vector<AVChannelConfig>& channels);

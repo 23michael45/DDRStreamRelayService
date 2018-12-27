@@ -32,7 +32,7 @@ void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContaine
 	}
 	else
 	{
-		DebugLog("\nLogin Error");
+		DebugLog("Login Error");
 	}
 
 
