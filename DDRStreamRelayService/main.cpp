@@ -47,10 +47,19 @@ public:
 	void ListServerConnections()
 	{
 		printf_s("\nServer Connections");
-		for (auto spSessiont : GlobalManager::Instance()->GetTcpServer()->GetTcpSocketContainerMap())
+		if (GlobalManager::Instance()->GetTcpServer())
 		{
-			std::string ip = spSessiont.second->GetSocket().remote_endpoint().address().to_string();
-			printf_s("\n%s", ip.c_str());
+			for (auto spSessiont : GlobalManager::Instance()->GetTcpServer()->GetTcpSocketContainerMap())
+			{
+				std::string ip = spSessiont.second->GetSocket().remote_endpoint().address().to_string();
+				printf_s("\n%s", ip.c_str());
+			}
+
+		}
+		else
+		{
+
+			printf_s("\nNo TcpServer Created");
 		}
 	}
 	void ListClientConnection()
