@@ -113,8 +113,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>LocalNetworkNode;lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x64/libprotocd.lib;$(ProjectDir)../../Shared/lib/x64/libprotobufd.lib;%(AdditionalDependencies);avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libaod.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)../../Shared/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)../../Shared/lib/x64/libprotocd.lib;$(ProjectDir)../../Shared/lib/x64/libprotobufd.lib;%(AdditionalDependencies);avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libaod.lib;winmm.lib;libiconvD.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -246,6 +246,7 @@
     <ClCompile Include="RobotChat\winrec.c" />
     <ClCompile Include="SerialPortIOHandler.cpp" />
     <ClCompile Include="StreamRelayService.cpp" />
+    <ClCompile Include="TTSQueuePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Shared\src\FSM\FSM.h" />
@@ -306,6 +307,7 @@
     <ClInclude Include="RobotChat\DDVoiceInteraction.h" />
     <ClInclude Include="SerialPortIOHandler.h" />
     <ClInclude Include="StreamRelayService.h" />
+    <ClInclude Include="TTSQueuePlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Shared\proto\BaseCmd.cs" />
