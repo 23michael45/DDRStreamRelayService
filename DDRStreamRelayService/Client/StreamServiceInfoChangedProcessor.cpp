@@ -38,7 +38,7 @@ void StreamServiceInfoChangedProcessor::AsyncProcess(std::shared_ptr<BaseSocketC
 		channels.push_back(channel);
 	}
 
-	GlobalManager::Instance()->GetTcpServer()->StartVideo(channels);
+	GlobalManager::Instance()->GetTcpServer()->StartRemoteVideo(channels);
 
 
 	

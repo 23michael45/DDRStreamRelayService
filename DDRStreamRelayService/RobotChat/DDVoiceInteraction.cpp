@@ -7,15 +7,12 @@
 #include "msp_errors.h"
 #include "cJSON.h"
 #include "tinyxml2.h"
-#pragma comment (lib, "RobotChat/libs/libiconv.lib")
-//#include <iconv.h>
 #include "iconv.h"
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <playsoundapi.h>
 
-using namespace DDRVoice;
 
 static char *gResult = NULL;
 static unsigned int gBuffersize = BUFFER_SIZE;
@@ -146,7 +143,6 @@ DDVoiceInteraction::DDVoiceInteraction()
 	/*: MainSubsModel(1, 0, 100)*/
 	: MainSubsModel(1, 10, 100)
 {
-	m_pSerialRobotChat = nullptr;
 	m_bInitSuccess = false;
 	m_bLastTimeIsRun = false;
 	m_bEnterThread = false;
@@ -219,7 +215,7 @@ int DDVoiceInteraction::G2U(char *inbuf,
 	return CodeConvert("gb2312", "utf-8", inbuf, inlen, outbuf, outlen);
 }
 
-bool DDVoiceInteraction::Init(bool bOnline, int nPort)
+bool DDVoiceInteraction::Init(bool bOnline)
 {
 	if(m_bInitSuccess)
 	{
@@ -227,17 +223,6 @@ bool DDVoiceInteraction::Init(bool bOnline, int nPort)
 		return true;
 	}
 	
-	if(!m_pSerialRobotChat)
-	{
-		m_pSerialRobotChat = new SerialPortIOHandler;
-	}
-	m_pSerialRobotChat->SetSerialPort(nPort, 115200);
-	m_pSerialRobotChat->Open();
-	if(!m_pSerialRobotChat->IsOpened())
-	{
-		//printf("DDVoiceInteraction::Init() Open Serial error. no liumai\n");
-		//return false;
-	}
 
 	mbOnline = bOnline;
 	int			ret = MSP_SUCCESS;
@@ -520,72 +505,71 @@ void DDVoiceInteraction::SetPlayCallBackFun(std::function<void(char*)> PlayCBFun
 	PlaySoundFun = std::bind(PlayCBFun, std::placeholders::_1);
 }
 
-// 读取串口的内容，看看有没有唤醒
-bool DDVoiceInteraction::CheckSerialDataIsWakeup()
+std::shared_ptr<asio::streambuf> DDVoiceInteraction::GetVoiceBuf(std::string& content)
 {
-	if(!m_pSerialRobotChat)
-	{
-		return false;
-	}
-	
-	if(!m_pSerialRobotChat->IsOpened())
-	{
-		//std::cout << "DDVoiceInteraction::CheckSerialDataIsWakeup() Error serial not open --- " << std::endl;
-		return false;
-	}
-	bool bret = false;
-	char pBuf[64] = {};
-	int pBufLen = sizeof(pBuf)/sizeof(char);
-	int actualLenRead = pBufLen;
-	m_pSerialRobotChat->Read(pBuf, pBufLen - 1, actualLenRead);
-	pBuf[actualLenRead] = '\0';
-	std::string strData(pBuf);
-	if(-1 != strData.find("wakeup"))
-	{
-		//std::cout << "DDVoiceInteraction::CheckSerialDataIsWakeup() wakeup data = " << strData.c_str() << std::endl;
-		bret = true;
-	}
-	return bret;
-}
+	std::shared_ptr<asio::streambuf> spbuf = std::make_shared<asio::streambuf>();
+	std::ostream oshold(spbuf.get());
 
-// 让串口进入睡眠状态
-bool  DDVoiceInteraction::SetSerialSleep(bool bIsWakeUp)
-{
-	//std::cout << "DDVoiceInteraction::SetSerialSleep() +++ bIsWakeUp = " << bIsWakeUp << std::endl;
-	if(!m_pSerialRobotChat)
+
+
+	const char* params = "engine_type = local, voice_name = xiaoyan, text_encoding = GB2312, tts_res_path = fo|res\\tts\\xiaoyan.jet;fo|res\\tts\\common.jet, sample_rate = 16000, speed = 50, volume = 50, pitch = 50, rdn = 2";
+
+
+	int          ret = -1;
+	const char*  sessionID = NULL;
+	unsigned int audio_len = 0;
+	int  synth_status = MSP_TTS_FLAG_STILL_HAVE_DATA;
+
+	/* 开始合成 */
+	sessionID = QTTSSessionBegin(params, &ret);
+	if (MSP_SUCCESS != ret)
 	{
-		return false;
+		printf("QTTSSessionBegin failed, error code: %d.\n", ret);
+		spbuf.reset();
+		return nullptr;
+	}
+	ret = QTTSTextPut(sessionID, content.c_str(), content.length(), NULL);
+	if (MSP_SUCCESS != ret)
+	{
+		printf("QTTSTextPut failed, error code: %d.\n", ret);
+		QTTSSessionEnd(sessionID, "TextPutError");
+		spbuf.reset();
+		return nullptr;
 	}
 
-	if(!m_pSerialRobotChat->IsOpened())
+	while (1)
 	{
-		//std::cout << "DDVoiceInteraction::SetSerialSleep() Error serial not open --- " << std::endl;
-		return false;
-	}
-
-	if(bIsWakeUp) // 唤醒
-	{
-		if(!m_pSerialRobotChat->Write("set 0", 5))
+		/* 获取合成音频 */
+		const void* data = QTTSAudioGet(sessionID, &audio_len, &synth_status, &ret);
+		if (MSP_SUCCESS != ret)
+			break;
+		if (NULL != data)
 		{
-			//std::cout << "DDVoiceInteraction::SetSerialSleep() Write Error1 --- " << std::endl;
-			return false;
-		}
 
-		//if(!m_pSerialRobotChat->Write("set 1", 5))
-		{
-			//std::cout << "DDVoiceInteraction::SetSerialSleep() Write Error1 --- " << std::endl;
-			//return false;
+			oshold.write((const char*)data, audio_len);
 		}
+		if (MSP_TTS_FLAG_DATA_END == synth_status)
+			break;
 	}
-	else // 关闭
+	//printf("\n");
+	if (MSP_SUCCESS != ret)
 	{
-		if(!m_pSerialRobotChat->Write("set s", 5))
-		{
-			//std::cout << "DDVoiceInteraction::SetSerialSleep() Write Error2 --- " << std::endl;
-			return false;
-		}
+		printf("QTTSAudioGet failed, error code: %d.\n", ret);
+		QTTSSessionEnd(sessionID, "AudioGetError");
+		spbuf.reset();
+		return nullptr;
 	}
-	return true;
+
+	oshold.flush();
+	/* 合成完毕 */
+	ret = QTTSSessionEnd(sessionID, "Normal");
+	if (MSP_SUCCESS != ret)
+	{
+		printf("QTTSSessionEnd failed, error code: %d.\n", ret);
+		spbuf.reset();
+		return nullptr;
+	}
+	return spbuf;
 }
 
 /*
@@ -768,7 +752,7 @@ bool  DDVoiceInteraction::processFinishedTask_Main()
 		m_bLastTimeIsRun = false;
 		m_bEnterThread = false;
 		//std::cout << "DDVoiceInteraction() Quit chat ..." << std::endl;
-		SetSerialSleep();
+
 	}
 	
 	return true;
@@ -788,7 +772,7 @@ bool DDVoiceInteraction::isTaskAllowed_Main()
 	if(m_bEnterThread)
 	{
 		//std::cout << "DDVoiceInteraction() Enter chat ..." << std::endl;
-		SetSerialSleep(true);
+	
 	}
 	
 	return m_bEnterThread;

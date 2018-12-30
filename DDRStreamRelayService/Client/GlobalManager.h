@@ -27,7 +27,7 @@ public:
 	bool IsTcpClientWorking();
 
 
-	void StartTcpServer(int port);
+	void StartTcpServer(rspStreamServiceInfo& info);
 	void StopTcpServer();
 	bool IsTcpServerWorking();
 	

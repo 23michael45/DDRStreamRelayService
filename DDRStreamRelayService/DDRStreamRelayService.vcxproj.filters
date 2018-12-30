@@ -10,7 +10,6 @@
     <ClCompile Include="RobotChat\DDVoiceInteraction.cpp">
       <Filter>RobotChat</Filter>
     </ClCompile>
-    <ClCompile Include="SerialPortIOHandler.cpp" />
     <ClCompile Include="RobotChat\cJSON.c">
       <Filter>RobotChat</Filter>
     </ClCompile>
@@ -235,7 +234,6 @@
     <ClInclude Include="RobotChat\DDVoiceInteraction.h">
       <Filter>RobotChat</Filter>
     </ClInclude>
-    <ClInclude Include="SerialPortIOHandler.h" />
     <ClInclude Include="..\..\Shared\src\Utility\CommonFunc.h">
       <Filter>Shared\Utility</Filter>
     </ClInclude>

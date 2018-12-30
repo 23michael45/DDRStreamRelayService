@@ -29,31 +29,8 @@ void StreamServiceInfoProcessor::Process(std::shared_ptr<BaseSocketContainer> sp
 void StreamServiceInfoProcessor::AsyncProcess(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
 {
 	rspStreamServiceInfo* pRaw = reinterpret_cast<rspStreamServiceInfo*>(spMsg.get());
-
-
-
-	std::vector<AVChannelConfig> VideoChannels;
-	std::vector<AVChannelConfig> AudioChannels;
-	std::vector<AVChannelConfig> AVChannels;
-	for (auto channel : pRaw->channels())
-	{
-
-		if (channel.streamtype() == ChannelStreamType::Video)
-		{
-			VideoChannels.push_back(channel);
-		}
-		if (channel.streamtype() == ChannelStreamType::Audio)
-		{
-			AudioChannels.push_back(channel);
-		}
-		if (channel.streamtype() == ChannelStreamType::VideoAudio)
-		{
-			AVChannels.push_back(channel);
-		}
-	}
-	GlobalManager::Instance()->StartTcpServer(pRaw->tcpport());
-
-	//GlobalManager::Instance()->GetTcpServer()->StartVideo(VideoChannels);
+	
+	GlobalManager::Instance()->StartTcpServer(*pRaw);
 
 
 	

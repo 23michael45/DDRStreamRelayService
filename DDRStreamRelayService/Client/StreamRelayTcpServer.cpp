@@ -7,6 +7,7 @@
 #include "StreamRelayService.h"
 #include "DDRAudioTranscode.h"
 #include "DDRStreamPlay.h"
+#include "RobotChat/DDVoiceInteraction.h"
 
 
 StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFramework::HookTcpSession(context)
@@ -15,93 +16,130 @@ StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFra
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
-		DebugLog("StreamRelayTcpSession Destroy")
+	DebugLog("StreamRelayTcpSession Destroy")
 }
 
 
-void StreamRelayTcpSession::on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSamples)
-{
-	mal_uint32 sampleCount = frameCount * pDevice->channels;
-
-	std::shared_ptr<asio::streambuf> buf = std::make_shared<asio::streambuf>();
-
-	std::ostream oshold(buf.get());
-	oshold.write((const char*)pSamples, sampleCount * sizeof(mal_int16));
-	oshold.flush();
-
-	Send(buf);
-	
-}
-
-mal_uint32 StreamRelayTcpSession::on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples)
-{
-	std::lock_guard<std::mutex> lock(m_AudioRecvMutex);
-	mal_uint32 samplesToRead = frameCount * pDevice->channels;
-
-	asio::streambuf& buf = m_AudioRecvBuf;
-
-	size_t len = buf.size();
-	if (len < samplesToRead * sizeof(mal_int16))
-	{
-
-		memcpy(pSamples, buf.data().data(), len);
-		buf.consume(len);
-
-		return len / sizeof(mal_int16) / pDevice->channels;
-	}
-	else
-	{
-
-		memcpy(pSamples, buf.data().data(), samplesToRead * sizeof(mal_int16));
-		buf.consume(samplesToRead * sizeof(mal_int16));
-		return samplesToRead / pDevice->channels;
-	}
-
-
-}
 
 void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
 {
-	DebugLog("Buf Size %i", buf.size());
+	if (m_spParentServer)
+	{
+		m_spParentServer->GetAudioCodec().PushAudioRecvBuf(buf);
 
-	std::lock_guard<std::mutex> lock(m_AudioRecvMutex);
-	std::ostream oshold(&m_AudioRecvBuf);
-	oshold.write((const char*)buf.data().data(), buf.size());
-	oshold.flush();
+	}
 }
 
 void StreamRelayTcpSession::OnStart()
 {
-	//do not use shared_from_base ,member don't give shared_ptr otherwisse it wont destruct correctly
-	m_AudioCodec.Init(1, 16000, std::bind(&StreamRelayTcpSession::on_recv_frames,this,std::placeholders::_1, std::placeholders::_2, std::placeholders::_3), std::bind(&StreamRelayTcpSession::on_send_frames,this,std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-	m_AudioCodec.StartRecord();
-	m_AudioCodec.StartPlay();
+	if(m_spParentServer)
+	{
+		m_spParentServer->GetAudioCodec().SetTcpSession(shared_from_base());
+	}
 }
 void StreamRelayTcpSession::OnStop()
+{
+	if (m_spParentServer)
+	{
+		m_spParentServer->GetAudioCodec().SetTcpSession(nullptr);
+	}
+
+}
+
+
+
+
+
+StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcpServer(info.tcpport())
+{
+	std::vector<AVChannelConfig> Local_VideoChannels;
+	std::vector<AVChannelConfig> Remote_VideoChannels;
+	std::vector<AVChannelConfig> Local_AudioChannels;
+	std::vector<AVChannelConfig> Remote_AudioChannels;
+	std::vector<AVChannelConfig> Local_AVChannels;
+	std::vector<AVChannelConfig> Remote_AVChannels;
+
+	for (auto channel : info.channels())
+	{
+		if (channel.networktype() == ChannelNetworkType::Local)
+		{
+			if (channel.streamtype() == ChannelStreamType::Video)
+			{
+				Local_VideoChannels.push_back(channel);
+			}
+			if (channel.streamtype() == ChannelStreamType::Audio)
+			{
+				Local_AudioChannels.push_back(channel);
+			}
+			if (channel.streamtype() == ChannelStreamType::VideoAudio)
+			{
+				Local_AVChannels.push_back(channel);
+			}
+
+		}
+		else if (channel.networktype() == ChannelNetworkType::Remote)
+		{
+			if (channel.streamtype() == ChannelStreamType::Video)
+			{
+				Remote_VideoChannels.push_back(channel);
+			}
+			if (channel.streamtype() == ChannelStreamType::Audio)
+			{
+				Remote_AudioChannels.push_back(channel);
+			}
+			if (channel.streamtype() == ChannelStreamType::VideoAudio)
+			{
+				Remote_AVChannels.push_back(channel);
+			}
+		}
+		//StartRemoteVideo(Remote_VideoChannels);
+		//StartRemoteAudio(Remote_AudioChannels);
+
+	}
+	StartAudioDevice();
+}
+StreamRelayTcpServer::~StreamRelayTcpServer()
+{
+	StopAudioDevice();
+	DebugLog("StreamRelayTcpServer Destroy")
+}
+
+
+std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
+{
+	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, StreamRelayTcpSession, MessageSerializer, BaseMessageDispatcher, BaseHeadRuleRouter)
+		
+	spStreamRelayTcpSession->SetParentServer(shared_from_base());
+	return spStreamRelayTcpSession;
+}
+
+bool StreamRelayTcpServer::StartAudioDevice()
+{
+
+	DDVoiceInteraction::GetInstance()->Init();
+
+	//do not use shared_from_base ,member don't give shared_ptr otherwisse it wont destruct correctly
+	if (m_AudioCodec.Init())
+	{
+		m_AudioCodec.StartRecord();
+		m_AudioCodec.StartPlay();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void StreamRelayTcpServer::StopAudioDevice()
 {
 
 	m_AudioCodec.StopRecord();
 	m_AudioCodec.StopPlay();
 	m_AudioCodec.Deinit();
-}
-
-
-StreamRelayTcpServer::StreamRelayTcpServer(int port) : HookTcpServer(port)
-{
 
 }
-StreamRelayTcpServer::~StreamRelayTcpServer()
-{
 
-	DebugLog("StreamRelayTcpServer Destroy")
-}
-std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
-{
-	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, StreamRelayTcpSession, MessageSerializer, BaseMessageDispatcher, BaseHeadRuleRouter)
-		return spStreamRelayTcpSession;
-}
-
-bool StreamRelayTcpServer::StartVideo(std::vector<AVChannelConfig>& channels)
+bool StreamRelayTcpServer::StartRemoteVideo(std::vector<AVChannelConfig>& channels)
 {
 	std::vector<std::string> inputIPs;
 	std::vector<std::string> outputIPs;
@@ -130,11 +168,25 @@ bool StreamRelayTcpServer::StartVideo(std::vector<AVChannelConfig>& channels)
 
 	}
 }
-bool StreamRelayTcpServer::StartAudio(std::vector<AVChannelConfig>& channels)
+
+
+bool StreamRelayTcpServer::StartRemoteAudio(std::vector<AVChannelConfig>& channels)
 {
-	
-		
-		
-	return false;
-	
+	AudioTranscode at;
+
+	for (auto channel : channels)
+	{
+		if (!at.Init(channel.src().c_str(), channel.dst().c_str()))
+		{
+			DebugLog("Audio Device Init Failed!");
+			return false;
+		}
+		at.Launch();
+		at.Respond();
+
+		break;;
+	}
+
+	return true;
+
 }

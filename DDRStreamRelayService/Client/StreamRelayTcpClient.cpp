@@ -69,7 +69,9 @@ void StreamRelayTcpClient::SendHeartBeatOnce(timer_id id)
 void StreamRelayTcpClient::RequestStreamInfo()
 {
 	auto sp = std::make_shared<reqStreamServiceInfo>();
-	sp->set_name(GlobalManager::Instance()->GetConfig().GetValue("ServerName"));
+
+	auto name = GlobalManager::Instance()->GetConfig().GetValue("ServerName");
+	sp->set_name(name);
 	
 	Send(sp);
 	sp.reset();

@@ -12,6 +12,10 @@
 #include <fstream>
 #include "Client/GlobalManager.h"
 #include <functional>
+#include <regex>
+#include "../../../Shared/thirdparty/cppfs/include/cppfs/windows/LocalFileSystem.h"
+
+#include "../../Shared/src/Utility/AudioCodec.h"
 using namespace DDRFramework;
 using namespace DDRCommProto;
 void MoveWorkingDir()
@@ -45,7 +49,45 @@ public:
 
 		AddCommand("alarm", std::bind(&_ConsoleDebug::Alarm, this));
 		AddCommand("playwav", std::bind(&_ConsoleDebug::PlayAudio, this));
+
+		AddCommand("play", std::bind(&_ConsoleDebug::PlayTxt, this));
+		AddCommand("regex", std::bind(&_ConsoleDebug::Regex, this));
+
+		AddCommand("string", std::bind(&_ConsoleDebug::StringTest, this));
 	}
+	void StringTest()
+	{
+		std::string s = "中文";
+		std::wstring ws = L"中文";
+
+		std::string ss = cppfs::WStringToString(ws);
+
+		int len = s.length();
+		len = ws.length();
+		len = ss.length();
+
+		if (std::regex_match(s, std::regex("(.*)文")))
+		{
+
+			DebugLog("Match")
+		}
+
+		len = 0;
+	}
+	void Regex()
+	{
+		std::string file = "e:/www/人人人.jpg";
+		if (std::regex_match(file, std::regex("(.*)人(.*)")))
+		{
+			DebugLog("Match");
+		}
+		else
+		{
+
+			DebugLog("Not Match");
+		}
+	}
+
 	void ListServerConnections()
 	{
 		printf_s("\nServer Connections");
@@ -99,7 +141,36 @@ public:
 		}
 	}
 
+	void PlayTxt()
+	{
+		//auto vec = split(m_CurrentCmd, ':');
+		//if (vec.size() == 3)
+		//{
+		//	DDVoiceInteraction::GetInstance()->RunTTS(vec[1].c_str(), atoi(vec[2].c_str()));
+		//	//GlobalManager::Instance()->GetTcpServer()->PlayAudio(vec[1], atoi(vec[2].c_str()));
+		//}
 
+		asio::streambuf buf;
+		std::string fn("3.wav");
+		ifstream is;
+		is.open(fn.c_str());
+
+		std::ostream oshold(&buf);
+		is.seekg(0, is.end);
+		int length = is.tellg();
+		is.seekg(0, is.beg);
+		char * buffer = new char[length];
+
+		is.read(buffer, length);
+
+
+		oshold.write(buffer,length);
+		oshold.flush();
+
+		is.close();
+		
+		PlayFile(buf);
+	}
 
 
 
@@ -206,6 +277,83 @@ public:
 			printf("Failed to start playback device.\n");
 			return;
 		}
+	}
+
+
+
+
+	mal_uint32 on_send_frames_to_device_wav(mal_device* pDevice, mal_uint32 frameCount, void* pSamples)
+	{
+		mal_decoder* pDecoder = (mal_decoder*)pDevice->pUserData;
+		if (pDecoder == NULL) {
+			return 0;
+		}
+
+		if (pDecoder->memory.currentReadPos == pDecoder->memory.dataSize)
+		{
+			mal_device_uninit(pDevice);
+			mal_decoder_uninit(pDecoder);
+		}
+
+
+		return (mal_uint32)mal_decoder_read(pDecoder, frameCount, pSamples);
+	}
+	void PlayFile(asio::streambuf& buf)
+	{
+
+		mal_device device;
+		mal_decoder_config config;
+		mal_device_config dconfig;
+		mal_decoder decoder;
+		mal_result result = mal_decoder_init_memory_wav(buf.data().data(), buf.size(), NULL, &decoder);
+		if (result != MAL_SUCCESS) {
+			return;
+		}
+		mal_decoder_seek_to_frame(&decoder, 12880);
+
+		dconfig = mal_device_config_init_playback(decoder.outputFormat, decoder.outputChannels, decoder.outputSampleRate, std::bind(&_ConsoleDebug::on_send_frames_to_device_wav, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
+		if (mal_device_init(NULL, mal_device_type_playback, NULL, &dconfig, &decoder, &device) != MAL_SUCCESS) {
+			printf("Failed to open playback device.\n");
+			mal_decoder_uninit(&decoder);
+			return;
+		}
+
+		if (mal_device_start(&device) != MAL_SUCCESS) {
+			printf("Failed to start playback device.\n");
+			mal_device_uninit(&device);
+			mal_decoder_uninit(&decoder);
+			return;
+		}
+
+		getchar();
+	}
+	void PlayFile(std::string fileName)
+	{
+		mal_device device;
+		mal_device_config config;
+		mal_decoder decoder;
+		mal_result result = mal_decoder_init_file(fileName.c_str(), NULL, &decoder);
+		if (result != MAL_SUCCESS) {
+			return;
+		}
+
+		config = mal_device_config_init_playback(decoder.outputFormat, decoder.outputChannels, decoder.outputSampleRate, std::bind(&_ConsoleDebug::on_send_frames_to_device_wav, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
+		if (mal_device_init(NULL, mal_device_type_playback, NULL, &config, &decoder, &device) != MAL_SUCCESS) {
+			printf("Failed to open playback device.\n");
+			mal_decoder_uninit(&decoder);
+			return;
+		}
+
+		if (mal_device_start(&device) != MAL_SUCCESS) {
+			printf("Failed to start playback device.\n");
+			mal_device_uninit(&device);
+			mal_decoder_uninit(&decoder);
+			return;
+		}
+
+		getchar();
 	}
 };
 

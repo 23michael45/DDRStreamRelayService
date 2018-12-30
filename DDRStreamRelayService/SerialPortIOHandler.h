@@ -4,7 +4,6 @@
 #include <thread>
 #include <atomic>
 
-#include "CommonDef/CommonDef.h"
 
 namespace DDRDrivers
 {

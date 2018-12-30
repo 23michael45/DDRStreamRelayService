@@ -61,14 +61,14 @@ bool GlobalManager::IsTcpClientWorking()
 	return m_spTcpClient != nullptr;
 }
 
-void GlobalManager::StartTcpServer(int port)
+void GlobalManager::StartTcpServer(rspStreamServiceInfo& info)
 {
 	std::string servername = m_ConfigLoader.GetValue("ServerName");
 	std::string threadCount = m_ConfigLoader.GetValue("ThreadCount");
 
 	if (!m_spTcpServer)
 	{
-		m_spTcpServer = std::make_shared<StreamRelayTcpServer>(port);
+		m_spTcpServer = std::make_shared<StreamRelayTcpServer>(info);
 	}
 	m_spTcpServer->Start(std::stoi(threadCount));
 

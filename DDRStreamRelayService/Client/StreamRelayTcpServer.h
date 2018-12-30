@@ -7,9 +7,15 @@
 #include "../../../Shared/src/Utility/AudioCodec.h"
 #include "../../../Shared/proto/BaseCmd.pb.h"
 
+#include "../../../Shared/src/Utility/Timer.hpp"
+#include "../RobotChat/DDVoiceInteraction.h"
+#include <map>
 #include "asio.hpp"
+
 using namespace DDRFramework;
 using namespace DDRCommProto;
+
+class StreamRelayTcpServer;
 
 class StreamRelayTcpSession : public HookTcpSession
 {
@@ -22,47 +28,58 @@ public:
 	}
 
 
-	void on_recv_frames(mal_device* pDevice, mal_uint32 frameCount, const void* pSamples);
-	mal_uint32 on_send_frames(mal_device* pDevice, mal_uint32 frameCount, void* pSamples);
-
-
 	virtual void OnStart() override;
 	virtual void OnStop() override;
 
 
 	virtual void OnHookReceive(asio::streambuf& buf) override;
-	std::mutex& GetAudioRecvMutex()
+
+	void SetParentServer(std::shared_ptr<StreamRelayTcpServer> sp)
 	{
-		return m_AudioRecvMutex;
+		m_spParentServer = sp;
 	}
+
+
 private:
-	AudioCodec m_AudioCodec;
-
-
-
-	std::mutex m_AudioRecvMutex;
-	asio::streambuf m_AudioRecvBuf;
-
+	std::shared_ptr<StreamRelayTcpServer> m_spParentServer;
 };
 
 
 class StreamRelayTcpServer : public HookTcpServer
 {
+
 public:
-	StreamRelayTcpServer(int port);
+	StreamRelayTcpServer(rspStreamServiceInfo& info);
 	~StreamRelayTcpServer();
 
 	auto shared_from_base() {
 		return std::static_pointer_cast<StreamRelayTcpServer>(shared_from_this());
 	}
 
+
 	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
 
+	bool StartAudioDevice();
+	void StopAudioDevice();
 
-	bool StartAudio(std::vector<AVChannelConfig>& channels);
-	bool StartVideo(std::vector<AVChannelConfig>& channels);
+	bool StartRemoteAudio(std::vector<AVChannelConfig>& channels);
+	bool StartRemoteVideo(std::vector<AVChannelConfig>& channels);
+
+
+	void StopRemoteAudio() {};
+	void StopRemoteVideo() {};
+
+	AudioCodec& GetAudioCodec()
+	{
+		return m_AudioCodec;
+	};
 
 protected:
+
+	AudioCodec m_AudioCodec;
+
+	DDRFramework::Timer m_Timer;
+
 
 };
 
