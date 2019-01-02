@@ -5,6 +5,7 @@
 #include "FileStatusProcessor.h"
 #include "../../../Shared/src/Utility/DDRMacro.h"
 #include "../../../Shared/src/Utility/Logger.h"
+#include "../../../Shared/src/Utility/CommonFunc.h"
 #include "../../../Shared/thirdparty/cppfs/include/cppfs/windows/LocalFileSystem.h"
 #include "GlobalManager.h"
 #include "FileManager.h"
@@ -38,7 +39,7 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 
 		for (auto fmt : pRaw->filenames())
 		{
-			std::string filefmt = cppfs::getStartWildRegex(fmt);
+			std::string filefmt = DDRFramework::getStartWildRegex(fmt);
 
 			for (auto file : files)
 			{

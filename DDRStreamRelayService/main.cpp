@@ -6,6 +6,7 @@
 #include "../../Shared/src/Network/HttpServer.h"
 #include "../../Shared/proto/BaseCmd.pb.h"
 #include "../../Shared/src/Utility/DDRMacro.h"
+#include "../../Shared/src/Utility/CommonFunc.h"
 #include "Client/LocalClientUdpDispatcher.h"
 #include <thread>
 #include <chrono>
@@ -60,7 +61,7 @@ public:
 		std::string s = "中文";
 		std::wstring ws = L"中文";
 
-		std::string ss = cppfs::WStringToString(ws);
+		std::string ss = DDRFramework::WStringToString(ws);
 
 		int len = s.length();
 		len = ws.length();
