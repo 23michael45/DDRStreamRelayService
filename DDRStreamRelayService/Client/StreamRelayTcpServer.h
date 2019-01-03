@@ -17,6 +17,8 @@ using namespace DDRCommProto;
 
 class StreamRelayTcpServer;
 
+
+
 class StreamRelayTcpSession : public HookTcpSession
 {
 public:
@@ -38,7 +40,6 @@ public:
 	{
 		m_spParentServer = sp;
 	}
-
 
 private:
 	std::shared_ptr<StreamRelayTcpServer> m_spParentServer;
@@ -69,6 +70,33 @@ public:
 	void StopRemoteAudio() {};
 	void StopRemoteVideo() {};
 
+
+	void StartPlayTxt(std::string& content,int priority);
+	void StartPlayFile(std::string& filename, int prioritye);
+
+
+
+
+	bool PlayAudio(std::shared_ptr<asio::streambuf>, int priority);
+	void PopQueue(std::shared_ptr<WavBufInfo> spinfo);
+	std::shared_ptr<WavBufInfo> GetQueueNextAudio();
+
+	void OnWaveFinish(std::shared_ptr<WavBufInfo> spInfo)
+	{
+		auto spFront = GetQueueNextAudio();
+		if (spInfo == spFront)
+		{
+			PopQueue(spInfo);
+		}
+
+		auto spNextAudio = GetQueueNextAudio();
+		if (spNextAudio)
+		{
+			m_AudioCodec.StartPlayBuf(spNextAudio);
+		}
+	}
+
+
 	AudioCodec& GetAudioCodec()
 	{
 		return m_AudioCodec;
@@ -81,6 +109,16 @@ protected:
 	DDRFramework::Timer m_Timer;
 
 
+	struct greater
+	{
+		bool operator()(const int& _Left, const int& _Right) const
+		{
+			return (_Left > _Right);
+		}
+	};
+
+	std::map<int, std::shared_ptr<std::queue<std::shared_ptr<WavBufInfo>>>, greater> m_AudioQueueMap;
+	std::mutex m_AudioQueueMutex;
 };
 
 

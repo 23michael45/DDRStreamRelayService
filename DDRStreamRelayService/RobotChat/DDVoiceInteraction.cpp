@@ -507,25 +507,36 @@ void DDVoiceInteraction::SetPlayCallBackFun(std::function<void(char*)> PlayCBFun
 
 std::shared_ptr<asio::streambuf> DDVoiceInteraction::GetVoiceBuf(std::string& content)
 {
-	std::shared_ptr<asio::streambuf> spbuf = std::make_shared<asio::streambuf>();
-	std::ostream oshold(spbuf.get());
-
-
 
 	const char* params = "engine_type = local, voice_name = xiaoyan, text_encoding = GB2312, tts_res_path = fo|res\\tts\\xiaoyan.jet;fo|res\\tts\\common.jet, sample_rate = 16000, speed = 50, volume = 50, pitch = 50, rdn = 2";
 
 
 	int          ret = -1;
+	FILE*        fp = NULL;
 	const char*  sessionID = NULL;
 	unsigned int audio_len = 0;
-	int  synth_status = MSP_TTS_FLAG_STILL_HAVE_DATA;
+	WavePcmHdr wav_hdr = {
+		{ 'R', 'I', 'F', 'F' },
+		0,
+		{ 'W', 'A', 'V', 'E' },
+		{ 'f', 'm', 't', ' ' },
+		16,
+		1,
+		1,
+		16000,
+		32000,
+		2,
+		16,
+		{ 'd', 'a', 't', 'a' },
+		0
+	};
+	int          synth_status = MSP_TTS_FLAG_STILL_HAVE_DATA;
 
 	/* 开始合成 */
 	sessionID = QTTSSessionBegin(params, &ret);
 	if (MSP_SUCCESS != ret)
 	{
 		printf("QTTSSessionBegin failed, error code: %d.\n", ret);
-		spbuf.reset();
 		return nullptr;
 	}
 	ret = QTTSTextPut(sessionID, content.c_str(), content.length(), NULL);
@@ -533,10 +544,22 @@ std::shared_ptr<asio::streambuf> DDVoiceInteraction::GetVoiceBuf(std::string& co
 	{
 		printf("QTTSTextPut failed, error code: %d.\n", ret);
 		QTTSSessionEnd(sessionID, "TextPutError");
-		spbuf.reset();
 		return nullptr;
 	}
 
+
+
+	std::shared_ptr<asio::streambuf> spbuf = std::make_shared<asio::streambuf>();
+	std::ostream oshold(spbuf.get());
+
+
+
+	//printf("正在合成 ...\n");
+	oshold.write((const char*)&wav_hdr, sizeof(wav_hdr)); //添加wav音频头，使用采样率为16000
+
+	int l = 1024 * 1024;
+	char* temp = new char[l] {0};
+	int pos = 0;
 	while (1)
 	{
 		/* 获取合成音频 */
@@ -545,30 +568,51 @@ std::shared_ptr<asio::streambuf> DDVoiceInteraction::GetVoiceBuf(std::string& co
 			break;
 		if (NULL != data)
 		{
-
-			oshold.write((const char*)data, audio_len);
+			memcpy(temp + pos, data, audio_len);
+			wav_hdr.data_size += audio_len; //计算data_size大小
+			pos += audio_len;
 		}
 		if (MSP_TTS_FLAG_DATA_END == synth_status)
 			break;
 	}
+
+	oshold.write((const char*)temp, wav_hdr.data_size);
 	//printf("\n");
 	if (MSP_SUCCESS != ret)
 	{
 		printf("QTTSAudioGet failed, error code: %d.\n", ret);
 		QTTSSessionEnd(sessionID, "AudioGetError");
-		spbuf.reset();
+	
+		
 		return nullptr;
 	}
+	/* 修正wav文件头数据的大小 */
+	wav_hdr.size_8 += wav_hdr.data_size + (sizeof(wav_hdr) - 8);
 
+	/* 将修正过的数据写回文件头部,音频文件为wav格式 */
+	oshold.seekp(4, std::ios::beg);
+	int poss = oshold.tellp();
+	oshold.write((const char*)&wav_hdr.size_8, sizeof(wav_hdr.size_8)); //写入size_8的值
+	//oshold.seekp(40, std::ios::beg); //将文件指针偏移到存储data_size值的位置
+	//oshold.write((const char*)&wav_hdr.data_size, sizeof(wav_hdr.data_size)); //写入data_size的值
+
+	//oshold.seekp(0, std::ios::end);
 	oshold.flush();
 	/* 合成完毕 */
 	ret = QTTSSessionEnd(sessionID, "Normal");
 	if (MSP_SUCCESS != ret)
 	{
 		printf("QTTSSessionEnd failed, error code: %d.\n", ret);
-		spbuf.reset();
+
 		return nullptr;
 	}
+
+	std::ofstream ofs("waveout.wav");
+	ofs.write((const char*)spbuf->data().data(), spbuf->size());
+	ofs.close();
+	int len = spbuf->size();
+	memcpy(temp, spbuf->data().data(), len);
+
 	return spbuf;
 }
 

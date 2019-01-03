@@ -17,6 +17,7 @@
 #include "../../../Shared/thirdparty/cppfs/include/cppfs/windows/LocalFileSystem.h"
 
 #include "../../Shared/src/Utility/AudioCodec.h"
+#include "Client/StreamRelayTcpServer.h"
 using namespace DDRFramework;
 using namespace DDRCommProto;
 void MoveWorkingDir()
@@ -55,7 +56,33 @@ public:
 		AddCommand("regex", std::bind(&_ConsoleDebug::Regex, this));
 
 		AddCommand("string", std::bind(&_ConsoleDebug::StringTest, this));
+
+		AddCommand("audio", std::bind(&_ConsoleDebug::TestAudioPriority, this));
 	}
+
+	void TestAudioPriority()
+	{
+		DDVoiceInteraction::GetInstance()->Init();
+		rspStreamServiceInfo info;
+		StreamRelayTcpServer tcpServer(info);
+
+
+		DDVoiceInteraction::GetInstance()->RunTTS("1111111111", 111);
+
+		tcpServer.StartPlayTxt(std::string("1111111111"), 1);
+
+		std::this_thread::sleep_for(chrono::seconds(1));
+		tcpServer.StartPlayTxt(std::string("2222222222"), 2);
+		std::this_thread::sleep_for(chrono::seconds(1));
+		tcpServer.StartPlayTxt(std::string("3333333333"), 3);
+		std::this_thread::sleep_for(chrono::seconds(1));
+
+		tcpServer.StartPlayTxt(std::string("4444444444"), 2);
+
+
+		std::this_thread::sleep_for(chrono::seconds(1000));
+	}
+
 	void StringTest()
 	{
 		std::string s = "ÖÐÎÄ";
@@ -169,8 +196,12 @@ public:
 		oshold.flush();
 
 		is.close();
-		
-		PlayFile(buf);
+
+		DDVoiceInteraction::GetInstance()->Init();
+		auto spbuf = DDVoiceInteraction::GetInstance()->GetVoiceBuf(std::string("111111111111111"));
+
+		//PlayFile(buf);
+		PlayFile(*spbuf.get());
 	}
 
 
