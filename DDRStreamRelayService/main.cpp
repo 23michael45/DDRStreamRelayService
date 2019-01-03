@@ -18,6 +18,10 @@
 
 #include "../../Shared/src/Utility/AudioCodec.h"
 #include "Client/StreamRelayTcpServer.h"
+
+
+#include "opencv2/opencv.hpp"
+#include "opencv2/imgproc.hpp"
 using namespace DDRFramework;
 using namespace DDRCommProto;
 void MoveWorkingDir()
