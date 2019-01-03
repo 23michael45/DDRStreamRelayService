@@ -62,25 +62,23 @@ public:
 
 	void TestAudioPriority()
 	{
-		DDVoiceInteraction::GetInstance()->Init();
 		rspStreamServiceInfo info;
-		StreamRelayTcpServer tcpServer(info);
 
+		//StreamRelayTcpServer s(info);
+		//s.StartPlayTxt(std::string("1111111111"), 1);
+		auto sp = std::make_shared<StreamRelayTcpServer>(info);
 
-		DDVoiceInteraction::GetInstance()->RunTTS("1111111111", 111);
-
-		tcpServer.StartPlayTxt(std::string("1111111111"), 1);
+		sp->StartPlayTxt(std::string("1111111111"), 1);
 
 		std::this_thread::sleep_for(chrono::seconds(1));
-		tcpServer.StartPlayTxt(std::string("2222222222"), 2);
+		sp->StartPlayTxt(std::string("2222222222"), 2);
+		//std::this_thread::sleep_for(chrono::seconds(1));
+		//sp->StartPlayTxt(std::string("3333333333"), 3);
 		std::this_thread::sleep_for(chrono::seconds(1));
-		tcpServer.StartPlayTxt(std::string("3333333333"), 3);
-		std::this_thread::sleep_for(chrono::seconds(1));
 
-		tcpServer.StartPlayTxt(std::string("4444444444"), 2);
+		//sp->StartPlayTxt(std::string("4444444444"), 2);
 
 
-		std::this_thread::sleep_for(chrono::seconds(1000));
 	}
 
 	void StringTest()
@@ -197,8 +195,7 @@ public:
 
 		is.close();
 
-		DDVoiceInteraction::GetInstance()->Init();
-		auto spbuf = DDVoiceInteraction::GetInstance()->GetVoiceBuf(std::string("111111111111111"));
+		auto spbuf = DDVoiceInteraction::Instance()->GetVoiceBuf(std::string("111111111111111"));
 
 		//PlayFile(buf);
 		PlayFile(*spbuf.get());
@@ -393,6 +390,8 @@ public:
 
 int main(int argc, char **argv)
 {
+	DDVoiceInteraction::Instance()->Init();
+
 	GlobalManager::Instance()->StartUdp();
 
 	GlobalManager::Instance()->CreateTcpClient();

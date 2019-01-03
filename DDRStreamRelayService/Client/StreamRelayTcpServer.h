@@ -78,23 +78,12 @@ public:
 
 
 	bool PlayAudio(std::shared_ptr<asio::streambuf>, int priority);
+
+	void PushQueue(std::shared_ptr<WavBufInfo> spinfo, int priority);
 	void PopQueue(std::shared_ptr<WavBufInfo> spinfo);
 	std::shared_ptr<WavBufInfo> GetQueueNextAudio();
 
-	void OnWaveFinish(std::shared_ptr<WavBufInfo> spInfo)
-	{
-		auto spFront = GetQueueNextAudio();
-		if (spInfo == spFront)
-		{
-			PopQueue(spInfo);
-		}
-
-		auto spNextAudio = GetQueueNextAudio();
-		if (spNextAudio)
-		{
-			m_AudioCodec.StartPlayBuf(spNextAudio);
-		}
-	}
+	void OnWaveFinish(std::shared_ptr<WavBufInfo> spInfo);
 
 
 	AudioCodec& GetAudioCodec()

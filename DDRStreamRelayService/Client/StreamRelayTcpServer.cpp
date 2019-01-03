@@ -108,6 +108,11 @@ StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcp
 }
 StreamRelayTcpServer::~StreamRelayTcpServer()
 {
+	while (m_AudioCodec.IsPlayingWave())
+	{
+
+		std::this_thread::sleep_for(chrono::milliseconds(1));
+	}
 	StopAudioDevice();
 	DebugLog("StreamRelayTcpServer Destroy")
 }
@@ -173,8 +178,6 @@ std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
 bool StreamRelayTcpServer::StartAudioDevice()
 {
 
-	DDVoiceInteraction::GetInstance()->Init();
-
 	if (m_AudioCodec.Init())
 	{
 		m_AudioCodec.StartDeviceRecord();
@@ -198,8 +201,8 @@ void StreamRelayTcpServer::StopAudioDevice()
 
 void StreamRelayTcpServer::StartPlayTxt(std::string& content, int priority)
 {
-	auto spBuf = DDVoiceInteraction::GetInstance()->GetVoiceBuf(content);
-	if (PlayAudio(spBuf,priority))
+	auto spBuf = DDVoiceInteraction::Instance()->GetVoiceBuf(content);
+	if (spBuf && PlayAudio(spBuf,priority))
 	{
 
 	}
@@ -240,40 +243,45 @@ void StreamRelayTcpServer::StartPlayFile(std::string& filename, int priority)
 
 bool StreamRelayTcpServer::PlayAudio(std::shared_ptr<asio::streambuf> spbuf, int priority)
 {
-	std::lock_guard<std::mutex> lock(m_AudioQueueMutex);
 
+	auto spInfo = std::make_shared<WavBufInfo>();
+	spInfo->m_spBuf = spbuf;
+	spInfo->m_CurrentFrame = 0;
+	spInfo->m_Priority = priority;
+	PushQueue(spInfo, priority);
+
+	auto spNextInfo = GetQueueNextAudio();
 
 	if (m_AudioCodec.IsPlayingWave())
 	{
 		auto spPreInfo = m_AudioCodec.StopPlayBuf();
 	}
 
-
-	auto spInfo = std::make_shared<WavBufInfo>();
-	spInfo->m_spBuf = spbuf;
-	spInfo->m_CurrentFrame = 0;
-	spInfo->m_Priority = priority;
-
-
-	if (m_AudioCodec.StartPlayBuf(spInfo))
+	if (m_AudioCodec.StartPlayBuf(spNextInfo))
 	{
-		if (m_AudioQueueMap.find(priority) == m_AudioQueueMap.end())
-		{
-			auto spQueue = std::make_shared<std::queue<std::shared_ptr<WavBufInfo>>>();
-			m_AudioQueueMap.insert(make_pair(priority, spQueue));
-		}
-		if (spbuf)
-		{
-			auto spQueue = m_AudioQueueMap[priority];
-
-
-			spQueue->push(spInfo);
-		}
-
 		return true;
 	}
 	return false;
 }
+
+void StreamRelayTcpServer::PushQueue(std::shared_ptr<WavBufInfo> spinfo,int priority)
+{
+	std::lock_guard<std::mutex> lock(m_AudioQueueMutex);
+
+	if (m_AudioQueueMap.find(priority) == m_AudioQueueMap.end())
+	{
+		auto spQueue = std::make_shared<std::queue<std::shared_ptr<WavBufInfo>>>();
+		m_AudioQueueMap.insert(make_pair(priority, spQueue));
+	}
+	if (spinfo)
+	{
+		auto spQueue = m_AudioQueueMap[priority];
+		spQueue->push(spinfo);
+	}
+
+
+}
+
 void StreamRelayTcpServer::PopQueue(std::shared_ptr<WavBufInfo> spinfo)
 {
 	std::lock_guard<std::mutex> lock(m_AudioQueueMutex);
@@ -293,10 +301,24 @@ std::shared_ptr<WavBufInfo> StreamRelayTcpServer::GetQueueNextAudio()
 		if (spQueue->size() > 0)
 		{
 			spInfo = spQueue->front();
-			spQueue->pop();
-
 			return  spInfo;
 		}
 	}
 	return  nullptr;
+}
+
+void StreamRelayTcpServer::OnWaveFinish(std::shared_ptr<WavBufInfo> spInfo)
+{
+	auto spFront = GetQueueNextAudio();
+	if (spInfo == spFront)
+	{
+		PopQueue(spInfo);
+	}
+	m_AudioCodec.StopPlayBuf();
+
+	auto spNextAudio = GetQueueNextAudio();
+	if (spNextAudio)
+	{
+		m_AudioCodec.StartPlayBuf(spNextAudio);
+	}
 }

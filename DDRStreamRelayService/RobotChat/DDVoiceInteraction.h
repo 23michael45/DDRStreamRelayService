@@ -8,6 +8,7 @@
 #include <functional>
 #include <vector>
 #include "../../Shared/thirdparty/asio/include/asio.hpp"
+#include "../../Shared/src/Utility/Singleton.h"
 
 using namespace DDRMTLib;
 #define	BUFFER_SIZE	4096
@@ -41,12 +42,10 @@ struct WavePcmHdr
 	int				data_size;              // = 纯数据长度 : FileSize - 44 
 };
 
-class DDVoiceInteraction : public MainSubsModel
+class DDVoiceInteraction : public MainSubsModel ,public DDRFramework::CSingleton<DDVoiceInteraction>
 {
-	DDVoiceInteraction();
 public:
-	static DDVoiceInteraction* GetInstance();
-
+	DDVoiceInteraction();
 	~DDVoiceInteraction();
 
 	bool Init(bool bOnline = false); // Initialize
