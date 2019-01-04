@@ -52,8 +52,8 @@ void FileAddressProcessor::AsyncProcess(std::shared_ptr<BaseSocketContainer> spS
 			}
 		}
 
-		spHeader->set_toclttype(0,eAllClient);
-		spHeader->set_flowdirection(0,CommonHeader_eFlowDir_Forward);
+		spHeader->set_toclttype(0, eAllClient);
+		spHeader->set_flowdirection(0, CommonHeader_eFlowDir_Backward);
 
 		spSockContainer->Send(spHeader,sprsp);
 	}
