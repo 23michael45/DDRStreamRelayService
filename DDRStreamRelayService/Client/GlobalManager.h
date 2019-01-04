@@ -41,7 +41,6 @@ public:
 	}	
 private:
 
-	void CreateUdp();
 	void OnUdpDisconnect(UdpSocketBase& container);
 
 	std::shared_ptr<StreamRelayTcpClient> m_spTcpClient;

@@ -5,6 +5,8 @@
 #include "Client/LocalClientDispatcher.h"
 #include "Client/LocalClientUdpDispatcher.h"
 
+#include "Client/HttpFileServer.h"
+
 
 #include "../../../Shared/proto/BaseCmd.pb.h"
 #include "GlobalManager.h"
@@ -41,6 +43,7 @@ void StreamRelayTcpClient::OnDisconnect(std::shared_ptr<TcpSocketContainer> spCo
 {
 	TcpClientBase::OnDisconnect(spContainer);
 	GlobalManager::Instance()->StopTcpServer();
+	HttpFileServer::Instance()->Stop();
 
 	GlobalManager::Instance()->StartUdp();
 }

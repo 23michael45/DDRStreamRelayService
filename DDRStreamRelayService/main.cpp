@@ -18,6 +18,7 @@
 
 #include "../../Shared/src/Utility/AudioCodec.h"
 #include "Client/StreamRelayTcpServer.h"
+#include "Client/HttpFileServer.h"
 
 
 #include "opencv2/opencv.hpp"
@@ -395,6 +396,7 @@ public:
 int main(int argc, char **argv)
 {
 	DDVoiceInteraction::Instance()->Init();
+	HttpFileServer::Instance()->Init();
 
 	GlobalManager::Instance()->StartUdp();
 

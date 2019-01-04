@@ -36,10 +36,6 @@ void GlobalManager::StopUdp()
 
 	}
 }
-void GlobalManager::CreateUdp()
-{
-
-}
 void GlobalManager::CreateTcpClient()
 {
 	m_spTcpClient = std::make_shared<StreamRelayTcpClient>();
