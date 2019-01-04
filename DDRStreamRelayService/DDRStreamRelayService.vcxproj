@@ -226,6 +226,7 @@
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\Shared\thirdparty\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="Client\FileAddressProcessor.cpp" />
     <ClCompile Include="Client\FileManager.cpp" />
     <ClCompile Include="Client\FileStatusProcessor.cpp" />
     <ClCompile Include="Client\GlobalManager.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\Shared\thirdparty\tinyxml\tinyxml.h" />
+    <ClInclude Include="Client\FileAddressProcessor.h" />
     <ClInclude Include="Client\FileManager.h" />
     <ClInclude Include="Client\FileStatusProcessor.h" />
     <ClInclude Include="Client\GlobalManager.h" />

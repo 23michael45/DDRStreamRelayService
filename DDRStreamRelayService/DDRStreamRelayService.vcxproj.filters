@@ -224,6 +224,9 @@
       <Filter>Shared\Utility</Filter>
     </ClCompile>
     <ClCompile Include="TTSQueuePlayer.cpp" />
+    <ClCompile Include="Client\FileAddressProcessor.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DDRAudioTranscode.h" />
@@ -388,6 +391,9 @@
       <Filter>Shared\Utility</Filter>
     </ClInclude>
     <ClInclude Include="TTSQueuePlayer.h" />
+    <ClInclude Include="Client\FileAddressProcessor.h">
+      <Filter>Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="RobotChat">
