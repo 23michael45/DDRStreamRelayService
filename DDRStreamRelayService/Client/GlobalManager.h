@@ -10,45 +10,31 @@
 #include "StreamRelayTcpClient.h"
 #include "StreamRelayTcpServer.h"
 using namespace DDRFramework;
-class GlobalManager : public DDRFramework::CSingleton<GlobalManager>, public GlobalManagerBase
+class GlobalManager : public DDRFramework::CSingleton<GlobalManager>, public GlobalManagerClientBase
 {
 public:
 	GlobalManager();
 	~GlobalManager();
 
 public:
-	bool StartUdp();
-	void StopUdp();
-	bool IsUdpWorking();
-
-
-	void CreateTcpClient();
-	void ReleaseTcpClient();
-	bool IsTcpClientWorking();
+	virtual void Init() override;
+	virtual bool StartUdp() override;
 
 
 	void StartTcpServer(rspStreamServiceInfo& info);
 	void StopTcpServer();
-	bool IsTcpServerWorking();
 	
-	std::shared_ptr<StreamRelayTcpClient> GetTcpClient();
 	std::shared_ptr<StreamRelayTcpServer> GetTcpServer();
-	std::shared_ptr<UdpSocketBase> GetUdpClient();
-
-	XmlLoader& GetConfig()
+	XmlLoader GetConfig()
 	{
-		return m_ConfigLoader;
-	}	
+		return m_Config;
+	}
+
 private:
 
-	void OnUdpDisconnect(UdpSocketBase& container);
-
-	std::shared_ptr<StreamRelayTcpClient> m_spTcpClient;
 	std::shared_ptr<StreamRelayTcpServer> m_spTcpServer;
-	std::shared_ptr<UdpSocketBase> m_spUdpClient;
 
-	XmlLoader m_ConfigLoader;
-
+	XmlLoader m_Config;
 };
 
 #endif // GlobalManager_h__

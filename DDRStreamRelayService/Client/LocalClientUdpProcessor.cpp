@@ -100,17 +100,11 @@ void LocalClientUdpProcessor::DealLocalServer(bcLSAddr_ServerInfo& serverinfo)
 
 void LocalClientUdpProcessor::TcpClientStart(std::string serverip, int serverport)
 {
-	if (GlobalManager::Instance()->IsUdpWorking())
-	{
-		GlobalManager::Instance()->StopUdp();
-		std::ostringstream strport;
-		strport << serverport;
-		const std::string sPort(strport.str());
-		GlobalManager::Instance()->GetTcpClient()->Connect(serverip, sPort);
-
-	}
-
-
+	GlobalManager::Instance()->StopUdp();
+	std::ostringstream strport;
+	strport << serverport;
+	const std::string sPort(strport.str());
+	GlobalManager::Instance()->TcpConnect(serverip, sPort);
 
 
 }

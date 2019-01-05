@@ -27,8 +27,14 @@ void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContaine
 	if (retcode == rspLogin_eLoginRetCode_success)
 	{
 
-		GlobalManager::Instance()->GetTcpClient()->RequestStreamInfo();
-		GlobalManager::Instance()->GetTcpClient()->StartHeartBeat();
+		auto spClientBase = GlobalManager::Instance()->GetTcpClient();
+		auto spClient = std::dynamic_pointer_cast<StreamRelayTcpClient>(spClientBase);
+		if (spClient)
+		{
+			spClient->RequestStreamInfo();
+			spClient->StartHeartBeat();
+
+		}
 	}
 	else
 	{

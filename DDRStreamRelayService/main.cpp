@@ -397,13 +397,8 @@ int main(int argc, char **argv)
 {
 	DDVoiceInteraction::Instance()->Init();
 	HttpFileServer::Instance()->Init();
-
-	GlobalManager::Instance()->StartUdp();
-
-	GlobalManager::Instance()->CreateTcpClient();
-	GlobalManager::Instance()->GetTcpClient()->Start(GlobalManager::Instance()->GetConfig().GetValue<int>("ThreadCount"));
-
-
+	GlobalManager::Instance()->Init();
+	   
 
 	_ConsoleDebug::Instance()->ConsoleDebugLoop();
 	return 0;
