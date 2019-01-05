@@ -20,6 +20,7 @@
 #include "Client/StreamRelayTcpServer.h"
 #include "Client/HttpFileServer.h"
 
+#include "../../Shared/src/Utility/MiniDump.h"
 
 #include "opencv2/opencv.hpp"
 #include "opencv2/imgproc.hpp"
@@ -395,6 +396,8 @@ public:
 
 int main(int argc, char **argv)
 {
+	DisableMouseSelectConsole();
+	InitMinDump();
 	DDVoiceInteraction::Instance()->Init();
 	HttpFileServer::Instance()->Init();
 	GlobalManager::Instance()->Init();
