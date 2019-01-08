@@ -156,17 +156,17 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;SYSTEM_WINDOWS;PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/cppfs/include;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>LocalNetworkNode;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;swscale.lib;libao.lib;LocalNetworkNode_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)../../Shared/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>protobuf/libprotoc.lib;protobuf/libprotobuf.lib;%(AdditionalDependencies);ffmpeg/avcodec.lib;ffmpeg/avformat.lib;ffmpeg/avutil.lib;ffmpeg/avdevice.lib;ffmpeg/avfilter.lib;ffmpeg/postproc.lib;ffmpeg/swresample.lib;ffmpeg/swscale.lib;ffmpeg/libao.lib;winmm.lib;ffmpeg/libiconv.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
