@@ -64,6 +64,9 @@ public:
 		AddCommand("string", std::bind(&_ConsoleDebug::StringTest, this));
 
 		AddCommand("audio", std::bind(&_ConsoleDebug::TestAudioPriority, this));
+
+
+		AddCommand("notify", std::bind(&_ConsoleDebug::NotifyAlarm, this));
 	}
 
 	void TestAudioPriority()
@@ -389,6 +392,25 @@ public:
 		}
 
 		getchar();
+	}
+
+
+	void NotifyAlarm()
+	{
+		printf_s("\nSend Alarm");
+		auto spSession = GlobalManager::Instance()->GetTcpClient()->GetConnectedSession();
+		if (spSession)
+		{
+
+			auto spreq = std::make_shared<notifyBaseStatus>();
+			spreq->set_batt(0.1f);
+			spSession->Send(spreq);
+			spreq.reset();
+		}
+		else
+		{
+			printf_s("\nClient Not Connection");
+		}
 	}
 };
 
