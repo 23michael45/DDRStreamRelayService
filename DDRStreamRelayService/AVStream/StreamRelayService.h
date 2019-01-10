@@ -22,7 +22,7 @@ extern "C"
 };
 #endif
 
-#include "MyMTModules.h"
+#include "../AVStream/MyMTModules.h"
 #include <vector>
 #include <chrono>
 using namespace DDRMTLib;

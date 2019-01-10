@@ -4,8 +4,8 @@
 #include "../../../Shared/src/Utility/DDRMacro.h"
 
 #include "../../../Shared/src/Utility/Logger.h"
-#include "GlobalManager.h"
-#include "StreamRelayService.h"
+#include "../Client/GlobalManager.h"
+#include "../AVStream/StreamRelayService.h"
 
 using namespace DDRFramework;
 using namespace DDRCommProto;

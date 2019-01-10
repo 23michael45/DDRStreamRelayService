@@ -1,6 +1,6 @@
-#include "GlobalManager.h"
+#include "../Client/GlobalManager.h"
 #include "../../../DDRLocalServer/DDR_LocalClient/Client/LocalClientUdpDispatcher.h"
-#include "LocalClientUdpProcessor.h"
+#include "../Processors/LocalClientUdpProcessor.h"
 
 GlobalManager::GlobalManager() :m_Config("Config/StreamRelayService/StreamRelayConfig.xml")
 {

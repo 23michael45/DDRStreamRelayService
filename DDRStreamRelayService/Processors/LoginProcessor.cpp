@@ -4,7 +4,7 @@
 #include "../../../Shared/src/Utility/DDRMacro.h"
 
 #include "../../../Shared/src/Utility/Logger.h"
-#include "GlobalManager.h"
+#include "../Client/GlobalManager.h"
 using namespace DDRFramework;
 using namespace DDRCommProto;
 

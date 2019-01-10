@@ -1,11 +1,13 @@
 #include "LocalClientDispatcher.h"
 #include "../../../Shared/proto/BaseCmd.pb.h"
 
-#include "LoginProcessor.h"
-#include "StreamServiceInfoProcessor.h"
-#include "StreamServiceInfoChangedProcessor.h"
-#include "FileStatusProcessor.h"
-#include "FileAddressProcessor.h"
+#include "../Processors/LoginProcessor.h"
+#include "../Processors/StreamServiceInfoProcessor.h"
+#include "../Processors/StreamServiceInfoChangedProcessor.h"
+#include "../Processors/FileStatusProcessor.h"
+#include "../Processors/FileAddressProcessor.h"
+#include "../Processors/CmdAudioProcessor.h"
+#include "../Processors/AudioTalkProcessor.h"
 
 using namespace DDRCommProto;
 using namespace DDRFramework;
@@ -17,8 +19,10 @@ LocalClientDispatcher::LocalClientDispatcher()
 	RegisterProcessor(rsp, StreamServiceInfo)
 	RegisterProcessor(notify, StreamServiceInfoChanged)
 	RegisterProcessor(chk, FileStatus)
-	RegisterProcessor(req, FileAddress)
+		RegisterProcessor(req, FileAddress)
+		RegisterProcessor(req, CmdAudio)
 
+		RegisterProcessor(req, AudioTalk)
 }
 
 

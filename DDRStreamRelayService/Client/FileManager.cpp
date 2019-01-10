@@ -1,5 +1,5 @@
 #include "FileManager.h"
-#include "GlobalManager.h"
+#include "../Client/GlobalManager.h"
 
 FileManager::FileManager()
 {

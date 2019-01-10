@@ -4,8 +4,8 @@
 #include "../../../Shared/src/Utility/CommonFunc.h"
 #include "../../../Shared/src/Network/HttpServer.h"
 #include "../../../Shared/thirdparty/asio/include/asio.hpp"
-#include "GlobalManager.h"
-#include "HttpFileServer.h"
+#include "../Client/GlobalManager.h"
+#include "../Client/HttpFileServer.h"
 
 using namespace DDRFramework;
 using namespace DDRCommProto;

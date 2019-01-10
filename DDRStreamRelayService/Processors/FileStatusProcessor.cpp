@@ -7,10 +7,10 @@
 #include "../../../Shared/src/Utility/Logger.h"
 #include "../../../Shared/src/Utility/CommonFunc.h"
 #include "../../../Shared/thirdparty/cppfs/include/cppfs/windows/LocalFileSystem.h"
-#include "GlobalManager.h"
-#include "FileManager.h"
+#include "../Client/GlobalManager.h"
+#include "../Client/FileManager.h"
 #include <regex>
-#include "HttpFileServer.h"
+#include "../Client/HttpFileServer.h"
 
 using namespace DDRFramework;
 using namespace DDRCommProto;

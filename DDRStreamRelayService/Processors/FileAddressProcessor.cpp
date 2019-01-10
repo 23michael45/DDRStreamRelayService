@@ -3,10 +3,10 @@
 #include "FileAddressProcessor.h"
 #include "../../../Shared/src/Utility/DDRMacro.h"
 #include "../../../Shared/src/Utility/Logger.h"
-#include "GlobalManager.h"
-#include "FileManager.h"
+#include "../Client/GlobalManager.h"
+#include "../Client/FileManager.h"
 #include <regex>
-#include "HttpFileServer.h"
+#include "../Client/HttpFileServer.h"
 #include "../../../Shared/src/Utility/CommonFunc.h"
 
 using namespace DDRFramework;

@@ -4,10 +4,10 @@
 #include "../../../Shared/src/Network/BaseMessageDispatcher.h"
 
 #include "../../../Shared/src/Utility/XmlLoader.h"
-#include "StreamRelayService.h"
-#include "DDRAudioTranscode.h"
-#include "DDRStreamPlay.h"
-#include "RobotChat/DDVoiceInteraction.h"
+#include "../AVStream/StreamRelayService.h"
+#include "../AVStream/DDRAudioTranscode.h"
+#include "../AVStream/DDRStreamPlay.h"
+#include "../RobotChat/DDVoiceInteraction.h"
 
 
 StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFramework::HookTcpSession(context)
@@ -34,10 +34,8 @@ void StreamRelayTcpSession::OnStart()
 {
 	if(m_spParentServer)
 	{
-		m_spParentServer->GetAudioCodec().SetTcpSession(shared_from_base());
+		m_spParentServer->GetAudioCodec().AddTcpSendToSession(shared_from_base());
 
-
-		m_spParentServer->StartAudioDevice();
 	}
 
 }
@@ -45,10 +43,8 @@ void StreamRelayTcpSession::OnStop()
 {
 	if (m_spParentServer)
 	{
-		m_spParentServer->GetAudioCodec().SetTcpSession(nullptr);
 
-
-		m_spParentServer->StopAudioDevice();
+		m_spParentServer->GetAudioCodec().RemoveTcpSendToSession(shared_from_base());
 	}
 
 }
@@ -102,6 +98,8 @@ StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcp
 		//StartRemoteVideo(Remote_VideoChannels);
 		//StartRemoteAudio(Remote_AudioChannels);
 
+
+		StartAudioDevice();
 	}
 
 	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish,this,std::placeholders::_1));

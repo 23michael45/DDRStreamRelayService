@@ -1,6 +1,6 @@
 #include "HttpFileServer.h"
 #include "../../../Shared/thirdparty/cppfs/include/cppfs/FilePath.h"
-#include "GlobalManager.h"
+#include "../Client/GlobalManager.h"
 
 HttpFileServer::HttpFileServer()
 {

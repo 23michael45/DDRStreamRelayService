@@ -9,7 +9,7 @@
 
 
 #include "../../../Shared/proto/BaseCmd.pb.h"
-#include "GlobalManager.h"
+#include "../Client/GlobalManager.h"
 using namespace DDRCommProto;
 
 StreamRelayTcpClient::StreamRelayTcpClient()

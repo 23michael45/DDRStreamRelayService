@@ -1,7 +1,7 @@
 #include "LocalClientUdpDispatcher.h"
-#include "LocalClientUdpProcessor.h"
+#include "../Processors/LocalClientUdpProcessor.h"
 #include "../../../Shared/proto/BaseCmd.pb.h"
-#include "LoginProcessor.h"
+#include "../Processors/LoginProcessor.h"
 
 
 using namespace DDRCommProto;

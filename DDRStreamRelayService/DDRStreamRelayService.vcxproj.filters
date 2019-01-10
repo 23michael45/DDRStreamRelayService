@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="DDRAudioTranscode.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyMTModules.cpp" />
-    <ClCompile Include="StreamRelayService.cpp" />
-    <ClCompile Include="DDRStreamPlay.cpp" />
-    <ClCompile Include="ProcSharedMem.cpp" />
     <ClCompile Include="RobotChat\DDVoiceInteraction.cpp">
       <Filter>RobotChat</Filter>
     </ClCompile>
@@ -82,12 +77,6 @@
     <ClCompile Include="Client\LocalClientUdpDispatcher.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="Client\LocalClientUdpProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\LoginProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
     <ClCompile Include="Client\StreamRelayTcpClient.cpp">
       <Filter>Client</Filter>
     </ClCompile>
@@ -105,12 +94,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Shared\thirdparty\mini-al\extras\dr_wav.cpp">
       <Filter>Shared\Thirdparty\mini-al\extras</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\StreamServiceInfoProcessor.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\StreamServiceInfoChangedProcessor.cpp">
-      <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Shared\src\Utility\LocalizationLoader.cpp">
       <Filter>Shared\Utility</Filter>
@@ -147,9 +130,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Shared\thirdparty\jsoncpp\src\json_writer.cpp">
       <Filter>Shared\Thirdparty\jsoncpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\FileStatusProcessor.cpp">
-      <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Shared\src\Utility\FileManagerBase.cpp">
       <Filter>Shared\Utility</Filter>
@@ -223,17 +203,50 @@
     <ClCompile Include="..\..\Shared\src\Utility\GlobalManagerBase.cpp">
       <Filter>Shared\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="TTSQueuePlayer.cpp" />
-    <ClCompile Include="Client\FileAddressProcessor.cpp">
-      <Filter>Client</Filter>
+    <ClCompile Include="AVStream\DDRAudioTranscode.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="AVStream\DDRStreamPlay.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="AVStream\MyMTModules.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="AVStream\ProcSharedMem.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="AVStream\StreamRelayService.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="AVStream\TTSQueuePlayer.cpp">
+      <Filter>AVStream</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\FileAddressProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\FileStatusProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\LocalClientUdpProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\LoginProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\StreamServiceInfoChangedProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\StreamServiceInfoProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\CmdAudioProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
+    <ClCompile Include="Processors\AudioTalkProcessor.cpp">
+      <Filter>Processors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DDRAudioTranscode.h" />
-    <ClInclude Include="MyMTModules.h" />
-    <ClInclude Include="StreamRelayService.h" />
-    <ClInclude Include="DDRStreamPlay.h" />
-    <ClInclude Include="ProcSharedMem.h" />
     <ClInclude Include="RobotChat\DDVoiceInteraction.h">
       <Filter>RobotChat</Filter>
     </ClInclude>
@@ -300,12 +313,6 @@
     <ClInclude Include="Client\LocalClientUdpDispatcher.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="Client\LocalClientUdpProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\LoginProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="Client\StreamRelayTcpClient.h">
       <Filter>Client</Filter>
     </ClInclude>
@@ -332,12 +339,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Shared\thirdparty\mini-al\mini_al.h">
       <Filter>Shared\Thirdparty\mini-al</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\StreamServiceInfoProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\StreamServiceInfoChangedProcessor.h">
-      <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Shared\src\Utility\LocalizationLoader.h">
       <Filter>Shared\Utility</Filter>
@@ -375,9 +376,6 @@
     <ClInclude Include="..\..\Shared\thirdparty\jsoncpp\src\json_tool.h">
       <Filter>Shared\Thirdparty\jsoncpp</Filter>
     </ClInclude>
-    <ClInclude Include="Client\FileStatusProcessor.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Shared\src\Utility\FileManagerBase.h">
       <Filter>Shared\Utility</Filter>
     </ClInclude>
@@ -390,9 +388,47 @@
     <ClInclude Include="..\..\Shared\src\Utility\GlobalManagerBase.h">
       <Filter>Shared\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="TTSQueuePlayer.h" />
-    <ClInclude Include="Client\FileAddressProcessor.h">
-      <Filter>Client</Filter>
+    <ClInclude Include="AVStream\DDRAudioTranscode.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="AVStream\DDRStreamPlay.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="AVStream\MyMTModules.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="AVStream\ProcSharedMem.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="AVStream\StreamRelayService.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="AVStream\TTSQueuePlayer.h">
+      <Filter>AVStream</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\FileAddressProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\FileStatusProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\LocalClientUdpProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\LoginProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\StreamServiceInfoChangedProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\StreamServiceInfoProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\CmdAudioProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\AudioTalkProcessor.h">
+      <Filter>Processors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +473,12 @@
     </Filter>
     <Filter Include="Shared\Thirdparty\cppfs\windows">
       <UniqueIdentifier>{e6d153b2-150e-447c-9bc1-6b4b4e257be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Processors">
+      <UniqueIdentifier>{dd5ea8ab-5407-4fca-b65a-b057e24d7333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AVStream">
+      <UniqueIdentifier>{3bebf24a-4ca4-4f7d-907d-f64e427179d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -39,7 +39,7 @@ extern "C"
 #include <mutex>
 #include <condition_variable>
 #include <chrono>
-#include "MyMTModules.h"
+#include "../AVStream/MyMTModules.h"
 using namespace std::chrono;
 using namespace DDRMTLib;
 struct StreamFrameInfo

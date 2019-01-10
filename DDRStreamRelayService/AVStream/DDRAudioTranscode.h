@@ -22,7 +22,7 @@ extern "C"
 
 #include <thread>
 #include <chrono>
-#include "MyMTModules.h"
+#include "../AVStream/MyMTModules.h"
 using namespace DDRMTLib;
 using namespace std::chrono;
 
