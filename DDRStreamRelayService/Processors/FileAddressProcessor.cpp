@@ -37,18 +37,17 @@ void FileAddressProcessor::AsyncProcess(std::shared_ptr<BaseSocketContainer> spS
 	if (pRaw->filetype() == eFileTypes::FileHttpAddress)
 	{
 
-		auto files = FileManager::Instance()->CheckFiles();
+		FileManager::Instance()->CheckFiles();
 
 		for (auto fmt : pRaw->filenames())
 		{
-			std::string filefmt = DDRFramework::getStartWildRegex(fmt);
+			auto files = FileManager::Instance()->Match(fmt);
 
 			for (auto file : files)
 			{
-				if (std::regex_match(file, std::regex(filefmt)))
-				{
-					sprsp->add_fileaddrlist(HttpFileServer::Instance()->GetHttpFullPath(file));
-				}
+				std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
+				sprsp->add_fileaddrlist(httpaddr);
+				DebugLog("%s", httpaddr.c_str());
 			}
 		}
 

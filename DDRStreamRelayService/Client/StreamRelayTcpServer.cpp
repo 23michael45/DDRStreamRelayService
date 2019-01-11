@@ -99,9 +99,9 @@ StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcp
 		//StartRemoteAudio(Remote_AudioChannels);
 
 
-		StartAudioDevice();
 	}
 
+	StartAudioDevice();
 	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish,this,std::placeholders::_1));
 }
 StreamRelayTcpServer::~StreamRelayTcpServer()

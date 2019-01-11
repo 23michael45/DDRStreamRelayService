@@ -39,7 +39,7 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 
 		for (auto fmt : pRaw->filenames())
 		{
-			std::string filefmt = DDRFramework::getStartWildRegex(fmt);
+			std::string filefmt = DDRFramework::getStarWildRegex(fmt,true);
 
 			for (auto file : files)
 			{

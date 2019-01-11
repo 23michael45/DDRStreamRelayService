@@ -21,6 +21,7 @@
 #include "Client/HttpFileServer.h"
 
 #include "../../Shared/src/Utility/MiniDump.h"
+#include "Client/FileManager.h"
 
 #include "opencv2/opencv.hpp"
 #include "opencv2/imgproc.hpp"
@@ -67,6 +68,7 @@ public:
 
 
 		AddCommand("notify", std::bind(&_ConsoleDebug::NotifyAlarm, this));
+		AddCommand("checkfiles", std::bind(&_ConsoleDebug::CheckFiles, this));
 	}
 
 	void TestAudioPriority()
@@ -412,6 +414,40 @@ public:
 			printf_s("\nClient Not Connection");
 		}
 	}
+
+
+
+	void CheckFiles() {
+
+		auto listfiles = FileManager::Instance()->CheckFiles();
+
+		//std::string fmt = "roo*\\*\\*.txt";
+		std::string fmt = "x*/Debug/*.db";
+		//auto vec = FileManager::Instance()->Match(fmt);
+
+		//for (auto s : vec)
+		//{
+		//	DebugLog("%s", s.c_str());
+		//}
+
+		auto sprsp = std::make_shared<rspFileAddress>();
+
+
+		auto files = FileManager::Instance()->Match(fmt);
+
+		for (auto file : files)
+		{
+			//std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
+			sprsp->add_fileaddrlist("192.168.1.183:8080/" + file);
+		}
+
+
+
+		GlobalManager::Instance()->GetTcpClient()->Send(sprsp);
+
+	}
+
+
 };
 
 
