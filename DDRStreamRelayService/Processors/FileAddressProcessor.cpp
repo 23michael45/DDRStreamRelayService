@@ -41,6 +41,7 @@ void FileAddressProcessor::AsyncProcess(std::shared_ptr<BaseSocketContainer> spS
 
 		for (auto fmt : pRaw->filenames())
 		{
+			DebugLog("FileAddressProcessor %s", fmt.c_str());
 			auto files = FileManager::Instance()->Match(fmt);
 
 			for (auto file : files)

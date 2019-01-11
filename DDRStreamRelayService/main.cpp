@@ -166,8 +166,8 @@ public:
 
 			auto spreq = std::make_shared<reqStreamRelayAlarm>();
 			spreq->set_error("SRS_Err_Remote_Server_Error");
-			spreq->add_to(eCltType::eAndroidClient);
-			spreq->add_to(eCltType::ePCClient);
+			spreq->add_to(eCltType::eLocalAndroidClient);
+			spreq->add_to(eCltType::eLocalPCClient);
 
 			spSession->Send(spreq);
 			spreq.reset();

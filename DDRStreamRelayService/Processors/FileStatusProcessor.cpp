@@ -35,18 +35,18 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 	if (pRaw->filetype() == eFileTypes::FileHttpAddress)
 	{
 
-		auto files = FileManager::Instance()->CheckFiles();
+		FileManager::Instance()->CheckFiles();
 
 		for (auto fmt : pRaw->filenames())
 		{
-			std::string filefmt = DDRFramework::getStarWildRegex(fmt,true);
+			DebugLog("FileAddressProcessor %s", fmt.c_str());
+			auto files = FileManager::Instance()->Match(fmt);
 
 			for (auto file : files)
 			{
-				if (std::regex_match(file, std::regex(filefmt)))
-				{
-					sprsp->add_fileaddrlist(HttpFileServer::Instance()->GetHttpFullPath(file));
-				}
+				std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
+				sprsp->add_fileaddrlist(httpaddr);
+				DebugLog("%s", httpaddr.c_str());
 			}
 		}
 
