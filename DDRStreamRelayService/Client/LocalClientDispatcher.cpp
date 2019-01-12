@@ -8,6 +8,7 @@
 #include "../Processors/FileAddressProcessor.h"
 #include "../Processors/CmdAudioProcessor.h"
 #include "../Processors/AudioTalkProcessor.h"
+#include "../Processors/UploadFileProcessor.h"
 
 using namespace DDRCommProto;
 using namespace DDRFramework;
@@ -23,6 +24,8 @@ LocalClientDispatcher::LocalClientDispatcher()
 		RegisterProcessor(req, CmdAudio)
 
 		RegisterProcessor(req, AudioTalk)
+		RegisterProcessor(notify, UploadFile)
+
 }
 
 
