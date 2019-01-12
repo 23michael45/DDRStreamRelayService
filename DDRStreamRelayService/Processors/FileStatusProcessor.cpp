@@ -50,7 +50,7 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 			}
 		}
 
-		spSockContainer->Send(sprsp);
+		spSockContainer->Send(spHeader,sprsp);
 	}
 	else
 	{
