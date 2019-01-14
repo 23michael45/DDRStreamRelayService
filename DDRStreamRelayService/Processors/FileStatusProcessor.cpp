@@ -29,6 +29,11 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 
 	chkFileStatus* pRaw = reinterpret_cast<chkFileStatus*>(spMsg.get());
 
+	std::set<std::string> remoteExistFiles;
+	for (auto file : pRaw->existfiles())
+	{
+		remoteExistFiles.insert(file);
+	}
 
 	auto sprsp = std::make_shared<ansFileStatus>();
 
@@ -37,16 +42,27 @@ void FileStatusProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCon
 
 		FileManager::Instance()->CheckFiles();
 
-		for (auto fmt : pRaw->filenames())
+		for (auto fmt : pRaw->filefmt())
 		{
-			DebugLog("FileAddressProcessor %s", fmt.c_str());
+			DebugLog("FileStatusProcessor %s", fmt.c_str());
 			auto files = FileManager::Instance()->Match(fmt);
 
 			for (auto file : files)
 			{
-				std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
-				sprsp->add_fileaddrlist(httpaddr);
-				DebugLog("%s", httpaddr.c_str());
+
+				if (remoteExistFiles.find(file) == remoteExistFiles.end())
+				{
+
+					std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
+					sprsp->add_fileaddrlist(httpaddr);
+					DebugLog("%s", httpaddr.c_str());
+				}
+				else
+				{
+
+				}
+
+
 			}
 		}
 
