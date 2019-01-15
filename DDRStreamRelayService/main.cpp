@@ -113,8 +113,8 @@ public:
 	}
 	void Regex()
 	{
-		std::string file = "e:/www/人人人.jpg";
-		if (std::regex_match(file, std::regex("(.*)人(.*)")))
+		std::string file = "ro.ot";
+		if (std::regex_match(file, std::regex("(.*)(\\.)(.*)")))
 		{
 			DebugLog("Match");
 		}

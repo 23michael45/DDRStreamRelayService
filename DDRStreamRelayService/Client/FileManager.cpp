@@ -5,6 +5,7 @@ FileManager::FileManager()
 {
 
 	m_RootPath = GlobalManager::Instance()->GetConfig().GetValue("HttpRoot");
+	CheckFiles();
 
 }
 FileManager::~FileManager()
