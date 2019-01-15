@@ -33,12 +33,12 @@ void CmdAudioProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockConta
 			if (pRaw->type() == reqCmdAudio_eAudioMode_eFile)
 			{
 
-				GlobalManager::Instance()->GetTcpServer()->StartPlayTxt(content, priority);
+				GlobalManager::Instance()->GetTcpServer()->StartPlayFile(content, priority);
 			}
 			else if (pRaw->type() == reqCmdAudio_eAudioMode_eTTS)
 			{
 
-				GlobalManager::Instance()->GetTcpServer()->StartPlayFile(content, priority);
+				GlobalManager::Instance()->GetTcpServer()->StartPlayTxt(content, priority);
 
 			}
 
