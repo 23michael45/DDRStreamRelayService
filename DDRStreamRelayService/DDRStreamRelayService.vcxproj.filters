@@ -665,6 +665,9 @@
     <ClCompile Include="Processors\UploadFileProcessor.cpp">
       <Filter>Processors</Filter>
     </ClCompile>
+    <ClCompile Include="Processors\CmdMoveProcessor.cpp">
+      <Filter>Processors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RobotChat\DDVoiceInteraction.h">
@@ -1256,6 +1259,9 @@
       <Filter>Shared\Thirdparty\curl\lib</Filter>
     </ClInclude>
     <ClInclude Include="Processors\UploadFileProcessor.h">
+      <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="Processors\CmdMoveProcessor.h">
       <Filter>Processors</Filter>
     </ClInclude>
   </ItemGroup>

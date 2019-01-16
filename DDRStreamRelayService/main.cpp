@@ -69,6 +69,10 @@ public:
 
 		AddCommand("notify", std::bind(&_ConsoleDebug::NotifyAlarm, this));
 		AddCommand("checkfiles", std::bind(&_ConsoleDebug::CheckFiles, this));
+
+
+		AddCommand("startsend", std::bind(&_ConsoleDebug::StartSend, this));
+		AddCommand("stopsend", std::bind(&_ConsoleDebug::StopSend, this));
 	}
 
 	void TestAudioPriority()
@@ -414,6 +418,37 @@ public:
 	}
 
 
+
+	DDRFramework::Timer m_Timer;
+	DDRFramework::timer_id m_HeartBeatTimerID;
+	void StartSend()
+	{
+		m_HeartBeatTimerID = m_Timer.add(std::chrono::milliseconds(50), std::bind(&_ConsoleDebug::SendOnce, this, std::placeholders::_1), std::chrono::milliseconds(1));
+	}
+	void SendOnce(timer_id id)
+	{
+		printf_s("\nSend Alarm");
+		auto spSession = GlobalManager::Instance()->GetTcpClient()->GetConnectedSession();
+		if (spSession)
+		{
+
+			auto spreq = std::make_shared<notifyBaseStatus>();
+			//spreq->set_type(eCltType::eLSMStreamRelay);
+			spreq->set_batt(0.1f);
+			//spreq->set_whatever("0");
+			spSession->Send(spreq);
+			spreq.reset();
+		}
+		else
+		{
+			printf_s("\nClient Not Connection");
+		}
+	}
+	void StopSend()
+	{
+
+		m_Timer.remove(m_HeartBeatTimerID);
+	}
 
 	void CheckFiles() {
 

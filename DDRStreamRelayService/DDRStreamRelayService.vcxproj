@@ -382,6 +382,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Processors\AudioTalkProcessor.cpp" />
     <ClCompile Include="Processors\CmdAudioProcessor.cpp" />
+    <ClCompile Include="Processors\CmdMoveProcessor.cpp" />
     <ClCompile Include="Processors\FileAddressProcessor.cpp" />
     <ClCompile Include="Processors\FileStatusProcessor.cpp" />
     <ClCompile Include="Processors\LocalClientUdpProcessor.cpp" />
@@ -585,6 +586,7 @@
     <ClInclude Include="Client\StreamRelayTcpServer.h" />
     <ClInclude Include="Processors\AudioTalkProcessor.h" />
     <ClInclude Include="Processors\CmdAudioProcessor.h" />
+    <ClInclude Include="Processors\CmdMoveProcessor.h" />
     <ClInclude Include="Processors\FileAddressProcessor.h" />
     <ClInclude Include="Processors\FileStatusProcessor.h" />
     <ClInclude Include="Processors\LocalClientUdpProcessor.h" />
