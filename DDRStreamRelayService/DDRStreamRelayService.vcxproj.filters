@@ -1135,9 +1135,6 @@
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\setup-vms.h">
       <Filter>Shared\Thirdparty\curl\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Shared\thirdparty\curl\lib\share.h">
-      <Filter>Shared\Thirdparty\curl\lib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\sigpipe.h">
       <Filter>Shared\Thirdparty\curl\lib</Filter>
     </ClInclude>
@@ -1263,6 +1260,9 @@
     </ClInclude>
     <ClInclude Include="Processors\CmdMoveProcessor.h">
       <Filter>Processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\thirdparty\curl\lib\shared.h">
+      <Filter>Shared\Thirdparty\curl\lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

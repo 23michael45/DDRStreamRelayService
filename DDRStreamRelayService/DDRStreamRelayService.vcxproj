@@ -521,7 +521,7 @@
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\setopt.h" />
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\setup-os400.h" />
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\setup-vms.h" />
-    <ClInclude Include="..\..\Shared\thirdparty\curl\lib\share.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\curl\lib\shared.h" />
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\sigpipe.h" />
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\slist.h" />
     <ClInclude Include="..\..\Shared\thirdparty\curl\lib\smb.h" />
