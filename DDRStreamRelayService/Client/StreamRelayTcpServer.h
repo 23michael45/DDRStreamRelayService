@@ -25,10 +25,7 @@ public:
 	StreamRelayTcpSession(asio::io_context& context);
 	~StreamRelayTcpSession();
 
-	auto shared_from_base() {
-		return std::static_pointer_cast<StreamRelayTcpSession>(shared_from_this());
-	}
-
+	SHARED_FROM_BASE(StreamRelayTcpSession)
 
 	virtual void OnStart() override;
 	virtual void OnStop() override;
@@ -53,10 +50,7 @@ public:
 	StreamRelayTcpServer(rspStreamServiceInfo& info);
 	~StreamRelayTcpServer();
 
-	auto shared_from_base() {
-		return std::static_pointer_cast<StreamRelayTcpServer>(shared_from_this());
-	}
-
+	SHARED_FROM_BASE(StreamRelayTcpServer)
 
 	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
 

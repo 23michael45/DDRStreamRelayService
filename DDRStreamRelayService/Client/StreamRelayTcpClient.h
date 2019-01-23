@@ -17,9 +17,7 @@ public:
 
 	virtual std::shared_ptr<TcpClientSessionBase> BindSerializerDispatcher();
 
-	auto shared_from_base() {
-		return std::static_pointer_cast<StreamRelayTcpClient>(shared_from_this());
-	}
+	SHARED_FROM_BASE(StreamRelayTcpClient)
 
 
 	void StartHeartBeat();
