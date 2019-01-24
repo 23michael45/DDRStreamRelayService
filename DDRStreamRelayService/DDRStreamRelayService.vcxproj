@@ -111,15 +111,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;SYSTEM_WINDOWS;PROTOBUF_ENCRYPT;ASIO_STANDALONE;PROTOBUF_USE_DLLS;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;SYSTEM_WINDOWS;PROTOBUF_ENCRYPT;ASIO_STANDALONE;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_LIB;DR_WAV_IMPLEMENTATION;MINI_AL_IMPLEMENTATION;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)../../Shared/Thirdparty/tinyxml;$(ProjectDir)../../Shared/Thirdparty/cppfs/include;$(ProjectDir)../../Shared/Thirdparty/protobuf/src;$(ProjectDir)../../Shared/Thirdparty/asio/include;$(ProjectDir)../../Shared/Thirdparty/jsoncpp/include;%(AdditionalIncludeDirectories)$(ProjectDir);include;$(ProjectDir);$(ProjectDir)../../Shared/Thirdparty/portaudio/src/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/os/win;$(ProjectDir)../../Shared/Thirdparty/portaudio/include;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/common;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host;$(ProjectDir)../../Shared/Thirdparty/portaudio/src/hostapi/ASIOSDK/host/pc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)../../Shared/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>protobuf/libprotocd.lib;protobuf/libprotobufd.lib;%(AdditionalDependencies);ffmpeg/avcodec.lib;ffmpeg/avformat.lib;ffmpeg/avutil.lib;ffmpeg/avdevice.lib;ffmpeg/avfilter.lib;ffmpeg/postproc.lib;ffmpeg/swresample.lib;ffmpeg/swscale.lib;ffmpeg/libaod.lib;winmm.lib;ffmpeg/libiconvD.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);ffmpeg/avcodec.lib;ffmpeg/avformat.lib;ffmpeg/avutil.lib;ffmpeg/avdevice.lib;ffmpeg/avfilter.lib;ffmpeg/postproc.lib;ffmpeg/swresample.lib;ffmpeg/swscale.lib;ffmpeg/libaod.lib;winmm.lib;ffmpeg/libiconvD.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -601,6 +601,139 @@
     <None Include="..\..\Shared\thirdparty\curl\lib\Makefile.inc" />
     <None Include="..\..\Shared\thirdparty\curl\lib\objnames.inc" />
     <None Include="..\..\Shared\thirdparty\jsoncpp\src\json_valueiterator.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\arena.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\arenastring.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\extension_set.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\generated_message_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\implicit_weak_message.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\coded_stream.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\zero_copy_stream.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\zero_copy_stream_impl_lite.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\message_lite.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\repeated_field.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\bytestream.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\common.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\int128.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\io_win32.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\status.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\statusor.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\stringpiece.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\stringprintf.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\structurally_valid.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\strutil.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\time.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wire_format_lite.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\any.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\any.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\api.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\compiler\importer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\compiler\parser.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor_database.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\duration.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\dynamic_message.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\empty.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\extension_set_heavy.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\field_mask.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\generated_message_reflection.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\generated_message_table_driven.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\gzip_stream.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\printer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\strtod.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\tokenizer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\zero_copy_stream_impl.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\map_field.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\message.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\reflection_ops.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\service.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\source_context.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\struct.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\mathlimits.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\substitute.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\text_format.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\timestamp.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\type.pb.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\unknown_field_set.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\delimited_message_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\field_comparator.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\field_mask_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\datapiece.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\default_value_objectwriter.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\error_listener.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\field_mask_utility.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_escaping.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_objectwriter.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_stream_parser.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\object_writer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\proto_writer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\protostream_objectsource.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\protostream_objectwriter.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\type_info.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\type_info_test_helper.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\utility.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\json_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\message_differencer.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\time_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\type_resolver_util.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wire_format.cc" />
+    <ClCompile Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wrappers.pb.cc" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\any.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\any.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\api.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\compiler\importer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\compiler\parser.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\descriptor_database.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\duration.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\dynamic_message.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\empty.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\field_mask.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\generated_message_reflection.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\gzip_stream.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\printer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\strtod.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\tokenizer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\io\zero_copy_stream_impl.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\map_field.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\message.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\reflection_ops.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\service.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\source_context.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\struct.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\mathlimits.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\stubs\substitute.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\text_format.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\timestamp.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\type.pb.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\unknown_field_set.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\delimited_message_util.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\field_comparator.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\field_mask_util.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\datapiece.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\default_value_objectwriter.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\error_listener.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\field_mask_utility.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_escaping.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_objectwriter.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\json_stream_parser.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\object_writer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\proto_writer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\protostream_objectsource.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\protostream_objectwriter.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\type_info.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\type_info_test_helper.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\internal\utility.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\json_util.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\message_differencer.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\time_util.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\util\type_resolver_util.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wire_format.h" />
+    <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wrappers.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\Shared\thirdparty\curl\lib\libcurl.rc" />
