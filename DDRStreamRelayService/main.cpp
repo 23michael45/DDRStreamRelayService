@@ -25,6 +25,8 @@
 
 #include "opencv2/opencv.hpp"
 #include "opencv2/imgproc.hpp"
+#include "Version.h"
+
 using namespace DDRFramework;
 using namespace DDRCommProto;
 void MoveWorkingDir()
@@ -73,6 +75,16 @@ public:
 
 		AddCommand("startsend", std::bind(&_ConsoleDebug::StartSend, this));
 		AddCommand("stopsend", std::bind(&_ConsoleDebug::StopSend, this));
+
+
+		AddCommand("ver", std::bind(&_ConsoleDebug::PrintVersion, this));
+	}
+	void PrintVersion()
+	{
+		printf_s("\nBuild Time:%s", g_BuildTime.c_str());
+		printf_s("\nBuild Version:%s", g_Version.c_str());
+		printf_s("\nBuild Mode:%s", g_DMode.c_str());
+
 	}
 
 	void TestAudioPriority()
