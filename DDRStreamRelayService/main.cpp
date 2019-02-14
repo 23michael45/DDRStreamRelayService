@@ -7,6 +7,7 @@
 #include "../../Shared/proto/BaseCmd.pb.h"
 #include "../../Shared/src/Utility/DDRMacro.h"
 #include "../../Shared/src/Utility/CommonFunc.h"
+#include "../../Shared/src/Network/HttpClient.h"
 #include "Client/LocalClientUdpDispatcher.h"
 #include <thread>
 #include <chrono>
@@ -420,6 +421,7 @@ public:
 
 			auto spreq = std::make_shared<notifyBaseStatus>();
 			spreq->set_batt(0.1f);
+			spreq->set_currpath("12");
 			spSession->Send(spreq);
 			spreq.reset();
 		}
@@ -467,7 +469,8 @@ public:
 		auto listfiles = FileManager::Instance()->CheckFiles();
 
 		//std::string fmt = "roo*\\*\\*.txt";
-		std::string fmt = "x*/Debug/*.db";
+		//std::string fmt = "x*/Debug/*.db";
+		std::string fmt = "fs/*.txt";
 		//auto vec = FileManager::Instance()->Match(fmt);
 
 		//for (auto s : vec)
@@ -482,8 +485,27 @@ public:
 
 		for (auto file : files)
 		{
-			//std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
-			sprsp->add_fileaddrlist("192.168.1.183:8080/" + file);
+
+
+			std::string httpaddr = HttpFileServer::Instance()->GetHttpFullPath(file);
+
+
+
+
+
+			sprsp->add_fileaddrlist(httpaddr);
+
+
+
+			auto spHttpSession = std::make_shared<HttpSession>();
+
+
+			cppfs::FilePath fpath(httpaddr);
+			auto filename = fpath.fileName();
+			spHttpSession->DoGet(httpaddr, filename);
+
+
+
 		}
 
 
