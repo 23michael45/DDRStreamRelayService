@@ -466,11 +466,23 @@ public:
 
 	void CheckFiles() {
 
+		std::string fmt = "OneRoute*";
+		auto matchedFiles = FileManager::Instance()->MatchDir("",fmt);
+		std::vector<std::string> v;
+		for (auto dir : matchedFiles)
+		{
+			auto finalFiles = FileManager::Instance()->MatchDir(dir, "Path*");
+			for (auto f : finalFiles)
+			{
+				v.push_back(f);
+			}
+		}
+
 		auto listfiles = FileManager::Instance()->CheckFiles();
 
 		//std::string fmt = "roo*\\*\\*.txt";
 		//std::string fmt = "x*/Debug/*.db";
-		std::string fmt = "fs/*.txt";
+		//std::string fmt = "fs/*.txt";
 		//auto vec = FileManager::Instance()->Match(fmt);
 
 		//for (auto s : vec)
