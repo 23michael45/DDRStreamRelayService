@@ -51,12 +51,30 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 						{
 							auto& HeadPassnode = spHeader->passnodearray(0);
 							std::string fromIP = HeadPassnode.fromip();
-							codec.SetTcpReceiveSessionIP(fromIP);
-							sprsp->set_status(eTalkStatus::ETS_START_OK);
+
+
+							bool hasConnectClient = false;
+							for (auto spPair : spServer->GetTcpSocketContainerMap())
+							{
+								if(spPair.second->GetIPAddress() == fromIP)
+								{
+									codec.SetTcpReceiveSessionIP(fromIP);
+									sprsp->set_status(eTalkStatus::ETS_START_OK);
+									hasConnectClient = true;
+									break;
+								}
+							}
+
+							if (hasConnectClient == false)
+							{
+
+								sprsp->set_status(eTalkStatus::ETS_NO_USER_CONNECTED_WITH_IP);
+							}
+
 						}
 						else
 						{
-							sprsp->set_status(eTalkStatus::ETS_NO_USER_CONNECTED_WITH_IP);
+							sprsp->set_status(eTalkStatus::ETS_UNKNOWN_ERROR);
 
 						}
 

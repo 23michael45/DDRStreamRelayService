@@ -16,6 +16,11 @@ StreamRelayTcpSession::StreamRelayTcpSession(asio::io_context& context) : DDRFra
 }
 StreamRelayTcpSession::~StreamRelayTcpSession()
 {
+	if (m_spParentServer->GetAudioCodec().IsTcpReceiveSession(m_fromIP))
+	{
+		m_spParentServer->GetAudioCodec().SetTcpReceiveSessionIP("");
+
+	}
 	DebugLog("StreamRelayTcpSession Destroy")
 }
 
@@ -25,7 +30,7 @@ void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
 {
 	if (m_spParentServer)
 	{
-		if (m_spParentServer->GetAudioCodec().IsTcpReceiveSession(shared_from_this()))
+		if (m_spParentServer->GetAudioCodec().IsTcpReceiveSession(m_fromIP))
 		{
 			m_spParentServer->GetAudioCodec().PushAudioRecvBuf(buf);
 
@@ -40,6 +45,9 @@ void StreamRelayTcpSession::OnStart()
 	{
 		m_spParentServer->GetAudioCodec().AddTcpSendToSession(shared_from_base());
 
+		m_fromIP == shared_from_base()->GetSocket().remote_endpoint().address().to_string();
+
+		
 	}
 
 }
@@ -48,6 +56,7 @@ void StreamRelayTcpSession::OnStop()
 	if (m_spParentServer)
 	{
 
+		m_spParentServer->GetAudioCodec().SetTcpReceiveSessionIP("");
 		m_spParentServer->GetAudioCodec().RemoveTcpSendToSession(shared_from_base());
 	}
 

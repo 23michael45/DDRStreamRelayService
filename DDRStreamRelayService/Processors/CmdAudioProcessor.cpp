@@ -26,7 +26,6 @@ void CmdAudioProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockConta
 	if (pRaw)
 	{
 
-
 		auto sprsp = std::make_shared<rspCmdAudio>();
 
 
