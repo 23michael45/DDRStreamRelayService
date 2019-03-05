@@ -31,7 +31,25 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 			if (pRaw->nettype() == reqAudioTalk_eNetType_eLocal)
 			{
 
-				GlobalManager::Instance()->GetTcpServer()->GetAudioCodec().SetTcpReceiveSession(spSockContainer->GetTcp());
+				auto sprsp = std::make_shared<rspAudioTalk>();
+
+				auto& codec = GlobalManager::Instance()->GetTcpServer()->GetAudioCodec();
+
+				if (codec.HasTcpReceiveSession())
+				{
+					sprsp->set_status(eTalkStatus::ETS_USE_BY_OTHER);
+
+
+				}
+				else
+				{
+					codec.SetTcpReceiveSession(spSockContainer->GetTcp());
+					sprsp->set_status(eTalkStatus::ETS_OK);
+
+				}
+
+
+				spSockContainer->Send(sprsp);
 			}
 			else if (pRaw->nettype() == reqAudioTalk_eNetType_eRemote)
 			{

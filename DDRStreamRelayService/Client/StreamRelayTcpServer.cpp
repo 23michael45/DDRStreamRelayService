@@ -25,7 +25,11 @@ void StreamRelayTcpSession::OnHookReceive(asio::streambuf& buf)
 {
 	if (m_spParentServer)
 	{
-		m_spParentServer->GetAudioCodec().PushAudioRecvBuf(buf);
+		if (m_spParentServer->GetAudioCodec().IsTcpReceiveSession(shared_from_this()))
+		{
+			m_spParentServer->GetAudioCodec().PushAudioRecvBuf(buf);
+
+		}
 
 	}
 }

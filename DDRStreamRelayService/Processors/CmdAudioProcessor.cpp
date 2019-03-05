@@ -25,6 +25,11 @@ void CmdAudioProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockConta
 	reqCmdAudio* pRaw = reinterpret_cast<reqCmdAudio*>(spMsg.get());
 	if (pRaw)
 	{
+
+
+		auto sprsp = std::make_shared<rspCmdAudio>();
+
+
 		if (pRaw->audiop() == reqCmdAudio_eAudioOperational_eStart)
 		{
 			std::string content = pRaw->audiostr();
@@ -48,6 +53,11 @@ void CmdAudioProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockConta
 
 			GlobalManager::Instance()->GetTcpServer()->GetAudioCodec().StopPlayBuf();
 		}
+
+		sprsp->set_type(eCmdRspType::eSuccess);
+
+
+		spSockContainer->Send(sprsp);
 	}
 
 }
