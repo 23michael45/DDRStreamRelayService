@@ -79,6 +79,8 @@ public:
 
 
 		AddCommand("ver", std::bind(&_ConsoleDebug::PrintVersion, this));
+
+		AddCommand("crash", std::bind(&_ConsoleDebug::Crash, this));
 	}
 	void PrintVersion()
 	{
@@ -87,7 +89,12 @@ public:
 		printf_s("\nBuild Mode:%s", g_DMode.c_str());
 
 	}
-
+	void Crash()
+	{
+		vector<int> *pv = new vector<int>;
+		pv = nullptr;
+		pv->push_back(1);
+	}
 	void TestAudioPriority()
 	{
 		rspStreamServiceInfo info;

@@ -53,6 +53,7 @@ public:
 	SHARED_FROM_BASE(StreamRelayTcpServer)
 
 	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
+	virtual void HandleAccept(std::shared_ptr<TcpSessionBase> sp, const asio::error_code& error) override;
 
 	bool StartAudioDevice();
 	void StopAudioDevice();

@@ -185,6 +185,48 @@ std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
 	spStreamRelayTcpSession->SetParentServer(shared_from_base());
 	return spStreamRelayTcpSession;
 }
+void StreamRelayTcpServer::HandleAccept(std::shared_ptr<TcpSessionBase> spSession, const asio::error_code& error)
+{
+	if (!error)
+	{
+
+		std::string fromip = spSession->GetSocket().remote_endpoint().address().to_string();
+
+		bool havesameIP = false;
+		for (auto kv : m_SessionMap)
+		{
+			auto psock = kv.first;
+			std::string ip = psock->remote_endpoint().address().to_string();
+
+
+			if (ip == fromip)
+			{
+				havesameIP = true;
+				break;
+			}
+			
+		}
+		if (!havesameIP)
+		{
+			m_SessionMap[&spSession->GetSocket()] = spSession;
+			spSession->Start();
+
+		}
+		else
+		{
+			DebugLog("Save IP Client Already Connect Server");
+			//spSession->Stop();
+			//session have not start ,so here do not call stop ,reset sp is ok
+			spSession->Release();
+			spSession.reset();
+		}
+
+
+	}
+
+	StartAccept();
+}
+
 
 bool StreamRelayTcpServer::StartAudioDevice()
 {
