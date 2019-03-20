@@ -83,7 +83,7 @@ void LocalClientUdpProcessor::DealLocalServer(bcLSAddr_ServerInfo& serverinfo)
 		TcpClientStart(conntectip, port);
 
 
-		HttpServerStart((rmap.begin())->first, GlobalManager::Instance()->GetConfig().GetValue("HttpPort"), GlobalManager::Instance()->GetConfig().GetValue("HttpRoot"));
+		//HttpServerStart((rmap.begin())->first, GlobalManager::Instance()->GetConfig().GetValue("HttpPort"), GlobalManager::Instance()->GetConfig().GetValue("HttpRoot"));
 
 		DebugLog("Receive Server Broadcast %s: %s", name.c_str(), conntectip.c_str());
 	}

@@ -543,7 +543,7 @@ int main(int argc, char **argv)
 	DisableMouseSelectConsole();
 	InitMinDump();
 	DDVoiceInteraction::Instance()->Init();
-	HttpFileServer::Instance()->Init();
+	//HttpFileServer::Instance()->Init();
 	GlobalManager::Instance()->Init();
 	   
 
