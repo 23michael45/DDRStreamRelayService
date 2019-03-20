@@ -1739,9 +1739,4 @@
       <Filter>Shared\Thirdparty\protobuf\include</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\Shared\thirdparty\curl\lib\libcurl.rc">
-      <Filter>Shared\Thirdparty\curl\lib</Filter>
-    </ResourceCompile>
-  </ItemGroup>
 </Project>

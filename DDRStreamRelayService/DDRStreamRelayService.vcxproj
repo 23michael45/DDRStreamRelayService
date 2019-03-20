@@ -742,9 +742,6 @@
     <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wire_format.h" />
     <ClInclude Include="..\..\Shared\thirdparty\protobuf\src\google\protobuf\wrappers.pb.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\Shared\thirdparty\curl\lib\libcurl.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
