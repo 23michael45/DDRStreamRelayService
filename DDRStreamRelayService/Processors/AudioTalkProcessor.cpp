@@ -32,21 +32,21 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 			if (pRaw->nettype() == reqAudioTalk_eNetType_eLocal)
 			{
 
-
-				auto& codec = GlobalManager::Instance()->GetTcpServer()->GetAudioCodec();
-
-				if (codec.HasTcpReceiveSession())
+				auto spServer = GlobalManager::Instance()->GetTcpServer();
+				if (spServer)
 				{
-					sprsp->set_status(eTalkStatus::ETS_USE_BY_OTHER);
+					auto& codec = spServer->GetAudioCodec();
 
-
-				}
-				else
-				{
-
-					auto spServer = GlobalManager::Instance()->GetTcpServer();
-					if (spServer)
+					if (codec.HasTcpReceiveSession())
 					{
+						sprsp->set_status(eTalkStatus::ETS_USE_BY_OTHER);
+
+
+					}
+					else
+					{
+
+
 						if (spHeader->passnodearray().size() > 0)
 						{
 							auto& HeadPassnode = spHeader->passnodearray(0);
@@ -56,7 +56,7 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 							bool hasConnectClient = false;
 							for (auto spPair : spServer->GetTcpSocketContainerMap())
 							{
-								if(spPair.second->GetIPAddress() == fromIP)
+								if (spPair.second->GetIPAddress() == fromIP)
 								{
 									codec.SetTcpReceiveSessionIP(fromIP);
 									sprsp->set_status(eTalkStatus::ETS_START_OK);
@@ -82,7 +82,8 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 
 
 				}
-
+			
+		
 
 			}
 			else if (pRaw->nettype() == reqAudioTalk_eNetType_eRemote)
@@ -94,9 +95,18 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 		}
 		else if (pRaw->optype() == reqAudioTalk_eOpMode_eStop)
 		{
+			auto spServer = GlobalManager::Instance()->GetTcpServer();
+			if (spServer)
+			{
+				spServer->GetAudioCodec().SetTcpReceiveSessionIP();
+				sprsp->set_status(eTalkStatus::ETS_STOP_OK);
 
-			GlobalManager::Instance()->GetTcpServer()->GetAudioCodec().SetTcpReceiveSessionIP();
-			sprsp->set_status(eTalkStatus::ETS_STOP_OK);
+			}
+			else
+			{
+				sprsp->set_status(eTalkStatus::ETS_UNKNOWN_ERROR);
+
+			}
 		}
 
 		spSockContainer->SendBack(spHeader, sprsp);

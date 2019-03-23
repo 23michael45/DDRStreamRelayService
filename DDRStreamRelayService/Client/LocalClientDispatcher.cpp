@@ -21,7 +21,7 @@ LocalClientDispatcher::LocalClientDispatcher()
 	RegisterProcessor(rsp, StreamServiceInfo)
 	RegisterProcessor(notify, StreamServiceInfoChanged)
 	RegisterProcessor(chk, FileStatus)
-		RegisterProcessor(req, FileAddress)
+		//RegisterProcessor(req, FileAddress)
 		RegisterProcessor(req, CmdAudio)
 
 		RegisterProcessor(req, CmdMove)

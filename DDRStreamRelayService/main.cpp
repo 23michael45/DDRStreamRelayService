@@ -152,9 +152,10 @@ public:
 	void ListServerConnections()
 	{
 		printf_s("\nServer Connections");
-		if (GlobalManager::Instance()->GetTcpServer())
+		auto spServer = GlobalManager::Instance()->GetTcpServer();
+		if (spServer)
 		{
-			for (auto spSessiont : GlobalManager::Instance()->GetTcpServer()->GetTcpSocketContainerMap())
+			for (auto spSessiont : spServer->GetTcpSocketContainerMap())
 			{
 				std::string ip = spSessiont.second->GetSocket().remote_endpoint().address().to_string();
 				printf_s("\n%s", ip.c_str());
@@ -202,13 +203,6 @@ public:
 
 	void PlayTxt()
 	{
-		//auto vec = split(m_CurrentCmd, ':');
-		//if (vec.size() == 3)
-		//{
-		//	DDVoiceInteraction::GetInstance()->RunTTS(vec[1].c_str(), atoi(vec[2].c_str()));
-		//	//GlobalManager::Instance()->GetTcpServer()->PlayAudio(vec[1], atoi(vec[2].c_str()));
-		//}
-
 		asio::streambuf buf;
 		std::string fn("3.wav");
 		ifstream is;

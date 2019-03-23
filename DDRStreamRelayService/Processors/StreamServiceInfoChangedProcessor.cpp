@@ -38,8 +38,11 @@ void StreamServiceInfoChangedProcessor::AsyncProcess(std::shared_ptr<BaseSocketC
 		channels.push_back(channel);
 	}
 
-	GlobalManager::Instance()->GetTcpServer()->StartRemoteVideo(channels);
-
+	auto spServer = GlobalManager::Instance()->GetTcpServer();
+	if (spServer)
+	{
+		spServer->StartRemoteVideo(channels);
+	}
 
 	
 }

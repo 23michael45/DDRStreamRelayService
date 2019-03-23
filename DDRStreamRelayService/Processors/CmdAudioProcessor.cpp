@@ -25,36 +25,45 @@ void CmdAudioProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockConta
 	reqCmdAudio* pRaw = reinterpret_cast<reqCmdAudio*>(spMsg.get());
 	if (pRaw)
 	{
-
 		auto sprsp = std::make_shared<rspCmdAudio>();
 
-
-		if (pRaw->audiop() == reqCmdAudio_eAudioOperational_eStart)
-		{
-			std::string content = pRaw->audiostr();
-			int priority = pRaw->level();
-
-			if (pRaw->type() == reqCmdAudio_eAudioMode_eFile)
-			{
-
-				GlobalManager::Instance()->GetTcpServer()->StartPlayFile(content, priority);
-			}
-			else if (pRaw->type() == reqCmdAudio_eAudioMode_eTTS)
-			{
-
-				GlobalManager::Instance()->GetTcpServer()->StartPlayTxt(content, priority);
-
-			}
-
-		}
-		else if (pRaw->audiop() == reqCmdAudio_eAudioOperational_eStop)
+		auto spServer = GlobalManager::Instance()->GetTcpServer();
+		if (spServer)
 		{
 
-			GlobalManager::Instance()->GetTcpServer()->GetAudioCodec().StopPlayBuf();
+
+
+			if (pRaw->audiop() == reqCmdAudio_eAudioOperational_eStart)
+			{
+				std::string content = pRaw->audiostr();
+				int priority = pRaw->level();
+
+				if (pRaw->type() == reqCmdAudio_eAudioMode_eFile)
+				{
+
+					spServer->StartPlayFile(content, priority);
+				}
+				else if (pRaw->type() == reqCmdAudio_eAudioMode_eTTS)
+				{
+
+					spServer->StartPlayTxt(content, priority);
+
+				}
+
+			}
+			else if (pRaw->audiop() == reqCmdAudio_eAudioOperational_eStop)
+			{
+
+				spServer->GetAudioCodec().StopPlayBuf();
+			}
+
+			sprsp->set_type(eCmdRspType::eSuccess);
 		}
+		else
+		{
+			sprsp->set_type(eCmdRspType::eCmdFailed);
 
-		sprsp->set_type(eCmdRspType::eSuccess);
-
+		}
 
 		spSockContainer->Send(sprsp);
 	}
