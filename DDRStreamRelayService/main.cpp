@@ -24,8 +24,8 @@
 #include "../../Shared/src/Utility/MiniDump.h"
 #include "Client/FileManager.h"
 
-#include "opencv2/opencv.hpp"
-#include "opencv2/imgproc.hpp"
+//#include "opencv2/opencv.hpp"
+//#include "opencv2/imgproc.hpp"
 #include "Version.h"
 
 using namespace DDRFramework;
@@ -155,11 +155,15 @@ public:
 		auto spServer = GlobalManager::Instance()->GetTcpServer();
 		if (spServer)
 		{
-			for (auto spSessiont : spServer->GetTcpSocketContainerMap())
+			for (auto spSession : spServer->GetConnectedSessions())
 			{
-				std::string ip = spSessiont.second->GetSocket().remote_endpoint().address().to_string();
-				printf_s("\n%s", ip.c_str());
-			}
+				if (spSession)
+				{
+
+					std::string ip = spSession->GetSocket().remote_endpoint().address().to_string();
+					printf_s("\n%s", ip.c_str());
+				}
+				}
 
 		}
 		else
@@ -438,8 +442,50 @@ public:
 	DDRFramework::timer_id m_HeartBeatTimerID;
 	void StartSend()
 	{
-		m_HeartBeatTimerID = m_Timer.add(std::chrono::milliseconds(50), std::bind(&_ConsoleDebug::SendOnce, this, std::placeholders::_1), std::chrono::milliseconds(1));
+		//m_HeartBeatTimerID = m_Timer.add(std::chrono::milliseconds(50), std::bind(&_ConsoleDebug::SendOnce, this, std::placeholders::_1), std::chrono::milliseconds(1));
+
+
+		std::thread t(std::bind(&_ConsoleDebug::SendingThread, this));
+		t.detach();
 	}
+	void SendingThread()
+	{
+		char* data = new char[512];
+
+		std::shared_ptr<asio::streambuf> buf = std::make_shared<asio::streambuf>();
+
+		std::ostream oshold(buf.get());
+		oshold.write((const char*)data, 512);
+		oshold.flush();
+
+		while (true)
+		{
+			auto spServer = GlobalManager::Instance()->GetTcpServer();
+			if (spServer)
+			{
+				bool send = false;
+				for (auto spSession : spServer->GetConnectedSessions())
+				{
+					send = true;
+					if (spSession != nullptr)
+					{
+
+						spSession->Send(buf);
+					}
+				}
+				if (send)
+				{
+					DebugLog("Sending Buf");
+				}
+				else
+				{
+
+					//DebugLog("No Send");
+				}
+			}
+		}
+	}
+
 	void SendOnce(timer_id id)
 	{
 		printf_s("\nSend Alarm");

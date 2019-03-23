@@ -54,9 +54,9 @@ void AudioTalkProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockCont
 
 
 							bool hasConnectClient = false;
-							for (auto spPair : spServer->GetTcpSocketContainerMap())
+							for (auto spSession : spServer->GetConnectedSessions())
 							{
-								if (spPair.second->GetIPAddress() == fromIP)
+								if (spSession->GetIPAddress() == fromIP)
 								{
 									codec.SetTcpReceiveSessionIP(fromIP);
 									sprsp->set_status(eTalkStatus::ETS_START_OK);
