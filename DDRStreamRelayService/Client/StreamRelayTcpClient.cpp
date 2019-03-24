@@ -66,7 +66,7 @@ void StreamRelayTcpClient::SendHeartBeatOnce(timer_id id)
 	sp->set_whatever("hb");
 
 	Send(sp);
-	sp.reset();
+	
 }
 
 void StreamRelayTcpClient::RequestStreamInfo()
@@ -77,5 +77,4 @@ void StreamRelayTcpClient::RequestStreamInfo()
 	sp->set_name(name);
 	
 	Send(sp);
-	sp.reset();
 }

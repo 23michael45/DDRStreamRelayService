@@ -452,36 +452,27 @@ public:
 	{
 		char* data = new char[512];
 
-		std::shared_ptr<asio::streambuf> buf = std::make_shared<asio::streambuf>();
-
-		std::ostream oshold(buf.get());
-		oshold.write((const char*)data, 512);
-		oshold.flush();
 
 		while (true)
 		{
 			auto spServer = GlobalManager::Instance()->GetTcpServer();
 			if (spServer)
 			{
-				bool send = false;
-				for (auto spSession : spServer->GetConnectedSessions())
-				{
-					send = true;
-					if (spSession != nullptr)
-					{
+				std::shared_ptr<asio::streambuf> buf = std::make_shared<asio::streambuf>();
 
-						spSession->Send(buf);
-					}
-				}
-				if (send)
+				std::ostream oshold(buf.get());
+				oshold.write((const char*)data, 512);
+				oshold.flush();
+				int count = spServer->SendToAll(buf);
+				if (count == 1)
 				{
-					DebugLog("Sending Buf");
+					printf("#");
 				}
-				else
+				else if(count > 1)
 				{
+					printf("\n------------------------------------------------");
+				}
 
-					//DebugLog("No Send");
-				}
 			}
 		}
 	}
