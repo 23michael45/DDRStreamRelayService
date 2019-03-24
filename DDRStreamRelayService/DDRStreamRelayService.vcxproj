@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Shared\proto\BaseCmd.pb.cc" />
+    <ClCompile Include="..\..\Shared\proto\RemoteCmd.pb.cc" />
     <ClCompile Include="..\..\Shared\src\Network\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseProcessor.cpp" />
     <ClCompile Include="..\..\Shared\src\Network\BaseSocketContainer.cpp" />
