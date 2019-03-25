@@ -108,11 +108,12 @@ StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcp
 				Remote_AVChannels.push_back(channel);
 			}
 		}
-		//StartRemoteVideo(Remote_VideoChannels);
-		//StartRemoteAudio(Remote_AudioChannels);
 
 
 	}
+
+	StartRemoteVideo(Remote_VideoChannels);
+	//StartRemoteAudio(Remote_AudioChannels);
 
 	StartAudioDevice();
 	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish,this,std::placeholders::_1));
