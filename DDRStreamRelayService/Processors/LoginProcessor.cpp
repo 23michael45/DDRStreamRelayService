@@ -32,7 +32,6 @@ void LoginProcessor::Process(std::shared_ptr<BaseSocketContainer> spSockContaine
 		if (spClient)
 		{
 			spClient->RequestStreamInfo();
-			spClient->StartHeartBeat();
 
 		}
 	}
