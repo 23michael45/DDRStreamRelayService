@@ -1338,9 +1338,6 @@
     <None Include="..\..\Shared\thirdparty\jsoncpp\src\json_valueiterator.inl">
       <Filter>Shared\Thirdparty\jsoncpp</Filter>
     </None>
-    <None Include="..\..\Shared\thirdparty\curl\lib\Makefile.inc">
-      <Filter>Shared\Thirdparty\curl\lib</Filter>
-    </None>
     <None Include="..\..\Shared\thirdparty\curl\lib\objnames.inc">
       <Filter>Shared\Thirdparty\curl\lib</Filter>
     </None>

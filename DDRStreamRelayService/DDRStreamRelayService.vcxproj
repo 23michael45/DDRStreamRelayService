@@ -606,7 +606,6 @@
     <ClInclude Include="Version.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Shared\thirdparty\curl\lib\Makefile.inc" />
     <None Include="..\..\Shared\thirdparty\curl\lib\objnames.inc" />
     <None Include="..\..\Shared\thirdparty\jsoncpp\src\json_valueiterator.inl" />
   </ItemGroup>
