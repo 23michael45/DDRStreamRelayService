@@ -28,21 +28,16 @@ void StreamServiceInfoChangedProcessor::Process(std::shared_ptr<BaseSocketContai
 
 void StreamServiceInfoChangedProcessor::AsyncProcess(std::shared_ptr<BaseSocketContainer> spSockContainer, std::shared_ptr<DDRCommProto::CommonHeader> spHeader, std::shared_ptr<google::protobuf::Message> spMsg)
 {
-	rspStreamServiceInfo* pRaw = reinterpret_cast<rspStreamServiceInfo*>(spMsg.get());
+	notifyStreamServiceInfoChanged* pRaw = reinterpret_cast<notifyStreamServiceInfoChanged*>(spMsg.get());
 
 
-
-	std::vector<AVChannelConfig> channels;
+	vector<AVChannelConfig> info;
 	for (auto channel : pRaw->channels())
 	{
-		channels.push_back(channel);
+		info.push_back(channel);
 	}
 
-	auto spServer = GlobalManager::Instance()->GetTcpServer();
-	if (spServer)
-	{
-		spServer->StartRemoteVideo(channels);
-	}
+	GlobalManager::Instance()->StopTcpServer();
+	GlobalManager::Instance()->StartTcpServer(info, pRaw->tcpport());
 
-	
 }

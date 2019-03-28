@@ -47,10 +47,14 @@ class StreamRelayTcpServer : public HookTcpServer
 {
 
 public:
-	StreamRelayTcpServer(rspStreamServiceInfo& info);
+	StreamRelayTcpServer(vector<AVChannelConfig> info,int port);
 	~StreamRelayTcpServer();
 
 	SHARED_FROM_BASE(StreamRelayTcpServer)
+
+
+		virtual void Start(int threadcount) override;
+	virtual void Stop() override;
 
 	virtual std::shared_ptr<TcpSessionBase> BindSerializerDispatcher() override;
 	virtual void HandleAccept(std::shared_ptr<TcpSessionBase> sp, const asio::error_code& error) override;
@@ -89,6 +93,13 @@ public:
 protected:
 
 	AudioCodec m_AudioCodec;
+
+	std::vector<AVChannelConfig> Local_VideoChannels;
+	std::vector<AVChannelConfig> Remote_VideoChannels;
+	std::vector<AVChannelConfig> Local_AudioChannels;
+	std::vector<AVChannelConfig> Remote_AudioChannels;
+	std::vector<AVChannelConfig> Local_AVChannels;
+	std::vector<AVChannelConfig> Remote_AVChannels;
 
 	DDRFramework::Timer m_Timer;
 

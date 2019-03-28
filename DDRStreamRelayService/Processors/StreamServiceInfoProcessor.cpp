@@ -30,7 +30,14 @@ void StreamServiceInfoProcessor::AsyncProcess(std::shared_ptr<BaseSocketContaine
 {
 	rspStreamServiceInfo* pRaw = reinterpret_cast<rspStreamServiceInfo*>(spMsg.get());
 	
-	GlobalManager::Instance()->StartTcpServer(*pRaw);
+	vector<AVChannelConfig> info;
+	for (auto channel : pRaw->channels())
+	{
+		info.push_back(channel);
+	}
+
+	GlobalManager::Instance()->StopTcpServer();
+	GlobalManager::Instance()->StartTcpServer(info,pRaw->tcpport());
 
 
 	

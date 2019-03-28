@@ -97,11 +97,13 @@ public:
 	}
 	void TestAudioPriority()
 	{
-		rspStreamServiceInfo info;
+
 
 		//StreamRelayTcpServer s(info);
 		//s.StartPlayTxt(std::string("1111111111"), 1);
-		auto sp = std::make_shared<StreamRelayTcpServer>(info);
+		vector<AVChannelConfig> info;
+
+		auto sp = std::make_shared<StreamRelayTcpServer>(info,89);
 
 		sp->StartPlayTxt(std::string("1111111111"), 1);
 

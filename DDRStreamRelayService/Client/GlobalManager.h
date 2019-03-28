@@ -21,7 +21,7 @@ public:
 	virtual bool StartUdp() override;
 
 
-	void StartTcpServer(rspStreamServiceInfo& info);
+	void StartTcpServer(vector<AVChannelConfig> info,int port);
 	void StopTcpServer();
 	
 	std::shared_ptr<StreamRelayTcpServer> GetTcpServer();

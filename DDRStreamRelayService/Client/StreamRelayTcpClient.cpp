@@ -46,6 +46,7 @@ void StreamRelayTcpClient::OnConnected(std::shared_ptr<TcpSocketContainer> spCon
 }
 void StreamRelayTcpClient::OnDisconnect(std::shared_ptr<TcpSocketContainer> spContainer)
 {
+	StopHeartBeat();
 	TcpClientBase::OnDisconnect(spContainer);
 	GlobalManager::Instance()->StopTcpServer();
 	//HttpFileServer::Instance()->Stop();

@@ -66,16 +66,16 @@ void StreamRelayTcpSession::OnStop()
 
 
 
-StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcpServer(info.tcpport())
+StreamRelayTcpServer::StreamRelayTcpServer(vector<AVChannelConfig> info,int port) : HookTcpServer(port)
 {
-	std::vector<AVChannelConfig> Local_VideoChannels;
-	std::vector<AVChannelConfig> Remote_VideoChannels;
-	std::vector<AVChannelConfig> Local_AudioChannels;
-	std::vector<AVChannelConfig> Remote_AudioChannels;
-	std::vector<AVChannelConfig> Local_AVChannels;
-	std::vector<AVChannelConfig> Remote_AVChannels;
+	 Local_VideoChannels.clear();
+	 Remote_VideoChannels.clear();
+	 Local_AudioChannels.clear();
+	 Remote_AudioChannels.clear();
+	 Local_AVChannels.clear();
+	 Remote_AVChannels.clear();
 
-	for (auto channel : info.channels())
+	for (auto channel : info)
 	{
 		if (channel.networktype() == ChannelNetworkType::Local)
 		{
@@ -112,21 +112,35 @@ StreamRelayTcpServer::StreamRelayTcpServer(rspStreamServiceInfo& info) : HookTcp
 
 	}
 
+}
+StreamRelayTcpServer::~StreamRelayTcpServer()
+{
+	DebugLog("StreamRelayTcpServer Destroy")
+}
+
+void StreamRelayTcpServer::Start(int threadcount)
+{
+	TcpServerBase::Start(1);
+
+
 	StartRemoteVideo(Remote_VideoChannels);
 	//StartRemoteAudio(Remote_AudioChannels);
 
 	StartAudioDevice();
-	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish,this,std::placeholders::_1));
+	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish, this, std::placeholders::_1));
 }
-StreamRelayTcpServer::~StreamRelayTcpServer()
+
+void StreamRelayTcpServer::Stop()
 {
+	TcpServerBase::Stop();
+
+	m_AudioCodec.BindOnFinishPlayWave(nullptr);
 	while (m_AudioCodec.IsPlayingWave())
 	{
-
 		std::this_thread::sleep_for(chrono::milliseconds(1));
 	}
 	StopAudioDevice();
-	DebugLog("StreamRelayTcpServer Destroy")
+
 }
 
 bool StreamRelayTcpServer::StartRemoteVideo(std::vector<AVChannelConfig>& channels)
@@ -142,38 +156,59 @@ bool StreamRelayTcpServer::StartRemoteVideo(std::vector<AVChannelConfig>& channe
 
 	}
 
-	StreamRelayService src(channels.size());
-	int ret = src.Init(inputIPs, outputIPs);
-
-	if (ret == STREAM_INIT_ERROR_INPUT_OUTPUT_SIZE
-		|| ret == STREAM_INIT_ERROR_OUTPUT_NAME_DUPLICATED)
+	if (channels.size() > 0)
 	{
-		DebugLog("Stream Rtmp Service Init Failed");
-		return false;
+
+		StreamRelayService src(channels.size());
+		int ret = src.Init(inputIPs, outputIPs);
+
+		if (ret == STREAM_INIT_ERROR_INPUT_OUTPUT_SIZE
+			|| ret == STREAM_INIT_ERROR_OUTPUT_NAME_DUPLICATED)
+		{
+			DebugLog("Stream Rtmp Service Init Failed");
+			return false;
+		}
+		else
+		{
+			src.Launch();
+			src.Respond();
+
+		}
 	}
 	else
 	{
-		src.Launch();
-		src.Respond();
-
+		DebugLog("No Rtmp Video Channel!");
+		return false;
 	}
+
 }
 bool StreamRelayTcpServer::StartRemoteAudio(std::vector<AVChannelConfig>& channels)
 {
-	AudioTranscode at;
 
-	for (auto channel : channels)
+	if (channels.size() > 0)
 	{
-		if (!at.Init(channel.src().c_str(), channel.dst().c_str()))
-		{
-			DebugLog("Audio Device Init Failed!");
-			return false;
-		}
-		at.Launch();
-		at.Respond();
 
-		break;;
+		AudioTranscode at;
+		for (auto channel : channels)
+		{
+			if (!at.Init(channel.src().c_str(), channel.dst().c_str()))
+			{
+				DebugLog("Audio Device Init Failed!");
+				return false;
+			}
+			at.Launch();
+			at.Respond();
+
+			break;;
+		}
 	}
+	else
+	{
+
+		DebugLog("No Rtmp Audio Channel!");	
+		return false;
+	}
+
 
 	return true;
 

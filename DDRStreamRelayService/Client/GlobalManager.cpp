@@ -37,14 +37,14 @@ bool GlobalManager::StartUdp()
 	return true;
 }
 
-void GlobalManager::StartTcpServer(rspStreamServiceInfo& info)
+void GlobalManager::StartTcpServer(vector<AVChannelConfig> info,int port)
 {
 	std::string servername = m_Config.GetValue("ServerName");
 	std::string threadCount = m_Config.GetValue("ThreadCount");
 
 	if (!m_spTcpServer)
 	{
-		m_spTcpServer = std::make_shared<StreamRelayTcpServer>(info);
+		m_spTcpServer = std::make_shared<StreamRelayTcpServer>(info,port);
 	}
 	m_spTcpServer->Start(std::stoi(threadCount));
 
@@ -54,6 +54,10 @@ void GlobalManager::StopTcpServer()
 	if (m_spTcpServer)
 	{
 		m_spTcpServer->Stop();
+
+		int s = m_spTcpServer.use_count();
+
+		m_spTcpServer.reset();
 	}
 }
 
