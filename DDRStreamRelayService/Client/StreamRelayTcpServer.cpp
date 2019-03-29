@@ -21,6 +21,7 @@ StreamRelayTcpSession::~StreamRelayTcpSession()
 		m_spParentServer->GetAudioCodec().SetTcpReceiveSessionIP("");
 
 	}
+	m_spParentServer = nullptr;
 	DebugLog("StreamRelayTcpSession Destroy")
 }
 
@@ -124,7 +125,7 @@ void StreamRelayTcpServer::Start(int threadcount)
 
 
 	StartRemoteVideo(Remote_VideoChannels);
-	//StartRemoteAudio(Remote_AudioChannels);
+	StartRemoteAudio(Remote_AudioChannels);
 
 	StartAudioDevice();
 	m_AudioCodec.BindOnFinishPlayWave(std::bind(&StreamRelayTcpServer::OnWaveFinish, this, std::placeholders::_1));
@@ -217,7 +218,7 @@ bool StreamRelayTcpServer::StartRemoteAudio(std::vector<AVChannelConfig>& channe
 std::shared_ptr<TcpSessionBase> StreamRelayTcpServer::BindSerializerDispatcher()
 {
 	BIND_IOCONTEXT_SERIALIZER_DISPATCHER(m_IOContext, StreamRelayTcpSession, MessageSerializer, BaseMessageDispatcher, BaseHeadRuleRouter)
-		
+
 	spStreamRelayTcpSession->SetParentServer(shared_from_base());
 	return spStreamRelayTcpSession;
 }
@@ -251,16 +252,17 @@ void StreamRelayTcpServer::HandleAccept(std::shared_ptr<TcpSessionBase> spSessio
 		else
 		{
 			DebugLog("Save IP Client Already Connect Server");
-			//spSession->Stop();
-			//session have not start ,so here do not call stop ,reset sp is ok
-			spSession->Release();
-			spSession.reset();
+			spSession->Stop();
 		}
 
-
+		//not error to start next acception
+		StartAccept();
 	}
 
-	StartAccept();
+	else
+	{
+		spSession->Stop();
+	}
 }
 
 
